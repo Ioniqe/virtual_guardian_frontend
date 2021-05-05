@@ -15,7 +15,7 @@ function* registerUserAsync(props: Props) {
     yield call(() => saveUserAPI(props.payload));
     yield put(saveUserSuccess())
   } catch (e) {
-    console.log("err");
+    console.log(e);
     yield put(saveUserFailure())
   }
 }

@@ -140,8 +140,6 @@ function LoginDumb({ username, password, setUsername, setPassword, sendNewUser }
 
         </div>
 
-
-
       </div>
 
       <PopupSignUp

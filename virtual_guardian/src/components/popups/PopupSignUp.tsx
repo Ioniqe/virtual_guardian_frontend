@@ -31,16 +31,27 @@ function PopupSignUp({ sendNewUser, open, setOpen }: Props) {
   const [user, setUser] = useState('doctor');
   const [userCredentials, setUserCredentials] = useState('');
 
+  let resetFields = (): void => {
+    setUsername('');
+    setPassword('');
+    setFirstName('');
+    setLastName('');
+    setBirthday('1990-10-10');
+    setGender('male');
+    setUser('doctor');
+    setUserCredentials('');
+  }
+
   const handleClose = () => {
     setOpen(false);
+    resetFields();
   };
 
   let handleSubmit = () => {
     console.log();
     sendNewUser(username, password, firstName, lastName, birthday, gender, user, userCredentials);
     setOpen(false);
-
-    //TODO redirect to profile page
+    resetFields();
   }
 
   const handleGenderChange = (event: React.ChangeEvent<{ value: unknown }>) => {
