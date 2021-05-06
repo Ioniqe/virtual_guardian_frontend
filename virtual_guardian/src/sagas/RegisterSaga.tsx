@@ -9,14 +9,26 @@ interface Props {
   payload: SpecialUser
 } 
 
+interface ResponseGenerator{
+  config?:any,
+  data?:any,
+  headers?:any,
+  request?:any,
+  status?:number,
+  statusText?:string
+}
+
 function* registerUserAsync(props: Props) {
   try {
     yield put(saveUserRequest());
-    yield call(() => saveUserAPI(props.payload));
-    yield put(saveUserSuccess())
+    const response: ResponseGenerator = yield call(() => saveUserAPI(props.payload));
+    if (response.status === 401) {
+      yield put(saveUserFailure("Credentials are invalid!"))
+    } else {
+      yield put(saveUserSuccess())
+    }
   } catch (e) {
-    console.log(e);
-    yield put(saveUserFailure())
+    yield put(saveUserFailure("An unexpected error has occured!"))
   }
 }
 

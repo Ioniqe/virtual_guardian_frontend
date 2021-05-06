@@ -48,7 +48,6 @@ function PopupSignUp({ sendNewUser, open, setOpen }: Props) {
   };
 
   let handleSubmit = () => {
-    console.log();
     sendNewUser(username, password, firstName, lastName, birthday, gender, user, userCredentials);
     setOpen(false);
     resetFields();

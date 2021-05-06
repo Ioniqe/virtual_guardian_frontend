@@ -1,19 +1,18 @@
-import { SpecialUser } from "../model/models"
-import { RESET_REGISTER, SAVE_USER_FAILURE, SAVE_USER_REQUEST, SAVE_USER_SUCCESS } from "../types/RegisterTypes"
+import { SAVE_USER_FAILURE, SAVE_USER_REQUEST, SAVE_USER_SUCCESS } from "../types/RegisterTypes"
 
 export interface RegisterState {
   loading: boolean,
   registerSuccessful: boolean,
-  error: boolean
+  error: string
 }
 
 const initialState: RegisterState = {
   loading: false,
   registerSuccessful: false,
-  error: false
+  error: ''
 }
 
-const registerReducer = (state = initialState, action: { type: string, payload: SpecialUser }) => {
+const registerReducer = (state = initialState, action: { type: string, payload: string }) => {
   switch (action.type) {
     case SAVE_USER_REQUEST:
       return {
@@ -24,17 +23,13 @@ const registerReducer = (state = initialState, action: { type: string, payload: 
       return {
         loading: false,
         registerSuccessful: true,
-        error: false
+        error: ''
       }
     case SAVE_USER_FAILURE:
       return {
         loading: false,
         registerSuccessful: false,
-        error: true
-      }
-    case RESET_REGISTER:
-      return {
-        ...initialState
+        error: action.payload
       }
     default: return state
   }
