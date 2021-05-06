@@ -10,13 +10,15 @@ interface Props {
   setUsername: (username: string) => void,
   setPassword: (password: string) => void,
 
+  _loginUser: () => void,
+
   sendNewUser: (username: string, password: string,
     firstName: string, lastName: string,
     birthday: string,
     gender: string, user: string, userCredentials: string) => void,
 }
 
-function LoginDumb({ username, password, setUsername, setPassword, sendNewUser }: Props) {
+function LoginDumb({ username, password, setUsername, setPassword, _loginUser, sendNewUser }: Props) {
 
   const style = useStylesHome();
 
@@ -121,7 +123,7 @@ function LoginDumb({ username, password, setUsername, setPassword, sendNewUser }
               }}
             />
 
-            <Button className={style.loginButton} variant='outlined' onClick={(e) => console.log(username + ' ' + password)}>
+            <Button className={style.loginButton} variant='outlined' onClick={ _loginUser }>
               enter
             </Button>
 
