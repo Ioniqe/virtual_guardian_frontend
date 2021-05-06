@@ -7,8 +7,7 @@ import { connect } from 'react-redux';
 import { saveUser } from '../../actions/RegisterAction';
 import { loginUser } from '../../actions/LoginAction';
 import { CircularProgress, Snackbar } from '@material-ui/core';
-
-
+import { Redirect } from 'react-router';
 
 const verifyAllFieldsArNotNull = (user: SpecialUser | LoginUser): boolean => {
   let ok = true;
@@ -37,7 +36,6 @@ interface Props {
 }
 
 function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }: Props) {
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -94,16 +92,30 @@ function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }
         setLoading(false);
         setOpenError(true);
       } else if (loginUser.loginSuccessful.id !== '') {
+        sessionStorage.setItem('user', JSON.stringify(loginUser.loginSuccessful));
+        
 
         setLoading(false);
-        // setOpenSuccess(true);
-
-        //route to user page
-        console.log(loginUser.loginSuccessful);
+        window.location.reload();
       }
     }
 
   }, [setMessage, loginUser])
+
+  if (loginUser.loginSuccessful.type !== '') {
+    switch (loginUser.loginSuccessful.type) {
+      case 'admin':
+        return <Redirect push to="/admin" />
+      case 'patient':
+        return <Redirect push to="/patient" />
+      case 'caregiver':
+        return <Redirect push to="/caregiver" />
+      case 'doctor':
+        return <Redirect push to="/doctor" />
+      default:
+        console.error('user type not recognized');
+    }
+  }
 
   return (
     <>
@@ -124,7 +136,7 @@ function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }
       </Snackbar>
 
       <Snackbar open={openError} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error"> { message } </Alert>
+        <Alert onClose={handleClose} severity="error"> {message} </Alert>
       </Snackbar>
     </>
   );
