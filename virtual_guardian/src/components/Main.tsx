@@ -2,12 +2,12 @@ import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import { removeLoggedUser } from "../actions/LoginAction";
 import { User } from "../model/models";
-import AdminHomeSmart from "./admin/AdminHomeSmart";
-import CaregiverHomeSmart from "./caregiver/CaregiverHomeSmart";
-import DoctorHomeSmart from "./doctor/DoctorHomeSmart";
+import AdminHomeSmart from "./users/admin/AdminHomeSmart";
 import HomeSmart from "./login/HomeSmart";
-import PatientHomeSmart from "./patient/PatientHomeSmart";
 import ProtectedRoute from "./ProtectedRoute";
+import DoctorHomeSmart from "./users/doctor/DoctorHomeSmart";
+import CaregiverHomeSmart from "./users/caregiver/CaregiverHomeSmart";
+import PatientHomeSmart from "./users/patient/PatientHomeSmart";
 
 interface Props {
   loginUser: {
