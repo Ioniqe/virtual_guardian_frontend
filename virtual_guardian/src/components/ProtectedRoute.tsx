@@ -5,13 +5,12 @@ export type ProtectedRouteProps = {
   removeUser: () => void,
 } & RouteProps;
 
-export default function ProtectedRoute2({ isAuthenticated, removeUser, component, path, ...routeProps }: ProtectedRouteProps) {
-  if(isAuthenticated) {
+export default function ProtectedRoute2({ isAuthenticated, removeUser, ...routeProps }: ProtectedRouteProps) {
+  if (isAuthenticated) {
     return <Route {...routeProps}/>;
   } else {
-    sessionStorage.removeItem('user_id'); //remove user id from session
+    sessionStorage.removeItem('user'); //remove user id from session
     removeUser(); //remove user from storage
     return <Redirect to={'/'} />;
   }
-
 };

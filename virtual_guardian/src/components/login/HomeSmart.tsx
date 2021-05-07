@@ -93,7 +93,7 @@ function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }
         setLoading(false);
         setOpenError(true);
       } else if (loginUser.loginSuccessful.id !== '') {
-        sessionStorage.setItem('user_id', JSON.stringify(loginUser.loginSuccessful.id)); //store in sessionStorage or in cookie?
+        sessionStorage.setItem('user', JSON.stringify(loginUser.loginSuccessful)); //store in sessionStorage or in cookie?
 
         setLoading(false);
       }
