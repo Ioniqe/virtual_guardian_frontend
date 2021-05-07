@@ -1,5 +1,5 @@
 import { User } from "../model/models";
-import { LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS } from "../types/LoginTypes";
+import { LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, REMOVE_LOGGED_USER } from "../types/LoginTypes";
 
 let initialUser: User = {
   id: '',
@@ -46,6 +46,10 @@ const loginReducer = (state = initialState, action: { type: string, payload: str
         loading: false,
         loginSuccessful: initialUser,
         error: action.payload
+      }
+    case REMOVE_LOGGED_USER:
+      return {
+        ...initialState
       }
     default: return state
   }

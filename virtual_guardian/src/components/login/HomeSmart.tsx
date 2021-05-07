@@ -9,6 +9,7 @@ import { loginUser } from '../../actions/LoginAction';
 import { CircularProgress, Snackbar } from '@material-ui/core';
 import { Redirect } from 'react-router';
 
+
 const verifyAllFieldsArNotNull = (user: SpecialUser | LoginUser): boolean => {
   let ok = true;
   Object.entries(user).forEach((key, value) => key[1].length === 0 && (ok = false));
@@ -92,15 +93,16 @@ function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }
         setLoading(false);
         setOpenError(true);
       } else if (loginUser.loginSuccessful.id !== '') {
-        sessionStorage.setItem('user', JSON.stringify(loginUser.loginSuccessful));
-        
+        sessionStorage.setItem('user_id', JSON.stringify(loginUser.loginSuccessful.id));
 
         setLoading(false);
-        window.location.reload();
+        // window.location.reload();
       }
     }
 
   }, [setMessage, loginUser])
+
+  console.log("ee");
 
   if (loginUser.loginSuccessful.type !== '') {
     switch (loginUser.loginSuccessful.type) {
@@ -113,13 +115,15 @@ function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }
       case 'doctor':
         return <Redirect push to="/doctor" />
       default:
-        console.error('user type not recognized');
+        // console.error('user type not recognized');
+        return <Redirect push to="/doctor" />
     }
   }
 
+
+
   return (
     <>
-
       <HomeDumb
         username={username}
         password={password}

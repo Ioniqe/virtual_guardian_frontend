@@ -1,49 +1,58 @@
-import { Switch, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { Switch, Route } from "react-router-dom";
+import { removeLoggedUser } from "../actions/LoginAction";
+import { User } from "../model/models";
 import AdminHomeSmart from "./admin/AdminHomeSmart";
 import CaregiverHomeSmart from "./caregiver/CaregiverHomeSmart";
 import DoctorHomeSmart from "./doctor/DoctorHomeSmart";
 import HomeSmart from "./login/HomeSmart";
 import PatientHomeSmart from "./patient/PatientHomeSmart";
+import ProtectedRoute from "./ProtectedRoute";
 
-function Main() {
+interface Props {
+  loginUser: {
+    loading: boolean,
+    loginSuccessful: User,
+    error: string
+  },
+  removeUser: () => void,
+}
 
-  let userType: string = '';
-
-  if (JSON.parse(sessionStorage.getItem('user') as string) !== null)
-    userType = JSON.parse(sessionStorage.getItem('user') as string).type;
-
+function Main({ loginUser, removeUser } : Props) {
 
   return (
     <Switch>
       <Route exact path='/' component={HomeSmart} />
-      
-      {/* <ProtectedRoute exact path="/admin" />
-      <ProtectedRoute exact path="/patient" />
-      <ProtectedRoute exact path="/caregiver" />
-      <ProtectedRoute exact path="/doctor" /> */}
 
-      {/* <ProtectedRoute2 isAuthenticated={ userType === "admin" } exact path="/admin" component={ AdminHomeSmart }/>
-      <ProtectedRoute2 isAuthenticated={ userType === "patient" } exact path="/patient" component={ PatientHomeSmart }/>
-      <ProtectedRoute2 isAuthenticated={ userType === "caregiver" } exact path="/caregiver" component={ CaregiverHomeSmart }/>
-      <ProtectedRoute2 isAuthenticated={ userType === "doctor" } exact path="/doctor" component={ DoctorHomeSmart }/> */}
-    
-      {/* <Route exact path='/' render={() =>
-        ((userType === '') && <HomeSmart />)} /> */}
+      <ProtectedRoute isAuthenticated={loginUser.loginSuccessful.type === 'admin'} path='/admin' component={AdminHomeSmart} removeUser={removeUser}>
+        <AdminHomeSmart />
+      </ProtectedRoute>
 
-      <Route exact path='/admin' render={() =>
-        ((userType !== '' && userType === "admin") ? (<AdminHomeSmart />) : (<Redirect to='/' />))} />
-      
-      <Route exact path='/patient' render={() =>
-        ((userType !== '' && userType === "patient") ? (<PatientHomeSmart />) : (<Redirect to='/' />))} />
-      
-      <Route exact path='/caregiver' render={() =>
-        ((userType !== '' && userType === "caregiver") ? (<CaregiverHomeSmart />) : (<Redirect to='/' />))} />
-      
-      <Route exact path='/doctor' render={() =>
-        ((userType !== '' && userType === "doctor") ? (<DoctorHomeSmart />) : (<Redirect to='/' />))} />
-      
+      <ProtectedRoute isAuthenticated={loginUser.loginSuccessful.type === 'doctor'} path='/doctor' component={ DoctorHomeSmart } removeUser={ removeUser }>
+        <DoctorHomeSmart />
+      </ProtectedRoute>
+
+      <ProtectedRoute isAuthenticated={loginUser.loginSuccessful.type === 'caregiver'} path='/caregiver' component={ CaregiverHomeSmart } removeUser={ removeUser }>
+        <CaregiverHomeSmart />
+      </ProtectedRoute>
+
+      <ProtectedRoute isAuthenticated={loginUser.loginSuccessful.type === 'patient'} path='/patient' component={ PatientHomeSmart } removeUser={ removeUser }>
+        <PatientHomeSmart />
+      </ProtectedRoute>
     </Switch>
   );
 }
 
-export default Main;
+const mapStateToProps = (state: any) => {
+  return {
+    loginUser: state.login
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    removeUser: () => dispatch(removeLoggedUser()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
