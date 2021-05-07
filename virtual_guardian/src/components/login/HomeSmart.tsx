@@ -93,16 +93,13 @@ function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }
         setLoading(false);
         setOpenError(true);
       } else if (loginUser.loginSuccessful.id !== '') {
-        sessionStorage.setItem('user_id', JSON.stringify(loginUser.loginSuccessful.id));
+        sessionStorage.setItem('user_id', JSON.stringify(loginUser.loginSuccessful.id)); //store in sessionStorage or in cookie?
 
         setLoading(false);
-        // window.location.reload();
       }
     }
 
   }, [setMessage, loginUser])
-
-  console.log("ee");
 
   if (loginUser.loginSuccessful.type !== '') {
     switch (loginUser.loginSuccessful.type) {
@@ -116,7 +113,7 @@ function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }
         return <Redirect push to="/doctor" />
       default:
         // console.error('user type not recognized');
-        return <Redirect push to="/doctor" />
+        return <Redirect push to="/" />
     }
   }
 
