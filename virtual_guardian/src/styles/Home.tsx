@@ -45,11 +45,11 @@ export const useStylesHome = makeStyles(theme => ({
     height: '900px',
     background: 'white',
   },
-  '@global': {
-    '*::-webkit-scrollbar': {
-      display: 'none',
-    },
-  },
+  // '@global': {
+  //   '*::-webkit-scrollbar': {
+  //     display: 'none',
+  //   },
+  // },
   loginTitle: {
     paddingTop: '23%',
     fontWeight: 380,

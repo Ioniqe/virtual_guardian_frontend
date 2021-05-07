@@ -22,6 +22,11 @@ const useStyles = makeStyles(theme => (
       height: "100vh",
       background: "linear-gradient(to right, #513EB7, #00ACC1)",
     },
+    '@global': { // remove / hide scrollbar
+      '*::-webkit-scrollbar': {
+        display: 'none',
+      },
+    },
   }
 ));
 
