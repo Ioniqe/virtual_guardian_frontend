@@ -24,7 +24,9 @@ const useStyles = makeStyles(theme => (
     },
     '@global': { // remove / hide scrollbar
       '*::-webkit-scrollbar': {
-        display: 'none',
+        // display: 'none',
+        visibility: 'hidden',
+        width:0,
       },
     },
   }

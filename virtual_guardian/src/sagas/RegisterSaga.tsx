@@ -7,26 +7,41 @@ import { saveUserAPI } from "../api/RegisterApi";
 interface Props {
   type: string,
   payload: SpecialUser
-} 
+}
 
-interface ResponseGenerator{
-  config?:any,
-  data?:any,
-  headers?:any,
-  request?:any,
-  status?:number,
-  statusText?:string
+interface ResponseGenerator {
+  config?: any,
+  data?: any,
+  headers?: any,
+  request?: any,
+  status?: number,
+  statusText?: string
 }
 
 function* registerUserAsync(props: Props) {
   try {
     yield put(saveUserRequest());
     const response: ResponseGenerator = yield call(() => saveUserAPI(props.payload));
-    if (response.status === 401) {
-      yield put(saveUserFailure("Credentials are invalid!"))
-    } else {
-      yield put(saveUserSuccess())
+
+    // if (response.status === 401) {
+    //   yield put(saveUserFailure("Credentials are invalid!"))
+    // } else {
+    //   yield put(saveUserSuccess())
+    // }
+    switch (response.status) {
+      case 401:
+        yield put(saveUserFailure("Credentials are invalid!"))
+        break;
+      case 500:
+        yield put(saveUserFailure("Server has returned an error, please choose a unique username!"))
+        break;
+      case 201:
+        yield put(saveUserSuccess())
+        break;
+      default:
+        console.error('in registerUserAsync, response status unrecognized');
     }
+
   } catch (e) {
     yield put(saveUserFailure("An unexpected error has occured!"))
   }

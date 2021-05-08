@@ -35,7 +35,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
+            // inputProps={{ 'aria-label': 'select all desserts' }} TODO vezi daca mai trebe asta
           />
         </TableCell>
         {props.headers.map((header, index) => (
@@ -95,12 +95,12 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
         </Typography>
       ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-            {props.title}
+          {props.title}
         </Typography>
       )}
       {numSelected > 0 && (
         <Tooltip title="Delete">
-          <IconButton aria-label="delete" onClick={ props.handleDeleteSelectedUsers }>
+          <IconButton aria-label="delete" onClick={props.handleDeleteSelectedUsers}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -119,8 +119,7 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       width: '100%',
       // marginBottom: theme.spacing(2),
-      height: '50px important'
-
+      height: '50px important',
     },
     table: {
       minWidth: 750,
@@ -128,22 +127,28 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-let findUsersToBeDeleted = (userNames: string[], data: User[]) : string[] => {
+let findUsersToBeDeleted = (userNames: string[], data: User[]): string[] => {
   let usersToBeDeleted: string[] = [];
   data.forEach(user => {
     userNames.includes(user.username) && usersToBeDeleted.push(user.id);
   });
   return usersToBeDeleted;
-} 
+}
 
-interface TableWithDeleteFeatureProps{
+// let generateNewAdminList = (deletedAdminsIds: string[], data: User[]): User[] => {
+//   let newAdminList = data.filter(item => deletedAdminsIds.indexOf(item.id) === -1 );
+//   return newAdminList;
+// }
+
+interface TableWithDeleteFeatureProps {
   data: User[],
   title: string,
   headers: string[],
-  // deleteSelected: () => void
+  deleteSelected: (adminsToBeDeleted: string[]) => void,
+  // refreshList: (newAdminList: User[]) => void,
 }
 
-export default function TableWithDeleteFeature({ data, title, headers }: TableWithDeleteFeatureProps) {
+export default function TableWithDeleteFeature({ data, title, headers, deleteSelected }: TableWithDeleteFeatureProps) {
   const classes = useStyles();
   const [selected, setSelected] = React.useState<string[]>([]);
   const [open, setOpen] = React.useState(false);
@@ -154,10 +159,10 @@ export default function TableWithDeleteFeature({ data, title, headers }: TableWi
     setOpen(true);
   }
 
-  let setDeleteAction = () : void => {
-    console.log(selected);
-    let usersToBeDeleted = findUsersToBeDeleted(selected, data);
-    console.log(usersToBeDeleted);
+  let setDeleteAction = (): void => {
+    let idsOfUsersToBeDeleted = findUsersToBeDeleted(selected, data);
+    deleteSelected(idsOfUsersToBeDeleted);
+    setSelected([]);
   }
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -196,7 +201,7 @@ export default function TableWithDeleteFeature({ data, title, headers }: TableWi
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} title={title} handleDeleteSelectedUsers={ handleDeleteSelectedUsers }/>
+        <EnhancedTableToolbar numSelected={selected.length} title={title} handleDeleteSelectedUsers={handleDeleteSelectedUsers} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -208,7 +213,7 @@ export default function TableWithDeleteFeature({ data, title, headers }: TableWi
               numSelected={selected.length}
               onSelectAllClick={handleSelectAllClick}
               rowCount={data.length}
-              headers={ headers }
+              headers={headers}
             />
             <TableBody>
               {data.map((row, index) => {
@@ -251,7 +256,7 @@ export default function TableWithDeleteFeature({ data, title, headers }: TableWi
           </Table>
         </TableContainer>
       </Paper>
-      
+
       <AlertDialog
         open={open}
         setOpen={setOpen}
@@ -259,7 +264,7 @@ export default function TableWithDeleteFeature({ data, title, headers }: TableWi
         dialogContentText={'The action cannot be undone.'}
         negativeMessage={'no'}
         positiveMessage={'yes'}
-        setAction={ setDeleteAction }
+        setAction={setDeleteAction}
       />
     </div>
   );
