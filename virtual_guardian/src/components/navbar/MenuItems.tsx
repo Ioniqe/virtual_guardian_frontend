@@ -1,22 +1,38 @@
-export const MenuItemsAdmin = [
+export const NavbarUserItems = [
   {
-    title: 'Home',
-    url: '#',
+    user: 'admin', items: [
+      {
+        title: 'Manage admins',
+        url: '/admin/management',
+      },
+      {
+        title: 'Services',
+        url: '/admin/test',
+      },
+      {
+        title: 'Products',
+        url: '/admin',
+      },
+      {
+        title: 'Contact',
+        url: '#',
+      },
+    ]
   },
   {
-    title: 'Services',
-    url: '/admin/test',
-  },
-  {
-    title: 'Products',
-    url: '/admin',
-  },
-  {
-    title: 'Contact',
-    url: '#',
-  },
-  {
-    title: 'Sign up',
-    url: '#',
+    user: 'patient', items: [
+      {
+        title: 'Patient',
+        url: '#',
+      },
+      {
+        title: 'Patient',
+        url: '/admin/test',
+      },
+      {
+        title: 'Products',
+        url: '/admin',
+      },
+    ]
   },
 ]

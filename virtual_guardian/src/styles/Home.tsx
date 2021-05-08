@@ -45,11 +45,6 @@ export const useStylesHome = makeStyles(theme => ({
     height: '900px',
     background: 'white',
   },
-  // '@global': {
-  //   '*::-webkit-scrollbar': {
-  //     display: 'none',
-  //   },
-  // },
   loginTitle: {
     paddingTop: '23%',
     fontWeight: 380,
@@ -66,6 +61,7 @@ export const useStylesHome = makeStyles(theme => ({
     width:'30%',
     "& .MuiOutlinedInput-input": {
       color: theme.palette.primary.main,
+      textAlign: 'initial',
     },
   },
   textField: {
