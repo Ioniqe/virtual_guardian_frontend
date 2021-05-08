@@ -26,24 +26,21 @@ function Navbar({ removeUser, userItems }: NavbarProps) {
     return history.push('/');
   }
 
-
   return (
     <>
       <nav className={style.navbarItems}>
-        <h1 className={style.navbarTitle} onClick={ () => history.push(`/${userItems.user}`)}>Virtual Guardian</h1>
+        <h1 className={style.navbarTitle} onClick={() => history.push(`/${userItems.user}`)}>Virtual Guardian</h1>
 
         <ul className={`${style.visibleStyle}`}>
           <NavItem user={userItems.user}>
-            <DropdownMenu user={userItems.user}/>
+            <DropdownMenu user={userItems.user} />
           </NavItem>
           {
             userItems.items.map((item, index) => {
               return (
-                <>
-                  <li key={item.title}>
-                    <Button onClick={() => history.push(item.url)} className={style.specialButtonStyle} >{item.title}</Button>
-                  </li>
-                </>
+                <li key={index.toString()}>
+                  <Button onClick={() => history.push(item.url)} className={style.specialButtonStyle} >{item.title}</Button>
+                </li>
               );
             })
           }

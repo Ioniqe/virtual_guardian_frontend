@@ -6,24 +6,20 @@ export const NavbarUserItems = [
         url: '/admin/test',
       },
       {
-        title: 'Products',
-        url: '/admin',
-      },
-      {
-        title: 'Contact',
-        url: '#',
+        title: 'Experiments',
+        url: '/admin/experiments',
       },
     ]
   },
   {
     user: 'patient', items: [
       {
-        title: 'Patient',
-        url: '#',
+        title: 'Appointments',
+        url: '/patient/appointments',
       },
       {
-        title: 'Patient',
-        url: '/admin/test',
+        title: 'Chat',
+        url: '/patient/chat',
       },
       {
         title: 'Products',
@@ -34,16 +30,12 @@ export const NavbarUserItems = [
   {
     user: 'caregiver', items: [
       {
-        title: 'Caregiver',
-        url: '#',
+        title: 'Patient Appointments',
+        url: '/caregiver/patient/appointments',
       },
       {
-        title: 'Caregiver',
-        url: '/caregiver',
-      },
-      {
-        title: 'Caregiver',
-        url: '/caregiver',
+        title: 'Chat',
+        url: '/caregiver/chat',
       },
     ]
   },

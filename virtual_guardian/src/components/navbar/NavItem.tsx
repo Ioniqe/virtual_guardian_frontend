@@ -15,24 +15,34 @@ function NavItem({ user, ...props }: NavItemProps) {
   switch (user) {
     case 'admin':
       specialButton = <>
-        <Button onClick={() => setOpen(!open)} className={style.specialButtonStyle} >Manage users</Button>
+        <Button onClick={() => setOpen(!open)} className={style.specialButtonStyle} >Manage database</Button>
         {open && props.children}
       </>;
       break;
     case 'patient':
+
       break;
     case 'caregiver':
+      specialButton = <>
+        <Button onClick={() => setOpen(!open)} className={style.specialButtonStyle} >Manage users</Button>
+        {open && props.children}
+      </>;
       break;
     case 'doctor':
+      specialButton = <>
+        <Button onClick={() => setOpen(!open)} className={style.specialButtonStyle} >Manage users</Button>
+        {open && props.children}
+      </>;
       break;
     default:
       console.error('Error, navbar could not identify user type');
   }
 
   return (
-    <li>
-      { specialButton}
-    </li>
+    <>
+      {/* li key={ user } */}
+      { specialButton }
+    </>
   );
 }
 

@@ -108,7 +108,6 @@ function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }
       case 'patient':
         return <Redirect push to="/patient" />
       case 'caregiver':
-        console.log('redirect unde trebe');
         return <Redirect push to="/caregiver" />
       case 'doctor':
         return <Redirect push to="/doctor" />

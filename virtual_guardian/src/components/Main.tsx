@@ -9,7 +9,6 @@ import DoctorHomeSmart from "./users/doctor/DoctorHomeSmart";
 import CaregiverHomeSmart from "./users/caregiver/CaregiverHomeSmart";
 import PatientHomeSmart from "./users/patient/PatientHomeSmart";
 import Navbar from "./navbar/Navbar";
-import AdminHomeSmart_test from "./users/admin/AdminHomeSmart_test";
 import { NavbarUserItems } from "./navbar/MenuItems";
 
 
@@ -33,7 +32,6 @@ function Main({ loginUser, removeUser }: Props) {
         <Route exact path='/' component={HomeSmart} />
 
         <ProtectedRoute exact isAuthenticated={userType === 'admin'} path='/admin' component={AdminHomeSmart} removeUser={removeUser} />
-        <ProtectedRoute exact isAuthenticated={userType === 'admin'} path='/admin/test' component={AdminHomeSmart_test} removeUser={removeUser} />
 
         <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor' component={DoctorHomeSmart} removeUser={removeUser} />
 

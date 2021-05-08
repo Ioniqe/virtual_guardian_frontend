@@ -74,7 +74,7 @@ export const useStylesNavbar = makeStyles(theme => ({
     padding: '1rem',
     overflow: 'hidden',
     transition: 'height 500ms ease',
-    transform: 'translateX(-24%)',
+    transform: 'translateX(-100%)',
 
   }
 

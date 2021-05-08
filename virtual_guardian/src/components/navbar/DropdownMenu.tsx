@@ -15,6 +15,7 @@ function DropdownMenu({ user }: DropdownMenuProps) {
     case 'admin':
       menuItemsList.push({ title: 'Create new admin', link: '/admin/create' });
       menuItemsList.push({ title: 'View admin list', link: '/admin/list' });
+      menuItemsList.push({ title: 'Add special credentials', link: '/admin/special_credentials' });
       break;
     case 'caregiver':
       menuItemsList.push({ title: 'View patient list', link: '/caregiver/patient/list' });
@@ -35,9 +36,9 @@ function DropdownMenu({ user }: DropdownMenuProps) {
       {
         menuItemsList.map((item, index) => {
           return (
-            <>
+            <li key={ item.title }>
               <Button onClick={() => history.push(item.link)} className={`${style.specialButtonStyle} ${style.menuItemStyle}`} >{item.title}</Button>
-            </>
+            </li>
           );
         })
       }
