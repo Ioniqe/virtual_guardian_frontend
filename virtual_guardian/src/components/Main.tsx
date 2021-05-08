@@ -28,7 +28,7 @@ function Main({ loginUser, removeUser }: Props) {
 
   return (
     <>
-      {userType !== '' && <Navbar removeUser={removeUser} links={( NavbarUserItems.find(item => (item.user === userType) )!.items)}/>}
+      {userType !== '' && <Navbar removeUser={removeUser} userItems={( NavbarUserItems.find(item => (item.user === userType))!)}/>}
       <Switch>
         <Route exact path='/' component={HomeSmart} />
 

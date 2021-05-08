@@ -2,10 +2,6 @@ export const NavbarUserItems = [
   {
     user: 'admin', items: [
       {
-        title: 'Manage admins',
-        url: '/admin/management',
-      },
-      {
         title: 'Services',
         url: '/admin/test',
       },
