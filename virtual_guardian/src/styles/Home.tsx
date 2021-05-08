@@ -58,16 +58,18 @@ export const useStylesHome = makeStyles(theme => ({
     paddingTop: '1%',
   },
   text: {
-    width:'30%',
+    width: '30%',
+    textAlign: 'left',
     "& .MuiOutlinedInput-input": {
       color: theme.palette.primary.main,
-      textAlign: 'initial',
+      textAlign: 'left',
     },
   },
   textField: {
     color: theme.palette.primary.main,
     '& .MuiInputBase-input': {
       color: theme.palette.primary.main,
+      textAlign: 'left !important',
     },
   },
   notchedOutline: {

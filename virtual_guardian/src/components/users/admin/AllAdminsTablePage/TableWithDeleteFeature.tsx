@@ -128,10 +128,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-let findUsersToBeDeleted = (userNames: string[], data:User[]) : User[] => {
-  let usersToBeDeleted: User[] = [];
+let findUsersToBeDeleted = (userNames: string[], data: User[]) : string[] => {
+  let usersToBeDeleted: string[] = [];
   data.forEach(user => {
-    userNames.includes(user.username) && usersToBeDeleted.push(user);
+    userNames.includes(user.username) && usersToBeDeleted.push(user.id);
   });
   return usersToBeDeleted;
 } 

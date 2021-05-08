@@ -8,8 +8,8 @@ export const useSignUpStyles = makeStyles((theme) => ({
     textAlign: 'left',
     color: theme.palette.primary.main,
     '& .MuiInputBase-input': {
-      textAlign: 'left',
-      color: theme.palette.primary.main,
+      textAlign: 'left !important',
+      color: 'red',
     },
   },
   notchedOutline: {
@@ -19,8 +19,10 @@ export const useSignUpStyles = makeStyles((theme) => ({
   },
   formControl: {
     color: theme.palette.primary.main,
+    
     "& .MuiOutlinedInput-input": {
       color: theme.palette.primary.main,
+      textAlign: 'left !important',
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
@@ -41,6 +43,7 @@ export const useSignUpStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     "& .MuiOutlinedInput-input": {
       color: theme.palette.primary.main,
+      textAlign: 'left !important',
     },
   },
   textDoctor: {
