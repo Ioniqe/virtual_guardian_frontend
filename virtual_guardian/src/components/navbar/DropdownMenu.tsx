@@ -2,7 +2,7 @@ import { Button } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { useStylesNavbar } from "../../styles/Navbar";
 
-interface DropdownMenuProps{
+interface DropdownMenuProps {
   user: string,
 }
 
@@ -13,36 +13,34 @@ function DropdownMenu({ user }: DropdownMenuProps) {
   let menuItemsList = [];
   switch (user) {
     case 'admin':
-      menuItemsList.push({title: 'Create new admin', link: '/admin/create'});
-      menuItemsList.push({title: 'View admin list', link: '/admin/list'});
+      menuItemsList.push({ title: 'Create new admin', link: '/admin/create' });
+      menuItemsList.push({ title: 'View admin list', link: '/admin/list' });
       break;
     case 'caregiver':
-      menuItemsList.push({title: 'View patient list', link: '/caregiver/patient/list'});
+      menuItemsList.push({ title: 'View patient list', link: '/caregiver/patient/list' });
       break;
     case 'doctor':
-      menuItemsList.push({title: 'Create new patient', link: '/doctor/create/patient'});
-      menuItemsList.push({title: 'Create new caregiver', link: '/doctor/create/caregiver'});
-      menuItemsList.push({title: 'View patient list', link: '/doctor/patient/list'});
-      menuItemsList.push({title: 'View caregiver list', link: '/doctor/caregiver/list'});
-      menuItemsList.push({title: 'Assign caregiver to patient', link: '/doctor/caregiver/assign'});
+      menuItemsList.push({ title: 'Create new patient', link: '/doctor/create/patient' });
+      menuItemsList.push({ title: 'Create new caregiver', link: '/doctor/create/caregiver' });
+      menuItemsList.push({ title: 'View patient list', link: '/doctor/patient/list' });
+      menuItemsList.push({ title: 'View caregiver list', link: '/doctor/caregiver/list' });
+      menuItemsList.push({ title: 'Assign caregiver to patient', link: '/doctor/caregiver/assign' });
       break;
     default:
       console.error('Error, dropdown menu could not identify user type');
   }
 
   return (
-    <div className={ style.dropDownMenuStyle }>
+    <div className={style.dropDownMenuStyle}>
       {
-            menuItemsList.map((item, index) => {
-              return (
-                <>
-                  {/* <li key={item.title}> */}
-                    <Button onClick={() => history.push(item.link)} className={`${style.specialButtonStyle} ${style.menuItemStyle}`} >{item.title}</Button>
-                  {/* </li> */}
-                </>
-              );
-            })
-          }
+        menuItemsList.map((item, index) => {
+          return (
+            <>
+              <Button onClick={() => history.push(item.link)} className={`${style.specialButtonStyle} ${style.menuItemStyle}`} >{item.title}</Button>
+            </>
+          );
+        })
+      }
     </div>
   );
 

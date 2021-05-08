@@ -2,7 +2,6 @@ import { useStylesNavbar } from "../../styles/Navbar";
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router";
 
-import '../../styles/Navbar.css';
 import NavItem from "./NavItem";
 import DropdownMenu from "./DropdownMenu";
 

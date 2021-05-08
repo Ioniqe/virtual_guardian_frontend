@@ -31,4 +31,36 @@ export const NavbarUserItems = [
       },
     ]
   },
+  {
+    user: 'caregiver', items: [
+      {
+        title: 'Caregiver',
+        url: '#',
+      },
+      {
+        title: 'Caregiver',
+        url: '/caregiver',
+      },
+      {
+        title: 'Caregiver',
+        url: '/caregiver',
+      },
+    ]
+  },
+  {
+    user: 'doctor', items: [
+      {
+        title: 'Doctor',
+        url: '#',
+      },
+      {
+        title: 'Doctor',
+        url: '/doctor',
+      },
+      {
+        title: 'Doctor',
+        url: '/doctor',
+      },
+    ]
+  },
 ]
