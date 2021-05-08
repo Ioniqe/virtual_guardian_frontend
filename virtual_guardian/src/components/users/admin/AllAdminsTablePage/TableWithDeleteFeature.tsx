@@ -15,6 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { User } from '../../../../model/models';
+import AlertDialog from '../../../popups/Alert';
 
 interface EnhancedTableProps {
   numSelected: number;
@@ -75,7 +76,7 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
 interface EnhancedTableToolbarProps {
   numSelected: number;
   title: string
-  deleteSelectedUsers: () => void
+  handleDeleteSelectedUsers: () => void
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
@@ -99,7 +100,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
       )}
       {numSelected > 0 && (
         <Tooltip title="Delete">
-          <IconButton aria-label="delete" onClick={ props.deleteSelectedUsers }>
+          <IconButton aria-label="delete" onClick={ props.handleDeleteSelectedUsers }>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -145,14 +146,18 @@ interface TableWithDeleteFeatureProps{
 export default function TableWithDeleteFeature({ data, title, headers }: TableWithDeleteFeatureProps) {
   const classes = useStyles();
   const [selected, setSelected] = React.useState<string[]>([]);
+  const [open, setOpen] = React.useState(false);
 
   const rowsPerPage = 10;
 
-  let deleteSelectedUsers = (): void => {
+  let handleDeleteSelectedUsers = (): void => {
+    setOpen(true);
+  }
+
+  let setDeleteAction = () : void => {
     console.log(selected);
     let usersToBeDeleted = findUsersToBeDeleted(selected, data);
     console.log(usersToBeDeleted);
-
   }
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -191,7 +196,7 @@ export default function TableWithDeleteFeature({ data, title, headers }: TableWi
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} title={title} deleteSelectedUsers={ deleteSelectedUsers }/>
+        <EnhancedTableToolbar numSelected={selected.length} title={title} handleDeleteSelectedUsers={ handleDeleteSelectedUsers }/>
         <TableContainer>
           <Table
             className={classes.table}
@@ -246,7 +251,16 @@ export default function TableWithDeleteFeature({ data, title, headers }: TableWi
           </Table>
         </TableContainer>
       </Paper>
-
+      
+      <AlertDialog
+        open={open}
+        setOpen={setOpen}
+        dialogTitle={'Are you sure you want to delete the selected users?'}
+        dialogContentText={'The action cannot be undone.'}
+        negativeMessage={'no'}
+        positiveMessage={'yes'}
+        setAction={ setDeleteAction }
+      />
     </div>
   );
 }
