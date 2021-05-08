@@ -13,9 +13,8 @@ function DropdownMenu({ user }: DropdownMenuProps) {
   let menuItemsList = [];
   switch (user) {
     case 'admin':
-      menuItemsList.push({ title: 'Create new admin', link: '/admin/create' });
       menuItemsList.push({ title: 'View admin list', link: '/admin/list' });
-      menuItemsList.push({ title: 'Add special credentials', link: '/admin/special_credentials' });
+      // menuItemsList.push({ title: 'Add special credentials', link: '/admin/special_credentials' });
       break;
     case 'caregiver':
       menuItemsList.push({ title: 'View patient list', link: '/caregiver/patient/list' });

@@ -5,8 +5,10 @@ export const useSignUpStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   textField: {
+    textAlign: 'left',
     color: theme.palette.primary.main,
     '& .MuiInputBase-input': {
+      textAlign: 'left',
       color: theme.palette.primary.main,
     },
   },

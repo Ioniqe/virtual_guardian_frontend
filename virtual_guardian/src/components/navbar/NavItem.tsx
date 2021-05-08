@@ -15,7 +15,7 @@ function NavItem({ user, ...props }: NavItemProps) {
   switch (user) {
     case 'admin':
       specialButton = <>
-        <Button onClick={() => setOpen(!open)} className={style.specialButtonStyle} >Manage database</Button>
+        <Button onClick={() => setOpen(!open)} className={style.specialButtonStyle} >Manage admins</Button>
         {open && props.children}
       </>;
       break;

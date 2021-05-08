@@ -2,8 +2,8 @@ export const NavbarUserItems = [
   {
     user: 'admin', items: [
       {
-        title: 'Services',
-        url: '/admin/test',
+        title: 'Home',
+        url: '/admin',
       },
       {
         title: 'Experiments',
@@ -14,6 +14,10 @@ export const NavbarUserItems = [
   {
     user: 'patient', items: [
       {
+        title: 'Home',
+        url: '/patient',
+      },
+      {
         title: 'Appointments',
         url: '/patient/appointments',
       },
@@ -21,14 +25,14 @@ export const NavbarUserItems = [
         title: 'Chat',
         url: '/patient/chat',
       },
-      {
-        title: 'Products',
-        url: '/admin',
-      },
     ]
   },
   {
     user: 'caregiver', items: [
+      {
+        title: 'Home',
+        url: '/caregiver',
+      },
       {
         title: 'Patient Appointments',
         url: '/caregiver/patient/appointments',
@@ -42,8 +46,8 @@ export const NavbarUserItems = [
   {
     user: 'doctor', items: [
       {
-        title: 'Doctor',
-        url: '#',
+        title: 'Home',
+        url: '/doctor',
       },
       {
         title: 'Doctor',

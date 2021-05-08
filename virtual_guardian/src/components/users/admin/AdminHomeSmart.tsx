@@ -3,7 +3,7 @@ function AdminHomeSmart() {
 
   return (
     <>
-      <h1>Hello Admin</h1>
+      <h1>Admin Home</h1>
     </>
   );
 }
