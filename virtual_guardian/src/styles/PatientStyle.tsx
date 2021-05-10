@@ -65,3 +65,8 @@ export const useStylesPatient = makeStyles(theme => ({
 
 
 }));
+
+
+export const useStylesPatientAppointments = makeStyles(theme => ({
+
+}));
