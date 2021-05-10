@@ -57,6 +57,10 @@ export const useStylesPatient = makeStyles(theme => ({
     marginTop: '7.4em',
     letterSpacing: '3px',
     marginLeft: '23.2em',
+  },
+  detailsStyle: {
+    color: theme.palette.primary.dark,
+    marginLeft: 0,
   }
 
 

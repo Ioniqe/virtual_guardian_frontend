@@ -18,6 +18,10 @@ export const NavbarUserItems = [
       //   url: '/patient',
       // },
       {
+        title: 'Test for disease',
+        url: '/patient/test',
+      },
+      {
         title: 'Appointments',
         url: '/patient/appointments',
       },
@@ -38,6 +42,10 @@ export const NavbarUserItems = [
         url: '/caregiver/patient/appointments',
       },
       {
+        title: `Patient's activities`,
+        url: '/caregiver/patient/activities',
+      },
+      {
         title: 'Chat',
         url: '/caregiver/chat',
       },
@@ -54,8 +62,12 @@ export const NavbarUserItems = [
         url: '/doctor',
       },
       {
-        title: 'Doctor',
-        url: '/doctor',
+        title: `Patient's activities`,
+        url: '/doctor/patient/activities',
+      },
+      {
+        title: 'Patient Appointments',
+        url: '/doctor/patient/appointments',
       },
     ]
   },

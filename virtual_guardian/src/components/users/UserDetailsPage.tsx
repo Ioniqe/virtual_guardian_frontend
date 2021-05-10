@@ -22,46 +22,47 @@ function UserDetailsPage({ loggedUser }: UserDetailsPageProps) {
   const classes = useStyles();
 
   return (
+
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
+      <Table className={classes.table}>
         <TableBody>
 
           <TableRow key='firstname'>
-            <TableCell component="th" scope="row">First Name</TableCell>
-            <TableCell component="th" scope="row" align="right">{loggedUser.firstname}</TableCell>
+            <TableCell>First Name</TableCell>
+            <TableCell align="right">{loggedUser.firstname}</TableCell>
           </TableRow>
 
           <TableRow key='lastname'>
-            <TableCell component="th" scope="row">Last Name</TableCell>
-            <TableCell component="th" scope="row" align="right">{loggedUser.lastname}</TableCell>
+            <TableCell>Last Name</TableCell>
+            <TableCell align="right">{loggedUser.lastname}</TableCell>
           </TableRow>
 
           <TableRow key='username'>
-            <TableCell component="th" scope="row">Username</TableCell>
-            <TableCell component="th" scope="row" align="right">{loggedUser.username}</TableCell>
+            <TableCell>Username</TableCell>
+            <TableCell align="right">{loggedUser.username}</TableCell>
           </TableRow>
 
           <TableRow key='password'>
-            <TableCell component="th" scope="row">Password</TableCell>
-            <TableCell component="th" scope="row" align="right">{loggedUser.password}</TableCell>
+            <TableCell>Password</TableCell>
+            <TableCell align="right">{loggedUser.password}</TableCell>
           </TableRow>
 
           <TableRow key='birthday'>
-            <TableCell component="th" scope="row">Birthday</TableCell>
-            <TableCell component="th" scope="row" align="right">{loggedUser.birthday}</TableCell>
+            <TableCell>Birthday</TableCell>
+            <TableCell align="right">{loggedUser.birthday}</TableCell>
           </TableRow>
 
           {
             loggedUser.type === 'patient' &&
             <TableRow key='address'>
-              <TableCell component="th" scope="row">Address</TableCell>
-              <TableCell component="th" scope="row" align="right">{loggedUser.address}</TableCell>
+              <TableCell>Address</TableCell>
+              <TableCell align="right">{loggedUser.address}</TableCell>
             </TableRow>
           }
 
           <TableRow key='gender'>
-            <TableCell component="th" scope="row">Gender</TableCell>
-            <TableCell component="th" scope="row" align="right">{loggedUser.gender}</TableCell>
+            <TableCell>Gender</TableCell>
+            <TableCell align="right">{loggedUser.gender}</TableCell>
           </TableRow>
 
 

@@ -1,5 +1,6 @@
 import { Button, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import { User } from "../../../model/models";
 import { useStylesPatient } from "../../../styles/PatientStyle";
 
@@ -22,6 +23,11 @@ function PatientHomeDumb({ loggedUser }: PatientHomeDumbProps) {
     console.log("Emergency");
     //TODO
   }
+
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const [offsetY, setOffsetY] = useState(0);
   const handleScroll = () => setOffsetY(window.pageYOffset);
@@ -52,8 +58,10 @@ function PatientHomeDumb({ loggedUser }: PatientHomeDumbProps) {
         <img alt="small_mountain" src={small_mountain} style={{ position: 'absolute', left: 0, top: '24.2em', transform: `translateY(-${offsetY * 0.4}px)` }} />
         <img alt="woods" src={woods} style={{ position: 'absolute', left: 0, top: '30em', width: '60%', transform: `translateY(-${offsetY * 0.6}px)` }} />
 
-        <div style={{ display: 'flex', position: 'absolute', marginTop: '70em', marginLeft: '45em', transform: `translateY(${offsetY * 0.2}px)`  }}>
+        <div style={{ position: 'absolute', marginTop: '70em', marginLeft: '45em', transform: `translateY(${offsetY * 0.2}px)`  }}>
           <UserDetailsPage loggedUser={loggedUser} />
+          {/* <Typography  variant="h4" className={style.detailsStyle}>Firstname   { loggedUser.firstname }</Typography>
+          <Typography variant="h4" className={style.detailsStyle}>Lastname     { loggedUser.lastname }</Typography> */}
         </div>
 
         <img alt="foreground" src={foreground} style={{ position: 'absolute', left: 0, transform: `translateY(-${offsetY * 1.4}px)` }} />
