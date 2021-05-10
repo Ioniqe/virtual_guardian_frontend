@@ -12,7 +12,6 @@ export const useStylesPatient = makeStyles(theme => ({
     cursor: 'pointer',
     backgroundColor: theme.palette.primary.dark,
     color: theme.palette.primary.contrastText,
-    backgroundSize: '200%',
     transition: '0.6s',
     '&:hover': {
       padding: '0.8rem 3rem',
