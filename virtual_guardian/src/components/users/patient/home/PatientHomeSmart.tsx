@@ -1,5 +1,5 @@
 import React from "react";
-import { User } from "../../../model/models";
+import { User } from "../../../../model/models";
 import PatientHomeDumb from "./PatientHomeDumb";
 
 interface PatientHomeSmartProps{

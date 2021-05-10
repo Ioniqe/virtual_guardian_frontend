@@ -1,12 +1,11 @@
-import { Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, EventSettingsModel } from "@syncfusion/ej2-react-schedule";
-import { useStylesPatientAppointments } from "../../../../styles/PatientStyle";
+// import { useStylesPatientAppointments } from "../../../../styles/PatientStyle";
 
 function PatientAppointmentsDumb() {
-  let style = useStylesPatientAppointments();
+  // let style = useStylesPatientAppointments();
 
   return (
     <>
-
+      <h1>appointments</h1>
     </>
   );
 }

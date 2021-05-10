@@ -1,16 +1,16 @@
 import { Button, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { User } from "../../../model/models";
-import { useStylesPatient } from "../../../styles/PatientStyle";
+import { User } from "../../../../model/models";
+import { useStylesPatient } from "../../../../styles/PatientStyle";
 
-import background from '../../../visuals/patient/background.svg';
-import foreground from '../../../visuals/patient/foreground.svg';
-import lake from '../../../visuals/patient/lake.svg';
-import mountains from '../../../visuals/patient/mountains.svg';
-import small_mountain from '../../../visuals/patient/small_mountain.svg';
-import woods from '../../../visuals/patient/woods.svg';
-import UserDetailsPage from "../UserDetailsPage";
+import background from '../../../../visuals/patient/background.svg';
+import foreground from '../../../../visuals/patient/foreground.svg';
+import lake from '../../../../visuals/patient/lake.svg';
+import mountains from '../../../../visuals/patient/mountains.svg';
+import small_mountain from '../../../../visuals/patient/small_mountain.svg';
+import woods from '../../../../visuals/patient/woods.svg';
+import UserDetailsPage from "../../UserDetailsPage";
 
 interface PatientHomeDumbProps {
   loggedUser: User
