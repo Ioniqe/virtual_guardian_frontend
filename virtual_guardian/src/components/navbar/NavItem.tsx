@@ -41,7 +41,7 @@ function NavItem({ user, ...props }: NavItemProps) {
   return (
     <>
       {/* li key={ user } */}
-      { specialButton }
+      { specialButton}
     </>
   );
 }

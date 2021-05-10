@@ -1,7 +1,17 @@
-function PatientHomeSmart() {
+import React from "react";
+import { User } from "../../../model/models";
+import PatientHomeDumb from "./PatientHomeDumb";
+
+interface PatientHomeSmartProps{
+  loggedUser: User
+}
+
+function PatientHomeSmart({ loggedUser } : PatientHomeSmartProps) {
   return (
     <>
-      <h1>Hello Patient</h1>
+      <PatientHomeDumb
+        loggedUser={ loggedUser }
+      />
     </>
   );
 }

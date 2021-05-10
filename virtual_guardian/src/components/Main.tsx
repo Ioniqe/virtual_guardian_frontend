@@ -39,7 +39,7 @@ function Main({ loginUser, removeUser }: Props) {
 
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver' component={CaregiverHomeSmart} removeUser={removeUser} />
 
-        <ProtectedRoute exact isAuthenticated={userType === 'patient'} path='/patient' component={PatientHomeSmart} removeUser={removeUser} />
+        <ProtectedRoute exact isAuthenticated={userType === 'patient'} path='/patient' component={() => <PatientHomeSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
 
       </Switch>
     </>

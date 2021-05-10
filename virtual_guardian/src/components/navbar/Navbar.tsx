@@ -45,7 +45,7 @@ function Navbar({ removeUser, userItems }: NavbarProps) {
             })
           }
         </ul>
-
+        
         <Button className={style.basicButton} variant='outlined' onClick={handleLogOut}>log out</Button>
 
       </nav>

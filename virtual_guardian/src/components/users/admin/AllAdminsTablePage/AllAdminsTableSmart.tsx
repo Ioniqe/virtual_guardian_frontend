@@ -69,15 +69,10 @@ function AllAdminsTableSmart({ getAllAdminsList, adminReducer, deleteSelectedAdm
         <Alert onClose={handleClose} severity="error"> {message} </Alert>
       </Snackbar>
 
-      {/* {adminReducer.loading ?
-        <h1>Loading</h1> : adminReducer.error ?
-          <h1>Oops, an error has occured</h1> : */}
       <AllAdminsTableDumb
         adminList={adminList}
         deleteSelected={deleteSelectedAdmins}
-      // refreshList={setAdminList}
       />
-      {/* } */}
       {loading && <CircularProgress />}
 
     </>
