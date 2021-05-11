@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { User } from "../../../../model/models";
 import PatientTestForDiseaseDumb from "./PatientTestForDiseaseDumb";
 
@@ -23,15 +24,32 @@ const diseasesArray = ['Itching', 'Skin Rash', 'Nodal Skin Eruptions', 'Continuo
   'blackheads', 'scurring', 'skin_peeling', 'silver_like_dusting', 'small_dents_in_nails', 'inflammatory_nails', 'blister',
   'red_sore_around_nose', 'yellow_crust_ooze'];
 
-interface PatientAppointmentsSMartProps{
+interface PatientAppointmentsSMartProps {
   loggedUser: User
 }
 
-function PatientTestForDiseaseSmart({ loggedUser } : PatientAppointmentsSMartProps) {
+function PatientTestForDiseaseSmart({ loggedUser }: PatientAppointmentsSMartProps) {
+  const [selectedSymptoms, setSelectedSymptoms] = useState<Array<string>>([]);
+  
+  let preprocessSymptomsArray = (): void => {
+    let preprocessedSymptomsArray: Array<number> = Array(132).fill(0);
+    selectedSymptoms.forEach(disease => {
+      preprocessedSymptomsArray[diseasesArray.indexOf(disease)] = 1
+    });
+  }
+
+  let testSymptoms = (): void => {
+    let symptomsToTest = preprocessSymptomsArray();
+    //send request to flask
+  }
+
   return (
     <>
       <PatientTestForDiseaseDumb
-        diseasesArray={ diseasesArray }/>
+        diseasesArray={diseasesArray}
+        setSelectedSymptoms={setSelectedSymptoms}
+        testSymptoms={ testSymptoms }
+      />
     </>
   );
 }

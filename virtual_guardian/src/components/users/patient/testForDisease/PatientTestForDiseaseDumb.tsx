@@ -4,15 +4,16 @@ import { useStylesPatientTestForDisease } from "../../../../styles/PatientStyle"
 import TestForDiseasePopup from "./TestForDiseasePopup";
 
 interface PatientTestForDiseaseDumbProps {
-  diseasesArray: Array<string>
+  diseasesArray: Array<string>,
+  setSelectedSymptoms: (arr: Array<string>) => void,
+  testSymptoms: () => void,
 }
 
-function PatientTestForDiseaseDumb({ diseasesArray }: PatientTestForDiseaseDumbProps) {
+function PatientTestForDiseaseDumb({ diseasesArray, setSelectedSymptoms, testSymptoms }: PatientTestForDiseaseDumbProps) {
   const style = useStylesPatientTestForDisease();
 
   const [open, setOpen] = useState(true);
   const [selected, setSelected] = useState<string[]>([]);
-  const [selectedSymptoms, setSelectedSymptoms] = useState<Array<string>>([]);
 
   const handleClick = (event: React.MouseEvent<unknown>, disease: string) => {
     const selectedIndex = selected.indexOf(disease);
@@ -36,10 +37,6 @@ function PatientTestForDiseaseDumb({ diseasesArray }: PatientTestForDiseaseDumbP
   };
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
-
-  let testSymptoms = (): void => {
-    console.log(selectedSymptoms);
-  }
 
   let restartTest = (): void => {
     setSelected([]);
