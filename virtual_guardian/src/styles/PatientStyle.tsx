@@ -66,7 +66,85 @@ export const useStylesPatient = makeStyles(theme => ({
 
 }));
 
-
 export const useStylesPatientAppointments = makeStyles(theme => ({
 
 }));
+
+export const useStylesPatientTestForDisease = makeStyles(theme => ({
+  titleStyle: {
+    color: theme.palette.primary.contrastText,
+    marginTop: '4em',
+    position: 'relative',
+  },
+  subtitleStyle: {
+    color: theme.palette.primary.main,
+    paddingTop: '2vh',
+    paddingBottom: '2vh',
+    position: 'relative',
+  },
+  popupStyle: {
+    '& .MuiDialog-paperWidthSm': {
+      height: '60vh',
+
+    },
+    '& .MuiDialogTitle-root': {
+      background: `linear-gradient(to right, ${theme.palette.secondary.light}, ${theme.palette.secondary.dark})`,
+      height: '30vh'
+    },
+  },
+  dialogContentTextStyle: {
+    marginTop: '5vh',
+    fontSize: 20,
+  },
+  dialogTitleStyle: {
+    color: theme.palette.primary.contrastText,
+    fontSize: 150,
+    marginTop: '8vh'
+  },
+  paperStyle: {
+    height: '80vh',
+    width: '35vw',
+    margin: 'auto',
+    marginTop: '5vh',
+    overflow: 'scrollable',
+    '& .MuiTableContainer-root': {
+      paddingTop: '30px',
+      height: '60vh'
+    }
+  },
+  table: {
+    maxWidth: 600,
+    marginLeft: '2vw',
+    marginTop: '20px',
+    overflow: 'scroll',
+  },
+  buttonStyle: {
+    margin: 0,
+    marginTop: '25px',
+    padding: '.5rem 2rem',
+    textTransform: 'uppercase',
+    borderRadius: '1.6rem',
+    border: 'none',
+    cursor: 'pointer',
+    color: theme.palette.primary.contrastText,
+    right: 0,
+    transition: '0.3s',
+    backgroundImage: `linear-gradient(45deg, ${theme.palette.secondary.light} 10%, ${theme.palette.secondary.dark} 80%)`,
+    backgroundSize: '300%',
+    '&:hover': {
+      backgroundPosition: 'right',
+    },
+  },
+  cancelButtonStyle: {
+    margin: 0,
+    marginTop: '25px',
+    padding: '.3rem 1rem',
+    borderRadius: '1.6rem',
+    border: 'none',
+    cursor: 'pointer',
+    color: theme.palette.primary.contrastText,
+    fontSize: 13
+  }
+
+}));
+
