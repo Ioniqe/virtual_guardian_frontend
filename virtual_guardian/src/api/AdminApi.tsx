@@ -1,7 +1,7 @@
-import { url } from "../model/models"
+import { URL } from "../model/models"
 
 export const getAdminsAPI = () => {
-  return fetch(`${url}/admin/all`, {
+  return fetch(`${URL}/admin/all`, {
     method: 'GET',
   }).then(response => {
     if (response.ok)
@@ -12,7 +12,7 @@ export const getAdminsAPI = () => {
 }
 
 export const deleteAdminsAPI = (adminsToBeDeleted: string[]) => {
-  return fetch(`${url}/admin/delete/bulk`, {
+  return fetch(`${URL}/admin/delete/bulk`, {
     method: 'DELETE',
     headers: {
       'Accept': 'application/json',

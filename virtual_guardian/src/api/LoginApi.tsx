@@ -1,8 +1,8 @@
-import { LoginUser, url } from "../model/models"
+import { LoginUser, URL } from "../model/models"
 
 export const loginUserAPI = (user: LoginUser) => {
 
-  return fetch(`${url}/login`, {
+  return fetch(`${URL}/login`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

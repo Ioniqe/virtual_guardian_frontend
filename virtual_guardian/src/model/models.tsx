@@ -1,4 +1,5 @@
-export const url = 'http://localhost:8080';
+export const URL = 'http://localhost:8080';
+export const FLASK_URL = 'http://localhost:5000';
 
 export interface LoginUser{
   username: string,
@@ -22,4 +23,8 @@ export interface User extends BasicUser{
   doctorId?: string,
   caregiverId?: string,
   address?: string,
+}
+
+export interface DiseaseProps{
+  disease: string
 }

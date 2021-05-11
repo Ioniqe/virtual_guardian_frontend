@@ -1,8 +1,8 @@
-import { SpecialUser, url } from "../model/models"
+import { SpecialUser, URL } from "../model/models"
 
 export const saveUserAPI = (user: SpecialUser) => {
   if (user.type === 'admin') 
-    return fetch(`${url}/admin/new`, {
+    return fetch(`${URL}/admin/new`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -12,7 +12,7 @@ export const saveUserAPI = (user: SpecialUser) => {
     })
   
   else
-    return fetch(`${url}/doctor/new`, {
+    return fetch(`${URL}/doctor/new`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

@@ -73,8 +73,8 @@ function AllAdminsTableSmart({ getAllAdminsList, adminReducer, deleteSelectedAdm
         adminList={adminList}
         deleteSelected={deleteSelectedAdmins}
       />
-      {loading && <CircularProgress />}
 
+      {loading && <CircularProgress />}
     </>
   );
 }

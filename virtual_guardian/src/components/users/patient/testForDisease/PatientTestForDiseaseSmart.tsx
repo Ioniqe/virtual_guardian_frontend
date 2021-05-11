@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { CircularProgress, Snackbar } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { predictDisease } from "../../../../actions/PatientAction";
 import { User } from "../../../../model/models";
 import PatientTestForDiseaseDumb from "./PatientTestForDiseaseDumb";
 
@@ -22,36 +26,96 @@ const diseasesArray = ['Itching', 'Skin Rash', 'Nodal Skin Eruptions', 'Continuo
   'receiving_unsterile_injections', 'coma', 'stomach_bleeding', 'distention_of_abdomen', 'history_of_alcohol_consumption',
   'fluid_overload', 'blood_in_sputum', 'prominent_veins_on_calf', 'palpitations', 'painful_walking', 'pus_filled_pimples',
   'blackheads', 'scurring', 'skin_peeling', 'silver_like_dusting', 'small_dents_in_nails', 'inflammatory_nails', 'blister',
-  'red_sore_around_nose', 'yellow_crust_ooze'];
+  'red_sore_around_nose', 'yellow_crust_ooze']; //TODO modifica denumirile
 
 interface PatientAppointmentsSMartProps {
-  loggedUser: User
+  loggedUser: User,
+  predictDisease: {
+    loading: boolean,
+    diseasePrediction: string,
+    error: string,
+  },
+  predictDiseaseFromSymptoms: (symptomsArr: Array<number>) => void,
 }
 
-function PatientTestForDiseaseSmart({ loggedUser }: PatientAppointmentsSMartProps) {
+function PatientTestForDiseaseSmart({ loggedUser, predictDisease, predictDiseaseFromSymptoms }: PatientAppointmentsSMartProps) {
   const [selectedSymptoms, setSelectedSymptoms] = useState<Array<string>>([]);
-  
-  let preprocessSymptomsArray = (): void => {
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSuccess(false);
+    setOpenError(false);
+  };
+
+  let preprocessSymptomsArray = (): Array<number> => {
     let preprocessedSymptomsArray: Array<number> = Array(132).fill(0);
     selectedSymptoms.forEach(disease => {
       preprocessedSymptomsArray[diseasesArray.indexOf(disease)] = 1
     });
+    return preprocessedSymptomsArray;
   }
 
   let testSymptoms = (): void => {
     let symptomsToTest = preprocessSymptomsArray();
-    //send request to flask
+    predictDiseaseFromSymptoms(symptomsToTest);
   }
+
+  useEffect(() => {
+
+    if (predictDisease.loading) {
+      setLoading(true);
+    }
+    else if (predictDisease.error !== '') {
+      setMessage(predictDisease.error);
+      setLoading(false);
+      setOpenError(true);
+    }
+    else if (predictDisease.diseasePrediction) {
+      setLoading(false);
+
+      setMessage(`We have predicted that you may have ${predictDisease.diseasePrediction}`);  //TODO fa un popup sau ceva sa fie mai pretty
+      setOpenError(false);
+      setOpenSuccess(true);
+    }
+  }, [predictDisease.diseasePrediction, predictDisease.error, predictDisease.loading]);
 
   return (
     <>
+      <Snackbar open={openSuccess} autoHideDuration={10000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success"> {message} </Alert>
+      </Snackbar>
+
+      <Snackbar open={openError} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error"> {message} </Alert>
+      </Snackbar>
+
       <PatientTestForDiseaseDumb
         diseasesArray={diseasesArray}
         setSelectedSymptoms={setSelectedSymptoms}
-        testSymptoms={ testSymptoms }
+        testSymptoms={testSymptoms}
       />
+
+      {loading && <CircularProgress />}
     </>
   );
 }
 
-export default PatientTestForDiseaseSmart;
+const mapStateToProps = (state: any) => {
+  return {
+    predictDisease: state.patient
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    predictDiseaseFromSymptoms: (symptomsArr: Array<number>) => dispatch(predictDisease(symptomsArr)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatientTestForDiseaseSmart);
