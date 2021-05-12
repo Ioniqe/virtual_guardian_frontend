@@ -2,7 +2,7 @@ import { CircularProgress, Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { deletePatients, getPatientsList } from "../../../../actions/PatientAction";
+import { deletePatients, getPatientsList, savePatient } from "../../../../actions/PatientAction";
 import { User } from "../../../../model/models";
 import PatientsPageDumb from "./PatientsPageDumb";
 
@@ -11,15 +11,17 @@ interface PatientsPageProps {
 
   getAllPatientsList: (doctorId: string) => void,
   deleteSelectedPatients: (patientsToBeDeleted: string[]) => void,
+  saveNewPatient: (newPatient: User, doctorId: string) => void,
   patientReducer: {
     loading: boolean,
     patientsSuccess: User[],
     error: string,
-    deleteSuccessful: boolean
+    deleteSuccessful: boolean,
+    saveSuccessful: boolean,
   },
 }
 
-function PatientsPageSmart({ loggedUser, patientReducer, getAllPatientsList, deleteSelectedPatients }: PatientsPageProps) {
+function PatientsPageSmart({ loggedUser, patientReducer, getAllPatientsList, deleteSelectedPatients, saveNewPatient }: PatientsPageProps) {
 
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -57,14 +59,23 @@ function PatientsPageSmart({ loggedUser, patientReducer, getAllPatientsList, del
   useEffect(() => {
     if (patientReducer.deleteSuccessful) {
       getAllPatientsList(loggedUser.id);
+      setMessage('Deleted successfully!');
       setOpenSuccess(true);
     }
   }, [patientReducer.deleteSuccessful, getAllPatientsList, loggedUser.id]);
 
+  useEffect(() => {
+    if (patientReducer.saveSuccessful) {
+      getAllPatientsList(loggedUser.id);
+      setMessage('Saved successfully!');
+      setOpenSuccess(true);
+    }
+  }, [patientReducer.saveSuccessful, getAllPatientsList, loggedUser.id]);
+
   return (
     <>
       <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success"> Deleted successfuly! </Alert>
+        <Alert onClose={handleClose} severity="success"> { message } </Alert>
       </Snackbar>
 
       <Snackbar open={openError} autoHideDuration={3000} onClose={handleClose}>
@@ -74,6 +85,8 @@ function PatientsPageSmart({ loggedUser, patientReducer, getAllPatientsList, del
       <PatientsPageDumb
         patientList={patientList}
         deleteSelected={deleteSelectedPatients}
+        savePatient={saveNewPatient}
+        doctorId={loggedUser.id}
       />
 
       {loading && <CircularProgress />}
@@ -91,6 +104,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     getAllPatientsList: (doctorId: string) => dispatch(getPatientsList(doctorId)),
     deleteSelectedPatients: (patientsToBeDeleted: string[]) => dispatch(deletePatients(patientsToBeDeleted)),
+    saveNewPatient: (newPatient: User, doctorId: string) => dispatch(savePatient(newPatient, doctorId)),
   }
 }
 

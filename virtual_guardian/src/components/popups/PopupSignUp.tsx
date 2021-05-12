@@ -11,15 +11,17 @@ import Grid from '@material-ui/core/Grid';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 
 interface Props {
+  title: string,
+  userType: string,
   sendNewUser: (username: string, password: string,
     firstName: string, lastName: string,
     birthday: string,
-    gender: string, user: string, userCredentials: string) => void,
+    gender: string, user?: string, userCredentials?: string, address?: string) => void,
   open: boolean,
   setOpen: (arg0: boolean) => void
 }
 
-function PopupSignUp({ sendNewUser, open, setOpen }: Props) {
+function PopupSignUp({ title, userType, sendNewUser, open, setOpen }: Props) {
   const classes = useSignUpStyles();
 
   const [username, setUsername] = useState('');
@@ -30,6 +32,7 @@ function PopupSignUp({ sendNewUser, open, setOpen }: Props) {
   const [gender, setGender] = useState('male');
   const [user, setUser] = useState('doctor');
   const [userCredentials, setUserCredentials] = useState('');
+  const [address, setAddress] = useState('');
 
   let resetFields = (): void => {
     setUsername('');
@@ -47,10 +50,25 @@ function PopupSignUp({ sendNewUser, open, setOpen }: Props) {
     resetFields();
   };
 
+  let verifyNullFields = (): boolean => {
+    if (username === '') return false
+    if (password === '') return false
+    if (firstName === '') return false
+    if (lastName === '') return false
+    if (gender === '') return false
+    if (userType === 'patient' && address === '') return false
+    if (userType === 'specialUser' && userCredentials === '') return false
+
+    return true
+  }
+
   let handleSubmit = () => {
-    sendNewUser(username, password, firstName, lastName, birthday, gender, user, userCredentials);
-    setOpen(false);
-    resetFields();
+    if (verifyNullFields()) {
+      userType === 'specialUser' && sendNewUser(username, password, firstName, lastName, birthday, gender, user, userCredentials);
+      userType === 'patient' && sendNewUser(username, password, firstName, lastName, birthday, gender, address);
+      setOpen(false);
+      resetFields();
+    }
   }
 
   const handleGenderChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -64,7 +82,7 @@ function PopupSignUp({ sendNewUser, open, setOpen }: Props) {
   return (
     <div>
       <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
-        <DialogTitle id='form-dialog-title' className={classes.textField}>Sign Up</DialogTitle>
+        <DialogTitle id='form-dialog-title' className={classes.textField}>{title}</DialogTitle>
         <DialogContent>
           <DialogContentText className={classes.textField}>
             Please fill out the form with the necessary information
@@ -216,49 +234,81 @@ function PopupSignUp({ sendNewUser, open, setOpen }: Props) {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
-                <FormControl variant='outlined' fullWidth color='primary' className={classes.formControl}>
-                  <InputLabel id='user' className={classes.textField}>User</InputLabel>
-                  <Select
-                    labelId='user'
-                    id='user'
-                    value={user}
-                    onChange={handleUserChange}
-                    label='User'
-                    color='primary'
-                    className={classes.textField}
-                  >
-                    <MenuItem value={'doctor'}>Doctor</MenuItem>
-                    <MenuItem value={'admin'}>Admin</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
+              {userType === 'specialUser' &&
+                <Grid item xs={12} sm={6}>
+                  <FormControl variant='outlined' fullWidth color='primary' className={classes.formControl}>
+                    <InputLabel id='user' className={classes.textField}>User</InputLabel>
+                    <Select
+                      labelId='user'
+                      id='user'
+                      value={user}
+                      onChange={handleUserChange}
+                      label='User'
+                      color='primary'
+                      className={classes.textField}
+                    >
+                      <MenuItem value={'doctor'}>Doctor</MenuItem>
+                      <MenuItem value={'admin'}>Admin</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+              }
 
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete='off'
-                  value={userCredentials}
-                  onChange={e => { setUserCredentials(e.target.value) }}
-                  variant='outlined'
-                  name='userCredentials'
-                  required
-                  fullWidth
-                  id='userCredentials'
-                  label='User Credentials'
-                  color='primary'
-                  className={classes.text}
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.textField,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-              </Grid>
+              {userType === 'specialUser' &&
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete='off'
+                    value={userCredentials}
+                    onChange={e => { setUserCredentials(e.target.value) }}
+                    variant='outlined'
+                    name='userCredentials'
+                    required
+                    fullWidth
+                    id='userCredentials'
+                    label='User Credentials'
+                    color='primary'
+                    className={classes.text}
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.textField,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                </Grid>
+              }
+
+              {userType === 'patient' &&
+                <Grid item xs={12}>
+                  <TextField
+                    autoComplete='off'
+                    value={address}
+                    onChange={e => { setAddress(e.target.value) }}
+                    variant='outlined'
+                    name='address'
+                    required
+                    fullWidth
+                    id='address'
+                    label='Address'
+                    color='primary'
+                    className={classes.text}
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.textField,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                </Grid>
+              }
 
             </Grid>
           </form>
@@ -267,7 +317,7 @@ function PopupSignUp({ sendNewUser, open, setOpen }: Props) {
           <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button onClick={() => handleSubmit()} className={ classes.loginButton }>
+          <Button onClick={() => handleSubmit()} className={classes.loginButton}>
             Submit
           </Button>
         </DialogActions>

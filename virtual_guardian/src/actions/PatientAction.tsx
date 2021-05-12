@@ -1,5 +1,5 @@
 import { User } from "../model/models"
-import { DELETE_PATIENTS, DELETE_PATIENTS_FAILURE, DELETE_PATIENTS_REQUEST, DELETE_PATIENTS_SUCCESS, GET_PATIENTS_LIST, GET_PATIENTS_LIST_FAILURE, GET_PATIENTS_LIST_REQUEST, GET_PATIENTS_LIST_SUCCESS, PREDICT_DISEASE, PREDICT_DISEASE_FAILURE, PREDICT_DISEASE_REQUEST, PREDICT_DISEASE_SUCCESS } from "../types/PatientTypes"
+import { DELETE_PATIENTS, DELETE_PATIENTS_FAILURE, DELETE_PATIENTS_REQUEST, DELETE_PATIENTS_SUCCESS, GET_PATIENTS_LIST, GET_PATIENTS_LIST_FAILURE, GET_PATIENTS_LIST_REQUEST, GET_PATIENTS_LIST_SUCCESS, PREDICT_DISEASE, PREDICT_DISEASE_FAILURE, PREDICT_DISEASE_REQUEST, PREDICT_DISEASE_SUCCESS, SAVE_PATIENT, SAVE_PATIENT_FAILURE, SAVE_PATIENT_REQUEST, SAVE_PATIENT_SUCCESS } from "../types/PatientTypes"
 
 //--------------------------------------------- PREDICT DISEASE
 export const predictDisease = (symptomsArr: Array<number>) => {
@@ -81,6 +81,33 @@ export const deletePatientsSuccess = () => {
 export const deletePatientsFailure = (error: string) => {
   return {
     type: DELETE_PATIENTS_FAILURE,
+    payload: error
+  }
+}
+
+//---------------------------------------------  DELETE PATIENTS
+export const savePatient = (newPatient: User, doctorId: string) => {
+  return {
+    type: SAVE_PATIENT,
+    payload: { 'patient': newPatient, 'doctorId': doctorId },
+  }
+}
+
+export const savePatientRequest = () => {
+  return {
+    type: SAVE_PATIENT_REQUEST,
+  }
+}
+
+export const savePatientSuccess = () => {
+  return {
+    type: SAVE_PATIENT_SUCCESS,
+  }
+}
+
+export const savePatientFailure = (error: string) => {
+  return {
+    type: SAVE_PATIENT_FAILURE,
     payload: error
   }
 }

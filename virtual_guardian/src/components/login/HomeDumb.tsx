@@ -15,7 +15,7 @@ interface Props {
   sendNewUser: (username: string, password: string,
     firstName: string, lastName: string,
     birthday: string,
-    gender: string, user: string, userCredentials: string) => void,
+    gender: string, user?: string, userCredentials?: string, address?: string) => void,
 }
 
 function LoginDumb({ username, password, setUsername, setPassword, _loginUser, sendNewUser }: Props) {
@@ -38,7 +38,7 @@ function LoginDumb({ username, password, setUsername, setPassword, _loginUser, s
     scroll.scrollToBottom();
   }
 
-  let openPopup = () : void => {
+  let openPopup = (): void => {
     setOpen(true);
   }
 
@@ -123,7 +123,7 @@ function LoginDumb({ username, password, setUsername, setPassword, _loginUser, s
               }}
             />
 
-            <Button className={style.loginButton} variant='outlined' onClick={ _loginUser }>
+            <Button className={style.loginButton} variant='outlined' onClick={_loginUser}>
               enter
             </Button>
 
@@ -145,9 +145,11 @@ function LoginDumb({ username, password, setUsername, setPassword, _loginUser, s
       </div>
 
       <PopupSignUp
+        title={'Sign Up'}
+        userType={'specialUser'}
         open={open}
         setOpen={setOpen}
-        sendNewUser={ sendNewUser }
+        sendNewUser={sendNewUser}
       />
 
     </>

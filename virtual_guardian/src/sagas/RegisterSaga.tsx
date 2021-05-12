@@ -23,11 +23,6 @@ function* registerUserAsync(props: Props) {
     yield put(saveUserRequest());
     const response: ResponseGenerator = yield call(() => saveUserAPI(props.payload));
 
-    // if (response.status === 401) {
-    //   yield put(saveUserFailure("Credentials are invalid!"))
-    // } else {
-    //   yield put(saveUserSuccess())
-    // }
     switch (response.status) {
       case 401:
         yield put(saveUserFailure("Credentials are invalid!"))

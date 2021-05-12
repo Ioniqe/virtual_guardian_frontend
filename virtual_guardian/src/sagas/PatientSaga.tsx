@@ -1,12 +1,12 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
-import { deletePatientsFailure, deletePatientsRequest, deletePatientsSuccess, getPatientsListFailure, getPatientsListRequest, getPatientsListSuccess, predictDiseaseFailure, predictDiseaseRequest, predictDiseaseSuccess } from "../actions/PatientAction";
-import { deletePatientsAPI, getPatientsAPI, predictDiseaseAPI } from "../api/PatientApi";
+import { deletePatientsFailure, deletePatientsRequest, deletePatientsSuccess, getPatientsListFailure, getPatientsListRequest, getPatientsListSuccess, predictDiseaseFailure, predictDiseaseRequest, predictDiseaseSuccess, savePatientFailure, savePatientRequest, savePatientSuccess } from "../actions/PatientAction";
+import { deletePatientsAPI, getPatientsAPI, predictDiseaseAPI, savePatientAPI } from "../api/PatientApi";
 import { DiseaseProps, User } from "../model/models";
-import { DELETE_PATIENTS, GET_PATIENTS_LIST, PREDICT_DISEASE } from "../types/PatientTypes";
+import { DELETE_PATIENTS, GET_PATIENTS_LIST, PREDICT_DISEASE, SAVE_PATIENT } from "../types/PatientTypes";
 
 interface Props {
   type: string,
-  payload: string[] | string
+  payload: string[] | string | { 'patient': User, 'doctorId': string }
 }
 
 function* predictDiseaseAsync({ type, payload }: Props) {
@@ -58,4 +58,41 @@ function* deletePatientsAsync(props: Props) {
 
 export function* deletePatientsWatcher() {
   yield takeLatest(DELETE_PATIENTS, deletePatientsAsync)
+}
+
+interface ResponseGenerator {
+  config?: any,
+  data?: any,
+  headers?: any,
+  request?: any,
+  status?: number,
+  statusText?: string
+}
+
+function* savePatientAsync(props: Props) {
+  try {
+    yield put(savePatientRequest());
+    const response: ResponseGenerator  = yield call(() => savePatientAPI(props.payload as { 'patient': User, 'doctorId': string }));
+
+    switch (response.status) {
+      case 404:
+        yield put(savePatientFailure("Credentials are invalid!"))
+        break;
+      case 500:
+        yield put(savePatientFailure("Server has returned an error, please choose a unique username!"))
+        break;
+      case 201:
+        yield put(savePatientSuccess())
+        break;
+      default:
+        console.error('in savePatientAsync, response status unrecognized');
+    }
+
+  } catch (e) {
+    yield put(savePatientFailure("An unexpected error has occured!"))
+  }
+}
+
+export function* savePatientWatcher() {
+  yield takeLatest(SAVE_PATIENT, savePatientAsync)
 }

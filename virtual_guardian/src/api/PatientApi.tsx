@@ -1,4 +1,4 @@
-import { FLASK_URL, SERVER_URL } from "../model/models"
+import { FLASK_URL, SERVER_URL, User } from "../model/models"
 
 export const predictDiseaseAPI = (symptomsArr: Array<string>) => {
   let arr = [symptomsArr]
@@ -39,5 +39,16 @@ export const deletePatientsAPI = (patientsToBeDeleted: string[]) => {
     body: JSON.stringify(patientsToBeDeleted)
   }).then(response => {
     return response.status
+  })
+}
+
+export const savePatientAPI = (payload : { 'patient': User, 'doctorId': string }) => {
+  return fetch(`${SERVER_URL}/patient/new/${payload.doctorId}`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload.patient)
   })
 }

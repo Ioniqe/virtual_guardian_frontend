@@ -62,8 +62,8 @@ function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }
 
   let sendNewUser = (username: string, password: string,
     firstName: string, lastName: string, birthday: string,
-    gender: string, user: string, userCredentials: string): void => {
-    let newUser: SpecialUser = { username, password, firstname: firstName, lastname: lastName, birthday, gender, type: user, secretCredential: userCredentials };
+    gender: string, user?: string, userCredentials?: string): void => {
+    let newUser: SpecialUser = { username, password, firstname: firstName, lastname: lastName, birthday, gender, type: user as string, secretCredential: userCredentials as string};
     if (verifyAllFieldsArNotNull(newUser)) {
       saveNewUser(newUser);
     }
