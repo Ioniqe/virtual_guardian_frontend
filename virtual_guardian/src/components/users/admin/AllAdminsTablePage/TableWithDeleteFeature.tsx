@@ -220,12 +220,8 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
                 return (
                   <TableRow
                     hover
-                    // onClick={(event) => handleClick(event, row.username)}
-                    // role="checkbox"
-                    // aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={row.username}
-                    // selected={isItemSelected}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox

@@ -65,6 +65,7 @@ function PopupSignUp({ title, userType, sendNewUser, open, setOpen }: Props) {
   let handleSubmit = () => {
     if (verifyNullFields()) {
       userType === 'specialUser' && sendNewUser(username, password, firstName, lastName, birthday, gender, user, userCredentials);
+      userType === 'caregiver' && sendNewUser(username, password, firstName, lastName, birthday, gender);
       userType === 'patient' && sendNewUser(username, password, firstName, lastName, birthday, gender, address);
       setOpen(false);
       resetFields();

@@ -50,5 +50,7 @@ export const savePatientAPI = (payload : { 'patient': User, 'doctorId': string }
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload.patient)
+  }).then(response => {
+    return response.status
   })
 }

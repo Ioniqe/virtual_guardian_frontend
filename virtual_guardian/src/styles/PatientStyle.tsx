@@ -62,7 +62,7 @@ export const useStylesPatient = makeStyles(theme => ({
     color: theme.palette.primary.dark,
     marginLeft: 0,
   },
-  adminsTableStyle: {
+  patientsTableStyle: {
     margin: 150,
     marginLeft: 250,
     marginRight: 250,

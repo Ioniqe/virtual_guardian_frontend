@@ -85,7 +85,7 @@ export const deletePatientsFailure = (error: string) => {
   }
 }
 
-//---------------------------------------------  DELETE PATIENTS
+//---------------------------------------------  SAVE PATIENT
 export const savePatient = (newPatient: User, doctorId: string) => {
   return {
     type: SAVE_PATIENT,

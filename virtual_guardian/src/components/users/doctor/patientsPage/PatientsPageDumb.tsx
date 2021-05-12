@@ -49,7 +49,7 @@ function PatientsPageDumb({ patientList, deleteSelected, savePatient, doctorId }
         setOpen={setOpen}
       />
 
-      <Paper elevation={0} className={style.adminsTableStyle}>
+      <Paper elevation={0} className={style.patientsTableStyle}>
         <TableWithDeleteFeature
           data={patientList}
           title={'Your Patients'}

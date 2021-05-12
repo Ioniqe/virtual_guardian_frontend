@@ -74,10 +74,7 @@ function* savePatientAsync(props: Props) {
     yield put(savePatientRequest());
     const response: ResponseGenerator  = yield call(() => savePatientAPI(props.payload as { 'patient': User, 'doctorId': string }));
 
-    switch (response.status) {
-      case 404:
-        yield put(savePatientFailure("Credentials are invalid!"))
-        break;
+    switch (response) {
       case 500:
         yield put(savePatientFailure("Server has returned an error, please choose a unique username!"))
         break;
