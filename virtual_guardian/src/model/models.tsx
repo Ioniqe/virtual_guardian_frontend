@@ -1,4 +1,4 @@
-export const URL = 'http://localhost:8080';
+export const SERVER_URL = 'http://localhost:8080';
 export const FLASK_URL = 'http://localhost:5000';
 
 export interface LoginUser{

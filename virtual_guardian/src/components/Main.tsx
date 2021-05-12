@@ -10,9 +10,10 @@ import CaregiverHomeSmart from "./users/caregiver/CaregiverHomeSmart";
 import Navbar from "./navbar/Navbar";
 import { NavbarUserItems } from "./navbar/MenuItems";
 import AllAdminsTableSmart from "./users/admin/AllAdminsTablePage/AllAdminsTableSmart";
-import PatientAppointmentsSmart from "./users/patient/appointments/PatientAppointmentsSmart";
+import PatientAppointmentsSmart from "./users/patient/appointmentsPage/PatientAppointmentsSmart";
 import PatientHomeSmart from "./users/patient/home/PatientHomeSmart";
-import PatientTestForDiseaseSmart from "./users/patient/testForDisease/PatientTestForDiseaseSmart";
+import PatientTestForDiseaseSmart from "./users/patient/testForDiseasePage/PatientTestForDiseaseSmart";
+import PatientsPageSmart from "./users/doctor/patientsPage/PatientsPageSmart";
 
 
 interface Props {
@@ -38,6 +39,7 @@ function Main({ loginUser, removeUser }: Props) {
         <ProtectedRoute exact isAuthenticated={userType === 'admin'} path='/admin/list' component={AllAdminsTableSmart} removeUser={removeUser} />
         
         <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor' component={DoctorHomeSmart} removeUser={removeUser} />
+        <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor/patient/list'  component={() => <PatientsPageSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
 
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver' component={CaregiverHomeSmart} removeUser={removeUser} />
 

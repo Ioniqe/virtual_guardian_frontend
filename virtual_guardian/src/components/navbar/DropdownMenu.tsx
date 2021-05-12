@@ -20,8 +20,8 @@ function DropdownMenu({ user }: DropdownMenuProps) {
       menuItemsList.push({ title: 'View patient list', link: '/caregiver/patient/list' });
       break;
     case 'doctor':
-      menuItemsList.push({ title: 'Create new patient', link: '/doctor/create/patient' });
-      menuItemsList.push({ title: 'Create new caregiver', link: '/doctor/create/caregiver' });
+      // menuItemsList.push({ title: 'Create new patient', link: '/doctor/create/patient' });
+      // menuItemsList.push({ title: 'Create new caregiver', link: '/doctor/create/caregiver' });
       menuItemsList.push({ title: 'View patient list', link: '/doctor/patient/list' });
       menuItemsList.push({ title: 'View caregiver list', link: '/doctor/caregiver/list' });
       menuItemsList.push({ title: 'Assign caregiver to patient', link: '/doctor/caregiver/assign' });

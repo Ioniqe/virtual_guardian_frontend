@@ -1,7 +1,7 @@
 import { all } from "redux-saga/effects";
 import { deleteAdminsWatcher, getAdminsWatcher } from "../sagas/AdminSaga";
 import { loginUserWatcher } from "../sagas/LoginSaga";
-import { predictDiseaseWatcher } from "../sagas/PatientSaga";
+import { deletePatientsWatcher, getPatientsWatcher, predictDiseaseWatcher } from "../sagas/PatientSaga";
 import { registerUserWatcher } from "../sagas/RegisterSaga";
 
 export default function* rootSaga() {
@@ -11,6 +11,8 @@ export default function* rootSaga() {
     getAdminsWatcher(),
     deleteAdminsWatcher(),
     predictDiseaseWatcher(),
-
+    getPatientsWatcher(),
+    deletePatientsWatcher(),
+    
   ])
 }

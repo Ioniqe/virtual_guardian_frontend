@@ -58,10 +58,6 @@ export const NavbarUserItems = [
       //   url: '/doctor',
       // },
       {
-        title: 'Doctor',
-        url: '/doctor',
-      },
-      {
         title: `Patient's activities`,
         url: '/doctor/patient/activities',
       },
@@ -70,7 +66,7 @@ export const NavbarUserItems = [
         url: '/doctor/patient/appointments',
       },
       {
-        title: 'Common Medications',
+        title: 'Medications',
         url: '/doctor/medications/graph',
       },
     ]

@@ -61,6 +61,12 @@ export const useStylesPatient = makeStyles(theme => ({
   detailsStyle: {
     color: theme.palette.primary.dark,
     marginLeft: 0,
+  },
+  adminsTableStyle: {
+    margin: 150,
+    marginLeft: 200,
+    marginRight: 200,
+    overflow: 'scroll',
   }
 
 

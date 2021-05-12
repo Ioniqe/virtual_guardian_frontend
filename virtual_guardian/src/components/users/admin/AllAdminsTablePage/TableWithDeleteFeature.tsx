@@ -114,11 +114,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      // overflow: 'scrollable',
     },
     paper: {
       width: '100%',
-      // marginBottom: theme.spacing(2),
       height: '50px important',
     },
     table: {
@@ -135,17 +133,11 @@ let findUsersToBeDeleted = (userNames: string[], data: User[]): string[] => {
   return usersToBeDeleted;
 }
 
-// let generateNewAdminList = (deletedAdminsIds: string[], data: User[]): User[] => {
-//   let newAdminList = data.filter(item => deletedAdminsIds.indexOf(item.id) === -1 );
-//   return newAdminList;
-// }
-
 interface TableWithDeleteFeatureProps {
   data: User[],
   title: string,
   headers: string[],
   deleteSelected: (adminsToBeDeleted: string[]) => void,
-  // refreshList: (newAdminList: User[]) => void,
 }
 
 export default function TableWithDeleteFeature({ data, title, headers, deleteSelected }: TableWithDeleteFeatureProps) {
@@ -242,6 +234,7 @@ export default function TableWithDeleteFeature({ data, title, headers, deleteSel
                     <TableCell align="center">{row.password}</TableCell>
                     <TableCell align="center">{row.firstname}</TableCell>
                     <TableCell align="center">{row.lastname}</TableCell>
+                    { row.address && <TableCell align="center">{row.address}</TableCell>}
                     <TableCell align="center">{row.birthday}</TableCell>
                     <TableCell align="center">{row.gender}</TableCell>
                   </TableRow>
