@@ -55,6 +55,7 @@ function PatientsPageDumb({ patientList, deleteSelected, savePatient, doctorId }
           title={'Your Patients'}
           headers={headers}
           deleteSelected={deleteSelected}
+          userType={'patient'}
         />
       </Paper>
 

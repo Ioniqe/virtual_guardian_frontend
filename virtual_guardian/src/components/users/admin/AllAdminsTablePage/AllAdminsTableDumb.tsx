@@ -22,7 +22,7 @@ function AllAdminsTableDumb({ adminList, deleteSelected }: AllAdminsTableProps) 
           title={'All Administrators'}
           headers={headers}
           deleteSelected={deleteSelected}
-          // refreshList={ refreshList }
+          userType={'admin'}
         />
       </Paper>
     </>

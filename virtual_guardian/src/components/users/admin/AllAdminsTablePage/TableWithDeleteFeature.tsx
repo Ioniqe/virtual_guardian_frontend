@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { createStyles, lighten, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -16,6 +16,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { User } from '../../../../model/models';
 import AlertDialog from '../../../popups/Alert';
+
+import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
+import EditIcon from "@material-ui/icons/EditOutlined";
 
 interface EnhancedTableProps {
   numSelected: number;
@@ -35,7 +38,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-            // inputProps={{ 'aria-label': 'select all desserts' }} TODO vezi daca mai trebe asta
+          // inputProps={{ 'aria-label': 'select all desserts' }} TODO vezi daca mai trebe asta
           />
         </TableCell>
         {props.headers.map((header, index) => (
@@ -57,16 +60,16 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(1),
     },
-    highlight:
-      theme.palette.type === 'light'
-        ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-        : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+    // highlight:
+    //   theme.palette.type === 'light'
+    //     ? {
+    //       color: theme.palette.secondary.main,
+    //       backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+    //     }
+    //     : {
+    //       color: theme.palette.text.primary,
+    //       backgroundColor: theme.palette.secondary.dark,
+    //     },
     title: {
       flex: '1 1 100%',
     },
@@ -85,9 +88,9 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 
   return (
     <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
+      className={clsx(classes.root,
+        // { [classes.highlight]: numSelected > 0, }
+      )}
     >
       {numSelected > 0 ? (
         <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
@@ -137,10 +140,12 @@ interface TableWithDeleteFeatureProps {
   data: User[],
   title: string,
   headers: string[],
+  userType: string,
   deleteSelected: (adminsToBeDeleted: string[]) => void,
+  assignCaregiver?: (userId: string) => void
 }
 
-export default function TableWithDeleteFeature({ data, title, headers, deleteSelected }: TableWithDeleteFeatureProps) {
+export default function TableWithDeleteFeature({ data, title, headers, userType, deleteSelected, assignCaregiver }: TableWithDeleteFeatureProps) {
   const classes = useStyles();
   const [selected, setSelected] = React.useState<string[]>([]);
   const [open, setOpen] = React.useState(false);
@@ -215,17 +220,19 @@ export default function TableWithDeleteFeature({ data, title, headers, deleteSel
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.username)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
+                    // onClick={(event) => handleClick(event, row.username)}
+                    // role="checkbox"
+                    // aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={row.username}
-                    selected={isItemSelected}
+                    // selected={isItemSelected}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
                         checked={isItemSelected}
                         inputProps={{ 'aria-labelledby': labelId }}
+                        onClick={(event) => handleClick(event, row.username)}
+                        aria-checked={isItemSelected}
                       />
                     </TableCell>
                     <TableCell component="th" id={labelId} scope="row" padding="none" align="center">
@@ -237,6 +244,26 @@ export default function TableWithDeleteFeature({ data, title, headers, deleteSel
                     { row.address && <TableCell align="center">{row.address}</TableCell>}
                     <TableCell align="center">{row.birthday}</TableCell>
                     <TableCell align="center">{row.gender}</TableCell>
+                    {
+                      userType === 'patient' &&
+                      <TableCell align="center">
+                        <Tooltip title="Assign Caregiver">
+                          <IconButton aria-label="add_patient" onClick={() => (assignCaregiver && assignCaregiver(row.id))} >
+                            <PersonAddRoundedIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
+                    }
+                    { 
+                      (userType === 'patient' || userType === 'caregiver') &&
+                      <TableCell align="center">
+                        <Tooltip title="Edit">
+                          <IconButton aria-label="edit" onClick={() => (assignCaregiver && assignCaregiver(row.id))} >
+                            <EditIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
+                    }
                   </TableRow>
                 );
               })}

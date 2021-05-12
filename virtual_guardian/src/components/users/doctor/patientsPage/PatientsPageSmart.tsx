@@ -21,6 +21,10 @@ interface PatientsPageProps {
   },
 }
 
+//TODO see patient's diseases
+//TODO assign caregiver
+//TODO edit patient
+
 function PatientsPageSmart({ loggedUser, patientReducer, getAllPatientsList, deleteSelectedPatients, saveNewPatient }: PatientsPageProps) {
 
   const [openSuccess, setOpenSuccess] = useState(false);
