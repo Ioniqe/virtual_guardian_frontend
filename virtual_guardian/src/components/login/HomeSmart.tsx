@@ -112,7 +112,6 @@ function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }
       case 'doctor':
         return <Redirect push to="/doctor" />
       default:
-        // console.error('user type not recognized');
         return <Redirect push to="/" />
     }
   }

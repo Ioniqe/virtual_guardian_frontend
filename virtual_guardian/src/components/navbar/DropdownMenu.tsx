@@ -14,14 +14,11 @@ function DropdownMenu({ user }: DropdownMenuProps) {
   switch (user) {
     case 'admin':
       menuItemsList.push({ title: 'View admin list', link: '/admin/list' });
-      // menuItemsList.push({ title: 'Add special credentials', link: '/admin/special_credentials' });
       break;
     case 'caregiver':
       menuItemsList.push({ title: 'View patient list', link: '/caregiver/patient/list' });
       break;
     case 'doctor':
-      // menuItemsList.push({ title: 'Create new patient', link: '/doctor/create/patient' });
-      // menuItemsList.push({ title: 'Create new caregiver', link: '/doctor/create/caregiver' });
       menuItemsList.push({ title: 'View patient list', link: '/doctor/patient/list' });
       menuItemsList.push({ title: 'View caregiver list', link: '/doctor/caregiver/list' });
       menuItemsList.push({ title: 'Assign caregiver to patient', link: '/doctor/caregiver/assign' });

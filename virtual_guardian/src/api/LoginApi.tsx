@@ -18,5 +18,3 @@ export const loginUserAPI = (user: LoginUser) => {
     })
 
 }
-
-// Promise.resolve(

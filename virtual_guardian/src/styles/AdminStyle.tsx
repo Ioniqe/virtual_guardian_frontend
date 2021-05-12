@@ -6,10 +6,5 @@ export const useStylesAdmin = makeStyles(theme => ({
     marginLeft: 200,
     marginRight: 200,
     overflow: 'scroll',
-    // '*::-webkit-scrollbar': {
-    //   visibility: 'visible',
-    //   width: '5px',
-    //   scrollbarColor: 'red'
-    // },
   }
 }));

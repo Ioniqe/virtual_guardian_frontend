@@ -51,11 +51,6 @@ export const useStylesNavbar = makeStyles(theme => ({
     color: `${theme.palette.primary.dark}`,
     textDecoration: 'none',
     textTransform: 'capitalize',
-    // transition: '0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-    // '&:hover': {
-    //   borderRadius: '1.1rem',
-    //   border: `solid 1px ${theme.palette.primary.main}`,
-    // },
   },
   menuItemStyle: {
     width: '100%',

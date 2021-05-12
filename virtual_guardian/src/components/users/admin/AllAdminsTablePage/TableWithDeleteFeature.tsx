@@ -19,6 +19,7 @@ import AlertDialog from '../../../popups/Alert';
 
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import EditIcon from "@material-ui/icons/EditOutlined";
+import ListIcon from '@material-ui/icons/List';
 
 interface EnhancedTableProps {
   numSelected: number;
@@ -38,7 +39,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
-          // inputProps={{ 'aria-label': 'select all desserts' }} TODO vezi daca mai trebe asta
           />
         </TableCell>
         {props.headers.map((header, index) => (
@@ -60,16 +60,6 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(1),
     },
-    // highlight:
-    //   theme.palette.type === 'light'
-    //     ? {
-    //       color: theme.palette.secondary.main,
-    //       backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-    //     }
-    //     : {
-    //       color: theme.palette.text.primary,
-    //       backgroundColor: theme.palette.secondary.dark,
-    //     },
     title: {
       flex: '1 1 100%',
     },
@@ -89,7 +79,6 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   return (
     <Toolbar
       className={clsx(classes.root,
-        // { [classes.highlight]: numSelected > 0, }
       )}
     >
       {numSelected > 0 ? (
@@ -142,10 +131,11 @@ interface TableWithDeleteFeatureProps {
   headers: string[],
   userType: string,
   deleteSelected: (adminsToBeDeleted: string[]) => void,
-  assignCaregiver?: (userId: string) => void
+  assignCaregiver?: (userId: string) => void,
+  displayDiseases?: (userId: string) => void,
 }
 
-export default function TableWithDeleteFeature({ data, title, headers, userType, deleteSelected, assignCaregiver }: TableWithDeleteFeatureProps) {
+export default function TableWithDeleteFeature({ data, title, headers, userType, deleteSelected, assignCaregiver, displayDiseases }: TableWithDeleteFeatureProps) {
   const classes = useStyles();
   const [selected, setSelected] = React.useState<string[]>([]);
   const [open, setOpen] = React.useState(false);
@@ -250,12 +240,22 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
                         </Tooltip>
                       </TableCell>
                     }
-                    { 
+                    {
                       (userType === 'patient' || userType === 'caregiver') &&
                       <TableCell align="center">
                         <Tooltip title="Edit">
                           <IconButton aria-label="edit" onClick={() => (assignCaregiver && assignCaregiver(row.id))} >
                             <EditIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
+                    }
+                    {
+                      (userType === 'patient' || userType === 'caregiver') &&
+                      <TableCell align="center">
+                        <Tooltip title="Diseases">
+                          <IconButton aria-label="diseases" onClick={() => (displayDiseases && displayDiseases(row.id))} >
+                            <ListIcon />
                           </IconButton>
                         </Tooltip>
                       </TableCell>

@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core";
 export const useStylesPatient = makeStyles(theme => ({
   basicButton: {
     marginTop: '32em',
-    // marginRight: '15em',
     fontFamily: 'Arial',
     fontSize: '1rem',
     padding: '.3rem 2rem',
