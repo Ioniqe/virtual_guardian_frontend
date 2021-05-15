@@ -32,9 +32,9 @@ function Navbar({ removeUser, userItems }: NavbarProps) {
         <h1 className={style.navbarTitle} onClick={() => history.push(`/${userItems.user}`)}>Virtual Guardian</h1>
 
         <ul className={`${style.visibleStyle}`}>
-          <NavItem user={userItems.user}>
+          {/* <NavItem user={userItems.user}>
             <DropdownMenu user={userItems.user} />
-          </NavItem>
+          </NavItem> */}
           {
             userItems.items.map((item, index) => {
               return (

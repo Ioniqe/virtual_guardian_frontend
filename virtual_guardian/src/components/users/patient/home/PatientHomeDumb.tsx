@@ -60,14 +60,14 @@ function PatientHomeDumb({ loggedUser }: PatientHomeDumbProps) {
 
         <div style={{ position: 'absolute', marginTop: '70em', marginLeft: '45em', transform: `translateY(${offsetY * 0.2}px)`  }}>
           <UserDetailsPage loggedUser={loggedUser} />
-          {/* <Typography  variant="h4" className={style.detailsStyle}>Firstname   { loggedUser.firstname }</Typography>
-          <Typography variant="h4" className={style.detailsStyle}>Lastname     { loggedUser.lastname }</Typography> */}
         </div>
 
         <img alt="foreground" src={foreground} style={{ position: 'absolute', left: 0, transform: `translateY(-${offsetY * 1.4}px)` }} />
 
         <Button className={style.basicButton} variant='outlined' onClick={scrollToBottom}>Account details</Button>
         <Button style={{ position: 'fixed' }} className={style.emergencyButton} variant='outlined' onClick={handleEmergencyEvent}>Emergency!</Button>
+
+        {/* TODO add fixed button for scrolling up */}
 
       </div>
     </>

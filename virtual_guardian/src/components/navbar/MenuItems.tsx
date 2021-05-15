@@ -2,6 +2,10 @@ export const NavbarUserItems = [
   {
     user: 'admin', items: [
       {
+        title: 'Admin List',
+        url: '/admin/list',
+      },
+      {
         title: 'Experiments',
         url: '/admin/experiments',
       },
@@ -26,6 +30,10 @@ export const NavbarUserItems = [
   {
     user: 'caregiver', items: [
       {
+        title: 'Patients List',
+        url: '/caregiver/patient/list',
+      },
+      {
         title: 'Patient Appointments',
         url: '/caregiver/patient/appointments',
       },
@@ -41,6 +49,14 @@ export const NavbarUserItems = [
   },
   {
     user: 'doctor', items: [
+      {
+        title: 'Patients List',
+        url: '/doctor/patient/list',
+      },
+      {
+        title: 'Caregivers List',
+        url: '/doctor/caregiver/list',
+      },
       {
         title: `Patient's activities`,
         url: '/doctor/patient/activities',
