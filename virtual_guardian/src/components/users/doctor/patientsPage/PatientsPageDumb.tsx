@@ -12,9 +12,13 @@ interface PatientsPageDumbProps {
   doctorId: string,
   deleteSelected: (patientsToBeDeleted: string[]) => void,
   savePatient: (newPatient: User, doctorId: string) => void,
+  saveEditedPatient: (editedUser: User) => void
 }
 
-function PatientsPageDumb({ patientList, deleteSelected, savePatient, doctorId }: PatientsPageDumbProps) {
+//TODO add disease, remove disease
+//TODO modify add button
+
+function PatientsPageDumb({ patientList, deleteSelected, savePatient, doctorId, saveEditedPatient }: PatientsPageDumbProps) {
   let style = useStylesPatient();
 
   const [open, setOpen] = useState(false);
@@ -56,6 +60,7 @@ function PatientsPageDumb({ patientList, deleteSelected, savePatient, doctorId }
           headers={headers}
           deleteSelected={deleteSelected}
           userType={'patient'}
+          saveUser={ saveEditedPatient }
         />
       </Paper>
 

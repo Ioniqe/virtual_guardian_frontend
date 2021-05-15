@@ -54,3 +54,16 @@ export const savePatientAPI = (payload : { 'patient': User, 'doctorId': string }
     return response.status
   })
 }
+
+export const updatePatientAPI = (payload : User) => {
+  return fetch(`${SERVER_URL}/patient/update`, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload)
+  }).then(response => {
+    return response.status
+  })
+}

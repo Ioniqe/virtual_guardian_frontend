@@ -1,8 +1,8 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
-import { deleteCaregiversFailure, deleteCaregiversRequest, deleteCaregiversSuccess, getCaregiversListFailure, getCaregiversListRequest, getCaregiversListSuccess, saveCaregiverFailure, saveCaregiverRequest, saveCaregiversuccess } from "../actions/CaregiverAction";
-import { deleteCaregiversAPI, getCaregiversAPI, saveCaregiverAPI } from "../api/CaregiverApi";
+import { deleteCaregiversFailure, deleteCaregiversRequest, deleteCaregiversSuccess, getCaregiversListFailure, getCaregiversListRequest, getCaregiversListSuccess, saveCaregiverFailure, saveCaregiverRequest, saveCaregiversuccess, updateCaregiverFailure, updateCaregiverRequest, updateCaregiversuccess } from "../actions/CaregiverAction";
+import { deleteCaregiversAPI, getCaregiversAPI, saveCaregiverAPI, updateCaregiverAPI } from "../api/CaregiverApi";
 import { User } from "../model/models";
-import { DELETE_CAREGIVERS, GET_CAREGIVERS_LIST, SAVE_CAREGIVER } from "../types/CaregiverTypes";
+import { DELETE_CAREGIVERS, GET_CAREGIVERS_LIST, SAVE_CAREGIVER, UPDATE_CAREGIVER } from "../types/CaregiverTypes";
 
 interface Props {
   type: string,
@@ -63,7 +63,7 @@ function* saveCaregiverAsync(props: Props) {
 
     switch (response) {
       case 500:
-        yield put(saveCaregiverFailure("Server has returned an error, please choose a unique username!"))
+        yield put(saveCaregiverFailure("Server has returned an error!"))
         break;
       case 201:
         yield put(saveCaregiversuccess())
@@ -79,4 +79,33 @@ function* saveCaregiverAsync(props: Props) {
 
 export function* saveCaregiverWatcher() {
   yield takeLatest(SAVE_CAREGIVER, saveCaregiverAsync)
+}
+
+function* updateCaregiverAsync(props: Props) {
+  try {
+    yield put(updateCaregiverRequest());
+
+    const response: ResponseGenerator  = yield call(() => updateCaregiverAPI(props.payload as User));
+
+    switch (response) {
+      case 500:
+        yield put(updateCaregiverFailure("Server has returned an error!"))
+        break;
+      case 404:
+        yield put(updateCaregiverFailure("The caregiver to be updated was not found!"))
+        break;
+      case 200:
+        yield put(updateCaregiversuccess())
+        break;
+      default:
+        console.error('In updateCaregiverAsync, response status unrecognized');
+    }
+
+  } catch (e) {
+    yield put(updateCaregiverFailure("An unexpected error has occured!"))
+  }
+}
+
+export function* updateCaregiverWatcher() {
+  yield takeLatest(UPDATE_CAREGIVER, updateCaregiverAsync)
 }

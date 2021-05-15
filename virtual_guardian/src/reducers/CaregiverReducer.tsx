@@ -1,5 +1,5 @@
 import { User } from "../model/models"
-import { DELETE_CAREGIVERS_FAILURE, DELETE_CAREGIVERS_REQUEST, DELETE_CAREGIVERS_SUCCESS, GET_CAREGIVERS_LIST_FAILURE, GET_CAREGIVERS_LIST_REQUEST, GET_CAREGIVERS_LIST_SUCCESS, SAVE_CAREGIVER_FAILURE, SAVE_CAREGIVER_REQUEST, SAVE_CAREGIVER_SUCCESS } from "../types/CaregiverTypes"
+import { DELETE_CAREGIVERS_FAILURE, DELETE_CAREGIVERS_REQUEST, DELETE_CAREGIVERS_SUCCESS, GET_CAREGIVERS_LIST_FAILURE, GET_CAREGIVERS_LIST_REQUEST, GET_CAREGIVERS_LIST_SUCCESS, SAVE_CAREGIVER_FAILURE, SAVE_CAREGIVER_REQUEST, SAVE_CAREGIVER_SUCCESS, UPDATE_CAREGIVER_FAILURE, UPDATE_CAREGIVER_REQUEST, UPDATE_CAREGIVER_SUCCESS } from "../types/CaregiverTypes"
 
 export interface CaregiverState {
   loading: boolean,
@@ -7,6 +7,7 @@ export interface CaregiverState {
   error: string,
   deleteSuccessful: boolean,
   saveSuccessful: boolean,
+  updateSuccessful: boolean,
 }
 
 const initialState: CaregiverState = {
@@ -14,7 +15,8 @@ const initialState: CaregiverState = {
   error: '',
   caregiversSuccess: [],
   deleteSuccessful: false,
-  saveSuccessful: false
+  saveSuccessful: false,
+  updateSuccessful: false,
 }
 
 const caregiverReducer = (state = initialState, action: { type: string, payload: string | User[] }) => {
@@ -69,6 +71,24 @@ const caregiverReducer = (state = initialState, action: { type: string, payload:
         saveSuccessful: true,
       }
     case SAVE_CAREGIVER_FAILURE:
+      return {
+        ...initialState,
+        loading: false,
+        error: action.payload as string
+      }
+    case UPDATE_CAREGIVER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      }
+    case UPDATE_CAREGIVER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: '',
+        updateSuccessful: true,
+      }
+    case UPDATE_CAREGIVER_FAILURE:
       return {
         ...initialState,
         loading: false,

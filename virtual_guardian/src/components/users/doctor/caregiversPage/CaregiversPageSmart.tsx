@@ -2,7 +2,7 @@ import { CircularProgress, Snackbar } from "@material-ui/core"; //TODO modifica 
 import Alert from "@material-ui/lab/Alert"; 
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { deleteCaregivers, getCaregiversList, saveCaregiver } from "../../../../actions/CaregiverAction";
+import { deleteCaregivers, getCaregiversList, saveCaregiver, updateCaregiver } from "../../../../actions/CaregiverAction";
 import { User } from "../../../../model/models";
 import CaregiversPageDumb from "./CaregiversPageDumb";
 
@@ -12,18 +12,20 @@ interface CaregiversPageProps {
   getAllCaregiversList: () => void,
   deleteSelectedCaregivers: (caregiversToBeDeleted: string[]) => void,
   saveNewCaregiver: (newCaregiver: User) => void,
+  saveEditedCaregiver: (newCaregiver: User) => void,
   caregiverReducer: {
     loading: boolean,
     caregiversSuccess: User[],
     error: string,
     deleteSuccessful: boolean,
     saveSuccessful: boolean,
+    updateSuccessful: boolean,
   },
 }
 
 //TODO edit caregiver
 
-function CaregiversPageSmart({ loggedUser, caregiverReducer, getAllCaregiversList, deleteSelectedCaregivers, saveNewCaregiver }: CaregiversPageProps) {
+function CaregiversPageSmart({ loggedUser, caregiverReducer, getAllCaregiversList, deleteSelectedCaregivers, saveNewCaregiver, saveEditedCaregiver }: CaregiversPageProps) {
 
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -74,6 +76,14 @@ function CaregiversPageSmart({ loggedUser, caregiverReducer, getAllCaregiversLis
     }
   }, [caregiverReducer.saveSuccessful, getAllCaregiversList, loggedUser.id]);
 
+  useEffect(() => {
+    if (caregiverReducer.updateSuccessful) {
+      getAllCaregiversList();
+      setMessage('Updated successfully!');
+      setOpenSuccess(true);
+    }
+  }, [caregiverReducer.updateSuccessful, getAllCaregiversList, loggedUser.id]);
+
   return (
     <>
       <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleClose}>
@@ -88,6 +98,7 @@ function CaregiversPageSmart({ loggedUser, caregiverReducer, getAllCaregiversLis
         caregiverList={caregiverList}
         deleteSelected={deleteSelectedCaregivers}
         saveCaregiver={saveNewCaregiver}
+        saveEditedCaregiver={ saveEditedCaregiver }
       />
 
       {loading && <CircularProgress />}
@@ -106,6 +117,7 @@ const mapDispatchToProps = (dispatch: any) => {
     getAllCaregiversList: () => dispatch(getCaregiversList()),
     deleteSelectedCaregivers: (caregiversToBeDeleted: string[]) => dispatch(deleteCaregivers(caregiversToBeDeleted)),
     saveNewCaregiver: (newCaregiver: User) => dispatch(saveCaregiver(newCaregiver)),
+    saveEditedCaregiver: (editedCaregiver: User) => dispatch(updateCaregiver(editedCaregiver)),
   }
 }
 

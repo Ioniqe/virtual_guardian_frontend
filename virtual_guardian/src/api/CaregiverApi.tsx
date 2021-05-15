@@ -36,3 +36,16 @@ export const saveCaregiverAPI = (newCaregiver: User) => {
     return response.status
   })
 }
+
+export const updateCaregiverAPI = (editedCaregiver: User) => {
+  return fetch(`${SERVER_URL}/caregiver/update`, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(editedCaregiver)
+  }).then(response => {
+    return response.status
+  })
+}

@@ -1,5 +1,5 @@
 import { User } from "../model/models"
-import { DELETE_PATIENTS_FAILURE, DELETE_PATIENTS_REQUEST, DELETE_PATIENTS_SUCCESS, GET_PATIENTS_LIST_FAILURE, GET_PATIENTS_LIST_REQUEST, GET_PATIENTS_LIST_SUCCESS, PREDICT_DISEASE_FAILURE, PREDICT_DISEASE_REQUEST, PREDICT_DISEASE_SUCCESS, SAVE_PATIENT_FAILURE, SAVE_PATIENT_REQUEST, SAVE_PATIENT_SUCCESS } from "../types/PatientTypes"
+import { DELETE_PATIENTS_FAILURE, DELETE_PATIENTS_REQUEST, DELETE_PATIENTS_SUCCESS, GET_PATIENTS_LIST_FAILURE, GET_PATIENTS_LIST_REQUEST, GET_PATIENTS_LIST_SUCCESS, PREDICT_DISEASE_FAILURE, PREDICT_DISEASE_REQUEST, PREDICT_DISEASE_SUCCESS, SAVE_PATIENT_FAILURE, SAVE_PATIENT_REQUEST, SAVE_PATIENT_SUCCESS, UPDATE_PATIENT_FAILURE, UPDATE_PATIENT_REQUEST, UPDATE_PATIENT_SUCCESS } from "../types/PatientTypes"
 
 export interface PatientState {
   loading: boolean,
@@ -8,6 +8,7 @@ export interface PatientState {
   error: string,
   deleteSuccessful: boolean,
   saveSuccessful: boolean,
+  updateSuccessful: boolean,
 }
 
 const initialState: PatientState = {
@@ -16,7 +17,8 @@ const initialState: PatientState = {
   error: '',
   patientsSuccess: [],
   deleteSuccessful: false,
-  saveSuccessful: false
+  saveSuccessful: false,
+  updateSuccessful: false,
 }
 
 const patientReducer = (state = initialState, action: { type: string, payload: string | User[] }) => {
@@ -88,6 +90,24 @@ const patientReducer = (state = initialState, action: { type: string, payload: s
           saveSuccessful: true,
         }
       case SAVE_PATIENT_FAILURE:
+        return {
+          ...initialState,
+          loading: false,
+          error: action.payload as string
+        }
+      case UPDATE_PATIENT_REQUEST:
+        return {
+          ...state,
+          loading: true,
+        }
+      case UPDATE_PATIENT_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          error: '',
+          updateSuccessful: true,
+        }
+      case UPDATE_PATIENT_FAILURE:
         return {
           ...initialState,
           loading: false,

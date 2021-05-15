@@ -1,5 +1,5 @@
 import { User } from "../model/models"
-import { DELETE_CAREGIVERS, DELETE_CAREGIVERS_FAILURE, DELETE_CAREGIVERS_REQUEST, DELETE_CAREGIVERS_SUCCESS, GET_CAREGIVERS_LIST, GET_CAREGIVERS_LIST_FAILURE, GET_CAREGIVERS_LIST_REQUEST, GET_CAREGIVERS_LIST_SUCCESS, SAVE_CAREGIVER, SAVE_CAREGIVER_FAILURE, SAVE_CAREGIVER_REQUEST, SAVE_CAREGIVER_SUCCESS } from "../types/CaregiverTypes"
+import { DELETE_CAREGIVERS, DELETE_CAREGIVERS_FAILURE, DELETE_CAREGIVERS_REQUEST, DELETE_CAREGIVERS_SUCCESS, GET_CAREGIVERS_LIST, GET_CAREGIVERS_LIST_FAILURE, GET_CAREGIVERS_LIST_REQUEST, GET_CAREGIVERS_LIST_SUCCESS, SAVE_CAREGIVER, SAVE_CAREGIVER_FAILURE, SAVE_CAREGIVER_REQUEST, SAVE_CAREGIVER_SUCCESS, UPDATE_CAREGIVER, UPDATE_CAREGIVER_FAILURE, UPDATE_CAREGIVER_REQUEST, UPDATE_CAREGIVER_SUCCESS } from "../types/CaregiverTypes"
 
 //--------------------------------------------- FETCH Caregivers
 export const getCaregiversList = () => {
@@ -57,7 +57,6 @@ export const deleteCaregiversFailure = (error: string) => {
 
 //---------------------------------------------  SAVE Caregivers
 export const saveCaregiver = (newCaregiver: User) => {
-  console.log(newCaregiver);
   return {
     type: SAVE_CAREGIVER,
     payload: newCaregiver,
@@ -79,6 +78,33 @@ export const saveCaregiversuccess = () => {
 export const saveCaregiverFailure = (error: string) => {
   return {
     type: SAVE_CAREGIVER_FAILURE,
+    payload: error
+  }
+}
+
+//---------------------------------------------  UPDATE Caregivers
+export const updateCaregiver = (editedCaregiver: User) => {
+  return {
+    type: UPDATE_CAREGIVER,
+    payload: editedCaregiver,
+  }
+}
+
+export const updateCaregiverRequest = () => {
+  return {
+    type: UPDATE_CAREGIVER_REQUEST,
+  }
+}
+
+export const updateCaregiversuccess = () => {
+  return {
+    type: UPDATE_CAREGIVER_SUCCESS,
+  }
+}
+
+export const updateCaregiverFailure = (error: string) => {
+  return {
+    type: UPDATE_CAREGIVER_FAILURE,
     payload: error
   }
 }

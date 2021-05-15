@@ -11,9 +11,10 @@ interface CaregiversPageDumbProps {
   caregiverList: User[],
   deleteSelected: (caregiversToBeDeleted: string[]) => void,
   saveCaregiver: (newCaregiver: User) => void,
+  saveEditedCaregiver: (editedCaregiver: User) => void,
 }
 
-function CaregiversPageDumb({ caregiverList, deleteSelected, saveCaregiver}: CaregiversPageDumbProps) {
+function CaregiversPageDumb({ caregiverList, deleteSelected, saveCaregiver, saveEditedCaregiver}: CaregiversPageDumbProps) {
   let style = useStylesCaregiver();
 
   const [open, setOpen] = useState(false);
@@ -48,6 +49,7 @@ function CaregiversPageDumb({ caregiverList, deleteSelected, saveCaregiver}: Car
         setOpen={setOpen}
       />
 
+      {/* TODO create updateCaregiver */}
       <Paper elevation={0} className={style.caregiversTableStyle}>
         <TableWithDeleteFeature
           data={caregiverList}
@@ -55,6 +57,7 @@ function CaregiversPageDumb({ caregiverList, deleteSelected, saveCaregiver}: Car
           headers={headers}
           deleteSelected={deleteSelected}
           userType={'caregiver'}
+          saveUser={ saveEditedCaregiver }
         />
       </Paper>
 

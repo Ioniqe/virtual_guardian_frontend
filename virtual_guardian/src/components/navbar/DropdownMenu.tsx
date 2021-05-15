@@ -21,7 +21,6 @@ function DropdownMenu({ user }: DropdownMenuProps) {
     case 'doctor':
       menuItemsList.push({ title: 'View patient list', link: '/doctor/patient/list' });
       menuItemsList.push({ title: 'View caregiver list', link: '/doctor/caregiver/list' });
-      menuItemsList.push({ title: 'Assign caregiver to patient', link: '/doctor/caregiver/assign' });
       break;
     default:
       console.error('Error, dropdown menu could not identify user type');

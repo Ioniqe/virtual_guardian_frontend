@@ -2,7 +2,7 @@ import { CircularProgress, Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { deletePatients, getPatientsList, savePatient } from "../../../../actions/PatientAction";
+import { deletePatients, getPatientsList, savePatient, updatePatient } from "../../../../actions/PatientAction";
 import { User } from "../../../../model/models";
 import PatientsPageDumb from "./PatientsPageDumb";
 
@@ -12,12 +12,14 @@ interface PatientsPageProps {
   getAllPatientsList: (doctorId: string) => void,
   deleteSelectedPatients: (patientsToBeDeleted: string[]) => void,
   saveNewPatient: (newPatient: User, doctorId: string) => void,
+  saveEditedPatient: (editedPatient: User) => void,
   patientReducer: {
     loading: boolean,
     patientsSuccess: User[],
     error: string,
     deleteSuccessful: boolean,
     saveSuccessful: boolean,
+    updateSuccessful: boolean,
   },
 }
 
@@ -25,7 +27,7 @@ interface PatientsPageProps {
 //TODO assign caregiver
 //TODO edit patient
 
-function PatientsPageSmart({ loggedUser, patientReducer, getAllPatientsList, deleteSelectedPatients, saveNewPatient }: PatientsPageProps) {
+function PatientsPageSmart({ loggedUser, patientReducer, getAllPatientsList, deleteSelectedPatients, saveNewPatient, saveEditedPatient }: PatientsPageProps) {
 
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -76,6 +78,14 @@ function PatientsPageSmart({ loggedUser, patientReducer, getAllPatientsList, del
     }
   }, [patientReducer.saveSuccessful, getAllPatientsList, loggedUser.id]);
 
+  useEffect(() => {
+    if (patientReducer.updateSuccessful) {
+      getAllPatientsList(loggedUser.id);
+      setMessage('Updated successfully!');
+      setOpenSuccess(true);
+    }
+  }, [patientReducer.updateSuccessful, getAllPatientsList, loggedUser.id]);
+
   return (
     <>
       <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleClose}>
@@ -91,6 +101,7 @@ function PatientsPageSmart({ loggedUser, patientReducer, getAllPatientsList, del
         deleteSelected={deleteSelectedPatients}
         savePatient={saveNewPatient}
         doctorId={loggedUser.id}
+        saveEditedPatient={ saveEditedPatient }
       />
 
       {loading && <CircularProgress />}
@@ -109,6 +120,7 @@ const mapDispatchToProps = (dispatch: any) => {
     getAllPatientsList: (doctorId: string) => dispatch(getPatientsList(doctorId)),
     deleteSelectedPatients: (patientsToBeDeleted: string[]) => dispatch(deletePatients(patientsToBeDeleted)),
     saveNewPatient: (newPatient: User, doctorId: string) => dispatch(savePatient(newPatient, doctorId)),
+    saveEditedPatient: (editedPatient: User) => dispatch(updatePatient(editedPatient)),
   }
 }
 

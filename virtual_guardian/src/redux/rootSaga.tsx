@@ -1,8 +1,8 @@
 import { all } from "redux-saga/effects";
 import { deleteAdminsWatcher, getAdminsWatcher } from "../sagas/AdminSaga";
-import { deleteCaregiversWatcher, getCaregiversWatcher, saveCaregiverWatcher } from "../sagas/CaregiverSaga";
+import { deleteCaregiversWatcher, getCaregiversWatcher, saveCaregiverWatcher, updateCaregiverWatcher } from "../sagas/CaregiverSaga";
 import { loginUserWatcher } from "../sagas/LoginSaga";
-import { deletePatientsWatcher, getPatientsWatcher, predictDiseaseWatcher, savePatientWatcher } from "../sagas/PatientSaga";
+import { deletePatientsWatcher, getPatientsWatcher, predictDiseaseWatcher, savePatientWatcher, updatePatientWatcher } from "../sagas/PatientSaga";
 import { registerUserWatcher } from "../sagas/RegisterSaga";
 
 export default function* rootSaga() {
@@ -18,6 +18,8 @@ export default function* rootSaga() {
     getCaregiversWatcher(),
     saveCaregiverWatcher(),
     deleteCaregiversWatcher(),
-
+    updatePatientWatcher(),
+    updateCaregiverWatcher(),
+    
   ])
 }

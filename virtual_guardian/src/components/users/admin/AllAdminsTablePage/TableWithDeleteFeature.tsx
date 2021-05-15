@@ -20,6 +20,9 @@ import AlertDialog from '../../../popups/Alert';
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import EditIcon from "@material-ui/icons/EditOutlined";
 import ListIcon from '@material-ui/icons/List';
+import { TextField } from '@material-ui/core';
+import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
+import RevertIcon from "@material-ui/icons/NotInterestedOutlined";
 
 interface EnhancedTableProps {
   numSelected: number;
@@ -133,12 +136,20 @@ interface TableWithDeleteFeatureProps {
   deleteSelected: (adminsToBeDeleted: string[]) => void,
   assignCaregiver?: (userId: string) => void,
   displayDiseases?: (userId: string) => void,
+  saveUser?: (editedUser: User) => void
 }
 
-export default function TableWithDeleteFeature({ data, title, headers, userType, deleteSelected, assignCaregiver, displayDiseases }: TableWithDeleteFeatureProps) {
+export default function TableWithDeleteFeature({ data, title, headers, userType, deleteSelected, assignCaregiver, displayDiseases, saveUser }: TableWithDeleteFeatureProps) {
   const classes = useStyles();
   const [selected, setSelected] = React.useState<string[]>([]);
   const [open, setOpen] = React.useState(false);
+
+  const [rowEdited, setRowEdited] = React.useState(-1);
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [firstname, setFirstname] = React.useState('');
+  const [lastname, setLastname] = React.useState('');
+  const [address, setAddress] = React.useState('');
 
   const rowsPerPage = 10;
 
@@ -185,6 +196,49 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length);
 
+  let editUser = (index: number): void => {
+    console.log('Editing:')
+    console.log(data[index])
+    setRowEdited(index)
+    setUsername(data[index].username)
+    setPassword(data[index].password)
+    setFirstname(data[index].firstname)
+    setLastname(data[index].lastname)
+    data[index].address && setAddress(data[index].address as string)
+  }
+
+  let onSaveEdited = (index: number) => {
+
+    let editedUser = data[index]
+    editedUser.username = username
+    editedUser.password = password
+    editedUser.firstname = firstname
+    editedUser.lastname = lastname
+    editedUser.address && (editedUser.address = address)
+    console.log('User to save:')
+    console.log(editedUser)
+
+    saveUser && saveUser(editedUser)
+
+    data[index] = editedUser
+
+    setUsername('')
+    setPassword('')
+    setFirstname('')
+    setLastname('')
+    setAddress('')
+    setRowEdited(-1)
+  }
+
+  let onRevert = (): void => {
+    setUsername('')
+    setPassword('')
+    setFirstname('')
+    setLastname('')
+    setAddress('')
+    setRowEdited(-1)
+  }
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -214,24 +268,84 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
                     key={row.username}
                   >
                     <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={isItemSelected}
-                        inputProps={{ 'aria-labelledby': labelId }}
-                        onClick={(event) => handleClick(event, row.username)}
-                        aria-checked={isItemSelected}
-                      />
+                      {rowEdited !== index &&
+                        <Checkbox
+                          checked={isItemSelected}
+                          inputProps={{ 'aria-labelledby': labelId }}
+                          onClick={(event) => handleClick(event, row.username)}
+                          aria-checked={isItemSelected}
+                        />
+                      }
                     </TableCell>
                     <TableCell component="th" id={labelId} scope="row" padding="none" align="center">
-                      {row.username}
+                      {/* {row.username} */}
+                      {
+                        rowEdited === index ?
+                          <TextField
+                            id="username"
+                            autoComplete='off'
+                            value={username}
+                            onChange={e => { setUsername(e.target.value) }}
+                            style={{ width: '60%' }}
+                          /> : row.username
+                      }
                     </TableCell>
-                    <TableCell align="center">{row.password}</TableCell>
-                    <TableCell align="center">{row.firstname}</TableCell>
-                    <TableCell align="center">{row.lastname}</TableCell>
-                    { row.address && <TableCell align="center">{row.address}</TableCell>}
+                    <TableCell align="center">
+                      {/* {row.password} */}
+                      {
+                        rowEdited === index ?
+                          <TextField
+                            id="password"
+                            autoComplete='off'
+                            value={password}
+                            onChange={e => { setPassword(e.target.value) }}
+                            style={{ width: '60%' }}
+                          /> : row.password
+                      }
+                    </TableCell>
+                    <TableCell align="center">
+                      {/* {row.firstname} */}
+                      {
+                        rowEdited === index ?
+                          <TextField
+                            id="firstname"
+                            autoComplete='off'
+                            value={firstname}
+                            onChange={e => { setFirstname(e.target.value) }}
+                            style={{ width: '60%' }}
+                          /> : row.firstname
+                      }
+                    </TableCell>
+                    <TableCell align="center">
+                      {/* {row.lastname} */}
+                      {
+                        rowEdited === index ?
+                          <TextField
+                            id="lastname"
+                            autoComplete='off'
+                            value={lastname}
+                            onChange={e => { setLastname(e.target.value) }}
+                            style={{ width: '60%' }}
+                          /> : row.lastname
+                      }
+                    </TableCell>
+                    { row.address && <TableCell align="center">
+                      {/* {row.address} */}
+                      {
+                        rowEdited === index ?
+                          <TextField
+                            id="address"
+                            autoComplete='off'
+                            value={address}
+                            onChange={e => { setAddress(e.target.value) }}
+                            style={{ width: '60%' }}
+                          /> : row.address
+                      }
+                    </TableCell>}
                     <TableCell align="center">{row.birthday}</TableCell>
                     <TableCell align="center">{row.gender}</TableCell>
                     {
-                      userType === 'patient' &&
+                      (userType === 'patient' && rowEdited !== index) &&
                       <TableCell align="center">
                         <Tooltip title="Assign Caregiver">
                           <IconButton aria-label="add_patient" onClick={() => (assignCaregiver && assignCaregiver(row.id))} >
@@ -241,17 +355,17 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
                       </TableCell>
                     }
                     {
-                      (userType === 'patient' || userType === 'caregiver') &&
+                      ((userType === 'patient' || userType === 'caregiver') && rowEdited !== index) &&
                       <TableCell align="center">
                         <Tooltip title="Edit">
-                          <IconButton aria-label="edit" onClick={() => (assignCaregiver && assignCaregiver(row.id))} >
+                          <IconButton aria-label="edit" onClick={() => editUser(index)} >
                             <EditIcon />
                           </IconButton>
                         </Tooltip>
                       </TableCell>
                     }
                     {
-                      (userType === 'patient' || userType === 'caregiver') &&
+                      (userType === 'patient' && rowEdited !== index) &&
                       <TableCell align="center">
                         <Tooltip title="Diseases">
                           <IconButton aria-label="diseases" onClick={() => (displayDiseases && displayDiseases(row.id))} >
@@ -259,6 +373,31 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
                           </IconButton>
                         </Tooltip>
                       </TableCell>
+                    }
+                    {
+                      rowEdited === index &&
+                      <>
+                        <TableCell align="center">
+                          <Tooltip title="Save">
+                            <IconButton
+                              aria-label="done"
+                              onClick={() => onSaveEdited(index)}
+                            >
+                              <DoneIcon />
+                            </IconButton>
+                          </Tooltip>
+                        </TableCell>
+                        <TableCell align="center">
+                          <Tooltip title="Cancel">
+                            <IconButton
+                              aria-label="revert"
+                              onClick={() => onRevert()}
+                            >
+                              <RevertIcon />
+                            </IconButton>
+                          </Tooltip>
+                        </TableCell>
+                      </>
                     }
                   </TableRow>
                 );
