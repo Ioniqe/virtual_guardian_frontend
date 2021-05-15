@@ -23,8 +23,6 @@ interface CaregiversPageProps {
   },
 }
 
-//TODO edit caregiver
-
 function CaregiversPageSmart({ loggedUser, caregiverReducer, getAllCaregiversList, deleteSelectedCaregivers, saveNewCaregiver, saveEditedCaregiver }: CaregiversPageProps) {
 
   const [openSuccess, setOpenSuccess] = useState(false);

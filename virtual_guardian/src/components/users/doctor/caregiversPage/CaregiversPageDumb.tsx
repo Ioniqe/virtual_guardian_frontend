@@ -29,8 +29,6 @@ function CaregiversPageDumb({ caregiverList, deleteSelected, saveCaregiver, save
       'firstname': firstName, 'lastname': lastName,
       'birthday': birthday, 'gender': gender, type: 'caregiver', id: ''
     };
-    console.log('sendNewUser');
-    console.log(newCaregiver);
     saveCaregiver(newCaregiver);
   }
 
@@ -49,7 +47,6 @@ function CaregiversPageDumb({ caregiverList, deleteSelected, saveCaregiver, save
         setOpen={setOpen}
       />
 
-      {/* TODO create updateCaregiver */}
       <Paper elevation={0} className={style.caregiversTableStyle}>
         <TableWithDeleteFeature
           data={caregiverList}

@@ -54,13 +54,7 @@ interface ResponseGenerator {
 function* saveCaregiverAsync(props: Props) {
   try {
     yield put(saveCaregiverRequest());
-
-    console.log(props.payload as User);
-
     const response: ResponseGenerator  = yield call(() => saveCaregiverAPI(props.payload as User));
-
-    console.log(response);
-
     switch (response) {
       case 500:
         yield put(saveCaregiverFailure("Server has returned an error!"))

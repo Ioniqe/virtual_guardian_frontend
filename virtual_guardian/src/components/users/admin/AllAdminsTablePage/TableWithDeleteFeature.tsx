@@ -197,8 +197,6 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length);
 
   let editUser = (index: number): void => {
-    console.log('Editing:')
-    console.log(data[index])
     setRowEdited(index)
     setUsername(data[index].username)
     setPassword(data[index].password)
@@ -215,8 +213,6 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
     editedUser.firstname = firstname
     editedUser.lastname = lastname
     editedUser.address && (editedUser.address = address)
-    console.log('User to save:')
-    console.log(editedUser)
 
     saveUser && saveUser(editedUser)
 
