@@ -2,9 +2,6 @@ import { useStylesNavbar } from "../../styles/Navbar";
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router";
 
-import NavItem from "./NavItem";
-import DropdownMenu from "./DropdownMenu";
-
 interface NavbarProps {
   removeUser: () => void,
   userItems: {
@@ -32,9 +29,6 @@ function Navbar({ removeUser, userItems }: NavbarProps) {
         <h1 className={style.navbarTitle} onClick={() => history.push(`/${userItems.user}`)}>Virtual Guardian</h1>
 
         <ul className={`${style.visibleStyle}`}>
-          {/* <NavItem user={userItems.user}>
-            <DropdownMenu user={userItems.user} />
-          </NavItem> */}
           {
             userItems.items.map((item, index) => {
               return (
