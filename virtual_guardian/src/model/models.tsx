@@ -33,3 +33,15 @@ export interface WebSocketMessages{
   day: string,
   message: string
 }
+
+export interface Activity{
+  day: Date,
+  startTime: string,
+  endTime: string,
+  activity: string,
+}
+
+export interface ActivityList{
+  day: Date,
+  activities: Activity[],
+}

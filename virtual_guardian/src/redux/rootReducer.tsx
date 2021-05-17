@@ -1,4 +1,5 @@
 import { combineReducers } from "redux"
+import activityReducer from "../reducers/ActivityReducer"
 import allAdminsReducer from "../reducers/AdminReducer"
 import caregiverReducer from "../reducers/CaregiverReducer"
 import loginReducer from "../reducers/LoginReducer"
@@ -11,6 +12,8 @@ const rootReducer = combineReducers({
   allAdmins: allAdminsReducer,
   patient: patientReducer,
   caregiver: caregiverReducer,
+  activity: activityReducer,
+  
 })
 
 export default rootReducer
