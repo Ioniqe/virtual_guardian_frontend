@@ -7,27 +7,22 @@ function CaregiverHomeSmart() {
 
   var sock = new SockJS(`${SERVER_URL}/abnormal`);
 
-  // useEffect(() => {
+  let stompClient = Stomp.over(sock);
+  sock.onopen = function () {
+    console.log('open');
+  }
 
-    let stompClient = Stomp.over(sock);
-    sock.onopen = function () {
-      console.log('open');
-    }
+  stompClient.connect({}, function (frame) {
 
-    stompClient.connect({}, function (frame) {
-      // console.log('Connected: ' + frame);
+    stompClient.subscribe("/topic/app", function (greeting) {
 
-      stompClient.subscribe("/topic/app", function (greeting) {
+      console.log(greeting);
 
-        console.log(greeting);
+      let message: WebSocketMessages = JSON.parse(greeting.body);
 
-        let message: WebSocketMessages = JSON.parse(greeting.body);
-
-        alert(message.day + ' is ' + message.message);
-      });
+      alert(message.day + ' is ' + message.message);
     });
-
-  // }, [sock]);
+  });
 
   return (
     <>
@@ -35,5 +30,7 @@ function CaregiverHomeSmart() {
     </>
   );
 }
+
 //TODO see patient activity history, same for doctor
+//TODO see history of emergencies and anomalies
 export default CaregiverHomeSmart;
