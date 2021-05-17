@@ -28,7 +28,7 @@ function ExperimentsSmart({ activityReducer, getActivitiesList }: ExperimentsSma
 
   let predict = (): void => {
     console.log('predict');
-    if (algorithm !== '' && features !== '') {
+    if (algorithm !== '' && features !== '' && selected.length !== 0) {
       console.log(features);
       console.log(algorithm);
       console.log(selected);
