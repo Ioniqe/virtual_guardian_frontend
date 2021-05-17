@@ -9,6 +9,10 @@ export const NavbarUserItems = [
         title: 'Experiments',
         url: '/admin/experiments',
       },
+      {
+        title: 'Modify Patient Of Activities',
+        url: '/admin/activities',
+      },
     ]
   },
   {

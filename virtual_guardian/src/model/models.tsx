@@ -28,3 +28,8 @@ export interface User extends BasicUser{
 export interface DiseaseProps{
   disease: string
 }
+
+export interface WebSocketMessages{
+  day: string,
+  message: string
+}

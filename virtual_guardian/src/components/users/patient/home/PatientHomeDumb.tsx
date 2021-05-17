@@ -16,6 +16,8 @@ interface PatientHomeDumbProps {
   loggedUser: User
 }
 
+//TODO what to do with patient treatments?
+
 function PatientHomeDumb({ loggedUser }: PatientHomeDumbProps) {
   let style = useStylesPatient();
 
