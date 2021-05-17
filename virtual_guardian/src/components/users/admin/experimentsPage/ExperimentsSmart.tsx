@@ -16,15 +16,23 @@ interface ExperimentsSmartProps {
 }
 
 function ExperimentsSmart({ activityReducer, getActivitiesList }: ExperimentsSmartProps) {
-
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
   const [activitiesList, setActivitiesList] = useState<ActivityList[]>([]);
+  const [features, setFeatures] = useState('');
+  const [algorithm, setAlgorithm] = useState('');
+  const [selected, setSelected] = React.useState<Date[]>([]);
 
   let predict = (): void => {
     console.log('predict');
+    if (algorithm !== '' && features !== '') {
+      console.log(features);
+      console.log(algorithm);
+      console.log(selected);
+    }
   }
 
   let setDefault = (): void => {
@@ -86,6 +94,12 @@ function ExperimentsSmart({ activityReducer, getActivitiesList }: ExperimentsSma
         predict={predict}
         setDefault={setDefault}
         activitiesList={activitiesList}
+        features={features}
+        setFeatures={setFeatures}
+        algorithm={algorithm}
+        setAlgorithm={setAlgorithm}
+        selected={selected}
+        setSelected={setSelected}
       />
 
       {loading && <CircularProgress />}

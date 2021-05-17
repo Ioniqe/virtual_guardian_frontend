@@ -15,9 +15,7 @@ export const useStylesAdminExperimentsPage = makeStyles(theme => ({
     margin: 50,
     marginLeft: 200,
     marginRight: 200,
-    // maxHeight: '85%',
     height: '85%',
-    // overflow: 'scroll',
   },
   textField: {
     textAlign: 'left',

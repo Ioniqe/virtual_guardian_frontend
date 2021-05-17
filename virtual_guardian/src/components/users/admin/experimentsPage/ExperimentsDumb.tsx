@@ -1,5 +1,5 @@
 import { Button, FormControl, InputLabel, MenuItem, Paper, Select } from "@material-ui/core";
-import React, { useState } from "react";
+import React from "react";
 import { ActivityList } from "../../../../model/models";
 import { useStylesAdminExperimentsPage } from "../../../../styles/AdminStyle";
 import CollapsibleTable from "./CollapsibleTable";
@@ -8,13 +8,17 @@ interface ExperimentsDumbProps {
   predict: () => void,
   setDefault: () => void,
   activitiesList: ActivityList[],
+  features: string,
+  setFeatures: (features: string) => void,
+  algorithm: string,
+  setAlgorithm: (algorithm: string) => void,
+  selected: Date[],
+  setSelected: (selected: Date[]) => void,
 }
 
-function ExperimentsDumb({ predict, setDefault, activitiesList }: ExperimentsDumbProps) {
+function ExperimentsDumb({ predict, setDefault, activitiesList,
+  features, setFeatures, algorithm, setAlgorithm, selected, setSelected }: ExperimentsDumbProps) {
   let style = useStylesAdminExperimentsPage();
-
-  const [features, setFeatures] = useState('');
-  const [algorithm, setAlgorithm] = useState('');
 
   const handleFeatureChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setFeatures(event.target.value as string);
@@ -70,6 +74,8 @@ function ExperimentsDumb({ predict, setDefault, activitiesList }: ExperimentsDum
         <div className={style.collapsibleTableStyle}>
           <CollapsibleTable
             activitiesList={activitiesList}
+            selected={selected}
+            setSelected={setSelected}
           />
         </div>
 

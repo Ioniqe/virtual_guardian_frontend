@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { ActivityList } from '../../../../model/models';
+import { Checkbox } from '@material-ui/core';
 
 const useRowStyles = makeStyles({
   root: {
@@ -24,15 +25,19 @@ const useRowStyles = makeStyles({
 });
 
 interface RowProps {
-  day: ActivityList
+  day: ActivityList,
+  isItemSelected: boolean,
+  labelId: string,
+  handleClick: (event: React.MouseEvent<unknown>, day: Date) => void,
+
 }
 
-function Row({ day }: RowProps) {
+function Row({ day, isItemSelected, labelId, handleClick }: RowProps) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
   return (
-    <React.Fragment>
+    <>
       <TableRow className={classes.root}>
         <TableCell>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
@@ -41,6 +46,13 @@ function Row({ day }: RowProps) {
         </TableCell>
         <TableCell component="th" scope="row">
           {day.day}
+        </TableCell>
+        <TableCell padding="checkbox">
+          <Checkbox
+            checked={isItemSelected}
+            inputProps={{ 'aria-labelledby': labelId }}
+            onClick={(event) => handleClick(event, day.day)}
+          />
         </TableCell>
       </TableRow>
       <TableRow>
@@ -76,15 +88,39 @@ function Row({ day }: RowProps) {
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+    </>
   );
 }
 
 interface CollapsibleTableProps {
   activitiesList: ActivityList[],
+  selected: Date[],
+  setSelected: (selected: Date[]) => void
 }
 
-export default function CollapsibleTable({ activitiesList }: CollapsibleTableProps) {
+export default function CollapsibleTable({ activitiesList, selected, setSelected }: CollapsibleTableProps) {
+
+  const isSelected = (day: Date) => selected.indexOf(day) !== -1;
+
+  const handleClick = (event: React.MouseEvent<unknown>, day: Date) => {
+    const selectedIndex = selected.indexOf(day);
+    let newSelected: Date[] = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, day);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1),
+      );
+    }
+
+    setSelected(newSelected);
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -93,13 +129,18 @@ export default function CollapsibleTable({ activitiesList }: CollapsibleTablePro
           <TableRow>
             <TableCell />
             <TableCell>Day</TableCell>
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
           {
-            activitiesList.map((day, index) => (
-              <Row key={index} day={day} />
-            ))
+            activitiesList.map((day, index) => {
+              const isItemSelected = isSelected(day.day);
+              const labelId = `enhanced-table-checkbox-${index}`;
+              return (
+                <Row key={index} day={day} isItemSelected={isItemSelected} labelId={labelId} handleClick={handleClick} />
+              );
+            })
           }
         </TableBody>
       </Table>
