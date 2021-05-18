@@ -1,21 +1,24 @@
 import ExperimentsDumb from "./ExperimentsDumb";
 import { connect } from "react-redux";
-import { getActivities } from "../../../../actions/ActivityAction";
-import { Activity, ActivityList } from "../../../../model/models";
+import { detectAnomaly, getActivities } from "../../../../actions/ActivityAction";
+import { Activity, ActivityList, MlObject } from "../../../../model/models";
 import React, { useEffect, useState } from "react";
 import { CircularProgress, Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
+import { durationFrequencyRation } from "../../../../utils/FeatureExtraction";
 
 interface ExperimentsSmartProps {
   getActivitiesList: () => void,
+  detectDay: (dayToDetect: MlObject) => void,
   activityReducer: {
     loading: boolean,
     activitiesSuccess: Activity[],
     error: string,
+    detected: string,
   },
 }
 
-function ExperimentsSmart({ activityReducer, getActivitiesList }: ExperimentsSmartProps) {
+function ExperimentsSmart({ activityReducer, getActivitiesList, detectDay }: ExperimentsSmartProps) {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [message, setMessage] = useState('');
@@ -27,16 +30,30 @@ function ExperimentsSmart({ activityReducer, getActivitiesList }: ExperimentsSma
   const [selected, setSelected] = React.useState<Date[]>([]);
 
   let predict = (): void => {
-    console.log('predict');
     if (algorithm !== '' && features !== '' && selected.length !== 0) {
-      console.log(features);
-      console.log(algorithm);
-      console.log(selected);
+
+      console.log(algorithm)
+      console.log(features)
+
+      if (activitiesList.length !== 0) {
+        selected.forEach(s => {
+          let item = activitiesList.find(activity => activity.day === s)
+
+          if (item !== undefined) {
+            console.log(durationFrequencyRation(item.activities))
+            let mlObject: MlObject = {features: features, algorithm: algorithm, arr: [durationFrequencyRation(item.activities)]}
+            detectDay(mlObject)
+            //TODO fa numai pentru o zi sau fa flask-ul  sa proceseze array-ul
+
+          }
+        })
+      }
     }
   }
 
   let setDefault = (): void => {
     console.log('set default');
+    //TODO
   }
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
@@ -71,14 +88,20 @@ function ExperimentsSmart({ activityReducer, getActivitiesList }: ExperimentsSma
           days.push({ day: currDay, activities: activities });
           currDay = activity.day;
           activities = [];
-        } else {
-          activities.push(activity);
         }
+        activities.push(activity);
       });
 
       setActivitiesList(days);
-    }
+    } 
   }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess]);
+
+  useEffect(() => {
+    if (activityReducer.detected !== '') {
+      console.log('AAA');
+      console.log(activityReducer.detected)
+    }
+  }, [activityReducer.detected]);
 
   return (
     <>
@@ -116,6 +139,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     getActivitiesList: () => dispatch(getActivities()),
+    detectDay: (dayToDetect: MlObject) => dispatch(detectAnomaly(dayToDetect)),
   }
 }
 

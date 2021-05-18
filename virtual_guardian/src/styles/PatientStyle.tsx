@@ -87,10 +87,6 @@ export const useStylesPatient = makeStyles(theme => ({
   }
 }));
 
-export const useStylesPatientAppointments = makeStyles(theme => ({
-
-}));
-
 export const useStylesPatientTestForDisease = makeStyles(theme => ({
   titleStyle: {
     color: theme.palette.primary.contrastText,
