@@ -1,11 +1,12 @@
 import { Activity, DayDetected } from "../model/models"
-import { GET_ACTIVITY_LIST_REQUEST, GET_ACTIVITY_LIST_SUCCESS, GET_ACTIVITY_LIST_FAILURE, DETECT_ANOMALY_REQUEST, DETECT_ANOMALY_SUCCESS, DETECT_ANOMALY_FAILURE } from "../types/ActivityTypes"
+import { GET_ACTIVITY_LIST_REQUEST, GET_ACTIVITY_LIST_SUCCESS, GET_ACTIVITY_LIST_FAILURE, DETECT_ANOMALY_REQUEST, DETECT_ANOMALY_SUCCESS, DETECT_ANOMALY_FAILURE, TRAIN_MODEL_FAILURE, TRAIN_MODEL_REQUEST, TRAIN_MODEL_SUCCESS } from "../types/ActivityTypes"
 
 export interface ActivityState {
   loading: boolean,
   activitiesSuccess: Activity[],
   error: string,
   detected: DayDetected[],
+  trained: number,
 }
 
 const initialState: ActivityState = {
@@ -13,9 +14,10 @@ const initialState: ActivityState = {
   activitiesSuccess: [],
   error: '',
   detected: [],
+  trained: -1
 }
 
-const activityReducer = (state = initialState, action: { type: string, payload: Activity[] | string | DayDetected[] }) => {
+const activityReducer = (state = initialState, action: { type: string, payload: Activity[] | string | DayDetected[] | number }) => {
   switch (action.type) {
     case GET_ACTIVITY_LIST_REQUEST:
       return {
@@ -52,7 +54,26 @@ const activityReducer = (state = initialState, action: { type: string, payload: 
       return {
         ...state,
         loading: false,
-        detected: false,
+        detected: [],
+        error: action.payload as string
+      }
+    case TRAIN_MODEL_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+    case TRAIN_MODEL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        trained: action.payload as number,
+        error: ''
+      }
+    case TRAIN_MODEL_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        trained: false,
         error: action.payload as string
       }
     default: return state

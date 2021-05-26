@@ -1,7 +1,7 @@
 import ExperimentsDumb from "./ExperimentsDumb";
 import { connect } from "react-redux";
-import { detectAnomalies, getActivities } from "../../../../actions/ActivityAction";
-import { Activity, ActivityList, DayDetected } from "../../../../model/models";
+import { detectAnomalies, getActivities, trainModel } from "../../../../actions/ActivityAction";
+import { Activity, ActivityList, DayDetected, TrainModel } from "../../../../model/models";
 import React, { useEffect, useState } from "react";
 import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
@@ -10,15 +10,17 @@ import { getDaysWithTheirActivities } from "../../../../utils/ExperimentsUtils";
 interface ExperimentsSmartProps {
   getActivitiesList: () => void,
   detectDays: (dayToDetect: ActivityList[]) => void,
+  train: (_trainModel: TrainModel) => void,
   activityReducer: {
     loading: boolean,
     activitiesSuccess: Activity[],
     error: string,
     detected: DayDetected[],
+    trained: number,
   },
 }
 
-function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays }: ExperimentsSmartProps) {
+function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, train }: ExperimentsSmartProps) {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [message, setMessage] = useState('');
@@ -29,23 +31,21 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays }: Ex
   const [algorithm, setAlgorithm] = useState('logisticRegression');
   const [selected, setSelected] = React.useState<Date[]>([]);
   const [detectedDaysList, setDetectedDaysList] = React.useState<DayDetected[]>([]);
+  const [score, setScore] = React.useState(-1);
 
   let predict = (): void => {
     if (selected.length !== 0) {
 
-      console.log(algorithm)
-      console.log(features)
-
       if (activitiesList.length !== 0) {
         let selectedActvities = getDaysWithTheirActivities(selected, activitiesList)
-        console.log(selectedActvities)
         detectDays(selectedActvities)
       }
     }
   }
 
-  let train = (): void => {
-    console.log('train')
+  let handleTrainEvent = (): void => {
+    let trainModel: TrainModel = { 'algorithm': algorithm, 'features': features }
+    train(trainModel)
   }
 
   let setDefault = (): void => {
@@ -95,11 +95,17 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays }: Ex
 
   useEffect(() => {
     if (activityReducer.detected !== []) {
-      console.log('Getting');
-      console.log(activityReducer.detected)
       setDetectedDaysList(activityReducer.detected)
+      setScore(-1)
     }
   }, [activityReducer.detected]);
+
+  useEffect(() => {
+    if (activityReducer.trained !== -1) {
+      setScore(activityReducer.trained)
+      setDetectedDaysList([])
+    }
+  }, [activityReducer.trained]);
 
   return (
     <>
@@ -113,7 +119,7 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays }: Ex
 
       <ExperimentsDumb
         predict={predict}
-        train={train}
+        train={handleTrainEvent}
         setDefault={setDefault}
         activitiesList={activitiesList}
         features={features}
@@ -124,6 +130,7 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays }: Ex
         setSelected={setSelected}
         detectedDaysList={detectedDaysList}
         loading={loading}
+        score={score}
       />
     </>
   );
@@ -139,6 +146,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     getActivitiesList: () => dispatch(getActivities()),
     detectDays: (dayToDetect: ActivityList[]) => dispatch(detectAnomalies(dayToDetect)),
+    train: (_trainModel: TrainModel) => dispatch(trainModel(_trainModel)),
   }
 }
 

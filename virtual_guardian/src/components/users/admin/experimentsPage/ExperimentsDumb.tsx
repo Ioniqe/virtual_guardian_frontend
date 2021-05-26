@@ -16,11 +16,12 @@ interface ExperimentsDumbProps {
   selected: Date[],
   setSelected: (selected: Date[]) => void,
   detectedDaysList: DayDetected[],
-  loading: boolean, 
+  loading: boolean,
+  score: number,
 }
 
-function ExperimentsDumb({ predict, train, setDefault, activitiesList,
-  features, setFeatures, algorithm, setAlgorithm, selected, setSelected, detectedDaysList, loading }: ExperimentsDumbProps) {
+function ExperimentsDumb({ predict, train, setDefault, activitiesList, features, setFeatures, algorithm, setAlgorithm,
+  selected, setSelected, detectedDaysList, loading, score }: ExperimentsDumbProps) {
   let style = useStylesAdminExperimentsPage();
 
   const handleFeatureChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -89,12 +90,12 @@ function ExperimentsDumb({ predict, train, setDefault, activitiesList,
           />
         </div>
 
-
         <div className={style.resultsTableStyle}>
           <h1>Results</h1>
 
           <Paper elevation={0}>
-            {loading ? <CircularProgress color='primary'/> :
+            {loading ? <CircularProgress color='primary' /> :
+              score !== -1 ? <h2>Accuracy: { score }</h2> :
               detectedDaysList.map((detectedDay, index) => {
               return <h2 key={index}>Day {detectedDay.day} is {detectedDay.result}</h2>
             })}

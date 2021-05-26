@@ -50,3 +50,8 @@ export interface DayDetected{
   day: string,
   result: string
 }
+
+export interface TrainModel{
+  algorithm: string,
+  features: string
+}
