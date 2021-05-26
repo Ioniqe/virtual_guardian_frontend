@@ -73,7 +73,6 @@ function ExperimentsDumb({ predict, train, setDefault, activitiesList,
             </FormControl>
           </div>
 
-          {/* <Button className={style.predictButtonStyle} variant='outlined' onClick={predict}> predict </Button> */}
           <div className={ style.topButtonsStyle}>
             <Button className={`${style.buttonStyle} ${ style.trainButtonStyle }`} variant='outlined' onClick={train}> Train </Button>
             <Button className={style.buttonStyle} variant='outlined' onClick={predict}> predict </Button>
@@ -89,7 +88,6 @@ function ExperimentsDumb({ predict, train, setDefault, activitiesList,
         </div>
 
 
-        {/* <div className={ style.rightElementsStyle}> */}
         <div className={style.resultsTableStyle}>
           <h1>Results</h1>
 
@@ -114,7 +112,6 @@ function ExperimentsDumb({ predict, train, setDefault, activitiesList,
             <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
           </Paper>
         </div>
-        {/* </div> */}
         <Button className={style.setDefaultButtonStyle} variant='outlined' onClick={setDefault}>Set as default</Button>
 
       </Paper>

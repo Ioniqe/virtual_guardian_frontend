@@ -1,4 +1,4 @@
-import { Activity, MlObject } from "../model/models"
+import { Activity, ActivityList, DayDetected } from "../model/models"
 import { GET_ACTIVITY_LIST, GET_ACTIVITY_LIST_REQUEST, GET_ACTIVITY_LIST_SUCCESS, GET_ACTIVITY_LIST_FAILURE, DETECT_ANOMALY, DETECT_ANOMALY_FAILURE, DETECT_ANOMALY_REQUEST, DETECT_ANOMALY_SUCCESS } from "../types/ActivityTypes"
 
 //---------------------------------------------  GET ACTIVITIES
@@ -29,27 +29,27 @@ export const getActivitiesFailure = (error: string) => {
 }
 
 //---------------------------------------------  DETECT ANOMALIES
-export const detectAnomaly = (dayToDetect: MlObject) => {
+export const detectAnomalies = (dayToDetect: ActivityList[]) => {
   return {
     type: DETECT_ANOMALY,
     payload: dayToDetect
   }
 }
 
-export const detectAnomalyRequest = () => {
+export const detectAnomaliesRequest = () => {
   return {
     type: DETECT_ANOMALY_REQUEST,
   }
 }
 
-export const detectAnomalySuccess = (result: string) => {
+export const detectAnomaliesSuccess = (result: DayDetected[]) => {
   return {
     type: DETECT_ANOMALY_SUCCESS,
     payload: result
   }
 }
 
-export const detectAnomalyFailure = (error: string) => {
+export const detectAnomaliesFailure = (error: string) => {
   return {
     type: DETECT_ANOMALY_FAILURE,
     payload: error

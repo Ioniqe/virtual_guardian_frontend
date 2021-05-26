@@ -1,24 +1,24 @@
 import ExperimentsDumb from "./ExperimentsDumb";
 import { connect } from "react-redux";
-import { detectAnomaly, getActivities } from "../../../../actions/ActivityAction";
-import { Activity, ActivityList, MlObject } from "../../../../model/models";
+import { detectAnomalies, getActivities } from "../../../../actions/ActivityAction";
+import { Activity, ActivityList, DayDetected } from "../../../../model/models";
 import React, { useEffect, useState } from "react";
 import { CircularProgress, Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { durationFrequencyRation } from "../../../../utils/FeatureExtraction";
+import { getDaysWithTheirActivities } from "../../../../utils/ExperimentsUtils";
 
 interface ExperimentsSmartProps {
   getActivitiesList: () => void,
-  detectDay: (dayToDetect: MlObject) => void,
+  detectDays: (dayToDetect: ActivityList[]) => void,
   activityReducer: {
     loading: boolean,
     activitiesSuccess: Activity[],
     error: string,
-    detected: string,
+    detected: DayDetected[],
   },
 }
 
-function ExperimentsSmart({ activityReducer, getActivitiesList, detectDay }: ExperimentsSmartProps) {
+function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays }: ExperimentsSmartProps) {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [message, setMessage] = useState('');
@@ -36,17 +36,10 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDay }: Exp
       console.log(features)
 
       if (activitiesList.length !== 0) {
-        selected.forEach(s => {
-          let item = activitiesList.find(activity => activity.day === s)
-
-          if (item !== undefined) {
-            console.log(durationFrequencyRation(item.activities))
-            let mlObject: MlObject = {features: features, algorithm: algorithm, arr: [durationFrequencyRation(item.activities)]}
-            detectDay(mlObject)
-            //TODO fa numai pentru o zi sau fa flask-ul  sa proceseze array-ul
-
-          }
-        })
+        console.log('Sending')
+        let selectedActvities = getDaysWithTheirActivities(selected, activitiesList)
+        console.log(selectedActvities)
+        detectDays(selectedActvities)
       }
     }
   }
@@ -101,8 +94,8 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDay }: Exp
   }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess]);
 
   useEffect(() => {
-    if (activityReducer.detected !== '') {
-      console.log('AAA');
+    if (activityReducer.detected !== []) {
+      console.log('Getting');
       console.log(activityReducer.detected)
     }
   }, [activityReducer.detected]);
@@ -144,7 +137,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     getActivitiesList: () => dispatch(getActivities()),
-    detectDay: (dayToDetect: MlObject) => dispatch(detectAnomaly(dayToDetect)),
+    detectDays: (dayToDetect: ActivityList[]) => dispatch(detectAnomalies(dayToDetect)),
   }
 }
 

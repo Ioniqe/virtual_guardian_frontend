@@ -1,4 +1,4 @@
-import { FLASK_URL, MlObject, SERVER_URL } from "../model/models"
+import { ActivityList, FLASK_URL, SERVER_URL } from "../model/models"
 
 export const getActivitiesAPI = () => {
   return fetch(`${SERVER_URL}/activities/readAll`, {
@@ -11,14 +11,14 @@ export const getActivitiesAPI = () => {
   })
 }
 
-export const detectAnomalyAPI = (dayToDetect: MlObject) => {
-  return fetch(`${FLASK_URL}/predict/day`, {
+export const detectAnomaliesAPI = (daysToDetect: ActivityList[]) => {
+  return fetch(`${FLASK_URL}/predict/days`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(dayToDetect)
+    body: JSON.stringify(daysToDetect)
   }).then(response => {
     if (response.ok)
       return response.json()

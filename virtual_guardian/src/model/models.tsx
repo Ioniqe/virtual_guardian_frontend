@@ -46,8 +46,7 @@ export interface ActivityList{
   activities: Activity[],
 }
 
-export interface MlObject{
-  features: string,
-  algorithm: string,
-  arr: number[][]
+export interface DayDetected{
+  day: string,
+  result: string
 }

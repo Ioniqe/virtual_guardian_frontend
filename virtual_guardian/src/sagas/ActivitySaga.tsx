@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
-import { detectAnomalyFailure, detectAnomalyRequest, detectAnomalySuccess, getActivitiesFailure, getActivitiesRequest, getActivitiesSuccess } from "../actions/ActivityAction";
-import { detectAnomalyAPI, getActivitiesAPI } from "../api/ActivityApi";
-import { Activity, MlObject } from "../model/models";
+import { detectAnomaliesFailure, detectAnomaliesRequest, detectAnomaliesSuccess, getActivitiesFailure, getActivitiesRequest, getActivitiesSuccess } from "../actions/ActivityAction";
+import { detectAnomaliesAPI, getActivitiesAPI } from "../api/ActivityApi";
+import { Activity, ActivityList, DayDetected } from "../model/models";
 import { DETECT_ANOMALY, GET_ACTIVITY_LIST } from "../types/ActivityTypes";
 
 function* getActivitiesAsync() {
@@ -20,27 +20,27 @@ export function* getActivitiesWatcher() {
 
 interface Props {
   type: string,
-  payload: MlObject
+  payload: ActivityList[]
 }
 
-function* detectAnomalyAsync({ type, payload }: Props) {
+function* detectAnomaliesAsync({ type, payload }: Props) {
   try {
-    yield put(detectAnomalyRequest());
-    const response: {prediction: string} | number = yield call(() => detectAnomalyAPI(payload))
+    yield put(detectAnomaliesRequest());
+    const response: {predictions: DayDetected[] | string} = yield call(() => detectAnomaliesAPI(payload))
     console.log('RESPONSE')
     console.log(response)
     //TODO show result
-    if (response === 500) {
-      yield put(detectAnomalyFailure("An unexpected error has occured!"))
+    if (response.predictions as string === 'unexpected error') {
+      yield put(detectAnomaliesFailure("An unexpected error has occured!"))
     } else {
-      yield put(detectAnomalySuccess((response as {prediction: string}).prediction))
+      yield put(detectAnomaliesSuccess(response.predictions as DayDetected[]))
     }
   } catch (e) {
     console.log(e)
-    yield put(detectAnomalyFailure("An unexpected error has occured!"))
+    yield put(detectAnomaliesFailure("An unexpected error has occured!"))
   }
 }
 
-export function* detectAnomalyWatcher() {
-  yield takeLatest(DETECT_ANOMALY, detectAnomalyAsync)
+export function* detectAnomaliesWatcher() {
+  yield takeLatest(DETECT_ANOMALY, detectAnomaliesAsync)
 }
