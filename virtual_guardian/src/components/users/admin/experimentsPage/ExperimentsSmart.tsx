@@ -36,7 +36,6 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays }: Ex
       console.log(features)
 
       if (activitiesList.length !== 0) {
-        console.log('Sending')
         let selectedActvities = getDaysWithTheirActivities(selected, activitiesList)
         console.log(selectedActvities)
         detectDays(selectedActvities)

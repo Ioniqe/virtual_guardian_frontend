@@ -100,6 +100,15 @@ interface CollapsibleTableProps {
 
 export default function CollapsibleTable({ activitiesList, selected, setSelected }: CollapsibleTableProps) {
 
+  const onSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      const newSelecteds = activitiesList.map((n) => n.day);
+      setSelected(newSelecteds);
+      return;
+    }
+    setSelected([]);
+  };
+
   const isSelected = (day: Date) => selected.indexOf(day) !== -1;
 
   const handleClick = (event: React.MouseEvent<unknown>, day: Date) => {
@@ -129,7 +138,11 @@ export default function CollapsibleTable({ activitiesList, selected, setSelected
           <TableRow>
             <TableCell />
             <TableCell>Day</TableCell>
-            <TableCell />
+            <TableCell padding="checkbox">
+              <Checkbox
+                onChange={onSelectAllClick}
+              />
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

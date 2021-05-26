@@ -1,20 +1,6 @@
 import moment from "moment";
 import { Activity } from "../model/models";
 
-// export let getActivitiesForTheDay = (allActivities: Activity[], day: Date): Activity[] => {
-//   let activities: Activity[] = [];
-//   let ok = false;
-//   allActivities.forEach(activity => {
-//     if (day === activity.day) {
-//       activities.push(activity)
-//       ok = true;
-//     } else if (ok && day !== activity.day) {
-//       return activities;
-//     }
-//   });
-//   return activities;
-// }
-
 let activityArray = ["Breakfast", "Dinner", "Grooming", "Leaving", "Lunch", "Showering", "Sleeping", "Snack", "Spare_Time/TV", "Toileting"];
 
 export let durationFrequencyRation = (activities: Activity[]): number[] => {
