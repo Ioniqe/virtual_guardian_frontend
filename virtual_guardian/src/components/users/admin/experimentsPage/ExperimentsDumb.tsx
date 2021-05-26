@@ -1,6 +1,6 @@
-import { Button, FormControl, InputLabel, MenuItem, Paper, Select } from "@material-ui/core";
+import { Button, CircularProgress, FormControl, InputLabel, MenuItem, Paper, Select } from "@material-ui/core";
 import React from "react";
-import { ActivityList } from "../../../../model/models";
+import { ActivityList, DayDetected } from "../../../../model/models";
 import { useStylesAdminExperimentsPage } from "../../../../styles/AdminStyle";
 import CollapsibleTable from "./CollapsibleTable";
 
@@ -15,10 +15,12 @@ interface ExperimentsDumbProps {
   setAlgorithm: (algorithm: string) => void,
   selected: Date[],
   setSelected: (selected: Date[]) => void,
+  detectedDaysList: DayDetected[],
+  loading: boolean, 
 }
 
 function ExperimentsDumb({ predict, train, setDefault, activitiesList,
-  features, setFeatures, algorithm, setAlgorithm, selected, setSelected }: ExperimentsDumbProps) {
+  features, setFeatures, algorithm, setAlgorithm, selected, setSelected, detectedDaysList, loading }: ExperimentsDumbProps) {
   let style = useStylesAdminExperimentsPage();
 
   const handleFeatureChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -73,8 +75,8 @@ function ExperimentsDumb({ predict, train, setDefault, activitiesList,
             </FormControl>
           </div>
 
-          <div className={ style.topButtonsStyle}>
-            <Button className={`${style.buttonStyle} ${ style.trainButtonStyle }`} variant='outlined' onClick={train}> Train </Button>
+          <div className={style.topButtonsStyle}>
+            <Button className={`${style.buttonStyle} ${style.trainButtonStyle}`} variant='outlined' onClick={train}> Train </Button>
             <Button className={style.buttonStyle} variant='outlined' onClick={predict}> predict </Button>
           </div>
         </div>
@@ -91,25 +93,11 @@ function ExperimentsDumb({ predict, train, setDefault, activitiesList,
         <div className={style.resultsTableStyle}>
           <h1>Results</h1>
 
-          <Paper elevation={0} >
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
-            <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
+          <Paper elevation={0}>
+            {loading ? <CircularProgress color='primary'/> :
+              detectedDaysList.map((detectedDay, index) => {
+              return <h2 key={index}>Day {detectedDay.day} is {detectedDay.result}</h2>
+            })}
           </Paper>
         </div>
         <Button className={style.setDefaultButtonStyle} variant='outlined' onClick={setDefault}>Set as default</Button>

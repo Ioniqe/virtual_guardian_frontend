@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { detectAnomalies, getActivities } from "../../../../actions/ActivityAction";
 import { Activity, ActivityList, DayDetected } from "../../../../model/models";
 import React, { useEffect, useState } from "react";
-import { CircularProgress, Snackbar } from "@material-ui/core";
+import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { getDaysWithTheirActivities } from "../../../../utils/ExperimentsUtils";
 
@@ -28,6 +28,7 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays }: Ex
   const [features, setFeatures] = useState('durationFrequencyRatio');
   const [algorithm, setAlgorithm] = useState('logisticRegression');
   const [selected, setSelected] = React.useState<Date[]>([]);
+  const [detectedDaysList, setDetectedDaysList] = React.useState<DayDetected[]>([]);
 
   let predict = (): void => {
     if (selected.length !== 0) {
@@ -89,13 +90,14 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays }: Ex
       });
 
       setActivitiesList(days);
-    } 
+    }
   }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess]);
 
   useEffect(() => {
     if (activityReducer.detected !== []) {
       console.log('Getting');
       console.log(activityReducer.detected)
+      setDetectedDaysList(activityReducer.detected)
     }
   }, [activityReducer.detected]);
 
@@ -120,9 +122,9 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays }: Ex
         setAlgorithm={setAlgorithm}
         selected={selected}
         setSelected={setSelected}
+        detectedDaysList={detectedDaysList}
+        loading={loading}
       />
-
-      {loading && <CircularProgress />}
     </>
   );
 }
