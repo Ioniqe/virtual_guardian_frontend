@@ -6,6 +6,7 @@ import CollapsibleTable from "./CollapsibleTable";
 
 interface ExperimentsDumbProps {
   predict: () => void,
+  train: () => void,
   setDefault: () => void,
   activitiesList: ActivityList[],
   features: string,
@@ -16,7 +17,7 @@ interface ExperimentsDumbProps {
   setSelected: (selected: Date[]) => void,
 }
 
-function ExperimentsDumb({ predict, setDefault, activitiesList,
+function ExperimentsDumb({ predict, train, setDefault, activitiesList,
   features, setFeatures, algorithm, setAlgorithm, selected, setSelected }: ExperimentsDumbProps) {
   let style = useStylesAdminExperimentsPage();
 
@@ -31,7 +32,7 @@ function ExperimentsDumb({ predict, setDefault, activitiesList,
   return (
     <>
       <Paper elevation={0} className={style.adminsTableStyle}>
-        <div>
+        <div className={style.topElementsStyle}>
           <div className={style.formsStyle}>
             <FormControl color='primary' className={style.formControlStyle}>
               <InputLabel id='features' className={style.textField}>Features</InputLabel>
@@ -63,15 +64,23 @@ function ExperimentsDumb({ predict, setDefault, activitiesList,
                 className={style.textField}
               >
                 <MenuItem value={'logisticRegression'}>Logistic Regression</MenuItem>
-                <MenuItem value={'linearRegression'}>Linear Regression</MenuItem>
+                <MenuItem value={'kNeighbours'}>K Neighbours</MenuItem>
+                <MenuItem value={'decisionTree'}>Decision Tree</MenuItem>
+                <MenuItem value={'svm'}>SVM</MenuItem>
+                <MenuItem value={'linear'}>Linear Regression</MenuItem>
+                <MenuItem value={'naiveBayes'}>Naive Bayes</MenuItem>
               </Select>
             </FormControl>
           </div>
 
-          <Button className={style.predictButtonStyle} variant='outlined' onClick={predict}> predict </Button>
+          {/* <Button className={style.predictButtonStyle} variant='outlined' onClick={predict}> predict </Button> */}
+          <div className={ style.topButtonsStyle}>
+            <Button className={`${style.buttonStyle} ${ style.trainButtonStyle }`} variant='outlined' onClick={train}> Train </Button>
+            <Button className={style.buttonStyle} variant='outlined' onClick={predict}> predict </Button>
+          </div>
         </div>
 
-        <div className={style.collapsibleTableStyle}>
+        <div className={style.leftElementsStyle}>
           <CollapsibleTable
             activitiesList={activitiesList}
             selected={selected}
@@ -80,6 +89,7 @@ function ExperimentsDumb({ predict, setDefault, activitiesList,
         </div>
 
 
+        {/* <div className={ style.rightElementsStyle}> */}
         <div className={style.resultsTableStyle}>
           <h1>Results</h1>
 
@@ -104,8 +114,8 @@ function ExperimentsDumb({ predict, setDefault, activitiesList,
             <h2>dfvsfdvsdfhvusohfvufoshvusodhufvh</h2>
           </Paper>
         </div>
-
-        <Button className={style.predictButtonStyle} variant='outlined' onClick={setDefault}>Set as default</Button>
+        {/* </div> */}
+        <Button className={style.setDefaultButtonStyle} variant='outlined' onClick={setDefault}>Set as default</Button>
 
       </Paper>
     </>

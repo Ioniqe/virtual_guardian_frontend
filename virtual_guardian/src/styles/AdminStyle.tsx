@@ -17,6 +17,9 @@ export const useStylesAdminExperimentsPage = makeStyles(theme => ({
     marginRight: 200,
     height: '85%',
   },
+  topElementsStyle: {
+    paddingTop: '1.5em',
+  },
   textField: {
     textAlign: 'left',
     color: theme.palette.primary.main,
@@ -24,22 +27,25 @@ export const useStylesAdminExperimentsPage = makeStyles(theme => ({
       textAlign: 'left !important',
     },
   },
-  formsStyle: {
-    marginTop: '.5em',
-    float: 'left',
-    width: '80%',
-    marginLeft: '-14em',
-  },
-  formControlStyle: {
-    width: '20%',
-    marginRight: '2%',
+  topButtonsStyle: {
+    display: 'flex',
+    paddingLeft: '4vw',
 
   },
-  predictButtonStyle: {
+  formsStyle: {
+    float: 'left',
+    // width: '80%',
+    width: '50%',
+    // marginLeft: '-14em',
+  },
+  formControlStyle: {
+    width: '40%',
+    marginRight: '2%',
+  },
+  buttonStyle: {
+    marginTop: '0.5vh',
     float: 'right',
-    marginTop: '1em',
-    marginRight: '18em',
-    width: '13%',
+    width: '40%',
     fontFamily: 'Arial',
     fontSize: '1rem',
     padding: '.3rem .7rem',
@@ -55,8 +61,29 @@ export const useStylesAdminExperimentsPage = makeStyles(theme => ({
       backgroundPosition: 'right'
     },
   },
-  collapsibleTableStyle: {
-    marginTop: '3%',
+  trainButtonStyle: {
+    marginRight: '1vw',
+  },
+  setDefaultButtonStyle: {
+    marginTop: '1em',
+    width: '40%',
+    fontFamily: 'Arial',
+    fontSize: '1rem',
+    padding: '.3rem .7rem',
+    textTransform: 'uppercase',
+    borderRadius: '1.1rem',
+    border: `solid 3.5px ${theme.palette.primary.contrastText}`,
+    cursor: 'pointer',
+    color: theme.palette.primary.contrastText,
+    backgroundSize: '200%',
+    transition: '0.6s',
+    backgroundImage: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
+    '&:hover': {
+      backgroundPosition: 'right'
+    },
+  },
+  leftElementsStyle: {
+    marginTop: '2%',
     marginLeft: '3%',
     width: '45%',
     float: 'left',
@@ -71,16 +98,17 @@ export const useStylesAdminExperimentsPage = makeStyles(theme => ({
     height: '78%',
   },
   resultsTableStyle: {
-    marginTop: '1%',
-    marginRight: '3%',
-    width: '45%',
-    float: 'right',
-    height: '83%',
+    display: 'grid',
+    marginTop: '2vh',
+    height: '82%',
     overflowX: 'clip',
     overflowY: 'scroll',
   },
   resultsPaperStyle: {
     backgroundColor: 'red',
   },
-
+  rightElementsStyle: {
+    float: 'right',
+    width:'45%'
+  }
 }));

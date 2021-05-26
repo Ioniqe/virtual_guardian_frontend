@@ -25,12 +25,12 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDay }: Exp
   const [loading, setLoading] = useState(false);
 
   const [activitiesList, setActivitiesList] = useState<ActivityList[]>([]);
-  const [features, setFeatures] = useState('');
-  const [algorithm, setAlgorithm] = useState('');
+  const [features, setFeatures] = useState('durationFrequencyRatio');
+  const [algorithm, setAlgorithm] = useState('logisticRegression');
   const [selected, setSelected] = React.useState<Date[]>([]);
 
   let predict = (): void => {
-    if (algorithm !== '' && features !== '' && selected.length !== 0) {
+    if (selected.length !== 0) {
 
       console.log(algorithm)
       console.log(features)
@@ -49,6 +49,10 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDay }: Exp
         })
       }
     }
+  }
+
+  let train = (): void => {
+    console.log('train')
   }
 
   let setDefault = (): void => {
@@ -115,6 +119,7 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDay }: Exp
 
       <ExperimentsDumb
         predict={predict}
+        train={train}
         setDefault={setDefault}
         activitiesList={activitiesList}
         features={features}
