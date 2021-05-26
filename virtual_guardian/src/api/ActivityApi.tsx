@@ -43,3 +43,14 @@ export const trainModelAPI = (trainModel: TrainModel) => {
   })
 }
 
+export const setDefaultModelAPI = () => {
+  return fetch(`${FLASK_URL}/set_default`, {
+    method: 'GET',
+  }).then(response => {
+    if (response.ok)
+      return response.json()
+    else
+      return response.status
+  })
+}
+

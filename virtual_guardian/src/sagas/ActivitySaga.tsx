@@ -1,8 +1,8 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
-import { trainModelFailure, trainModelRequest, trainModelSuccess, getActivitiesFailure, getActivitiesRequest, getActivitiesSuccess, detectAnomaliesFailure, detectAnomaliesRequest, detectAnomaliesSuccess } from "../actions/ActivityAction";
-import { trainModelAPI, getActivitiesAPI, detectAnomaliesAPI } from "../api/ActivityApi";
+import { trainModelFailure, trainModelRequest, trainModelSuccess, getActivitiesFailure, getActivitiesRequest, getActivitiesSuccess, detectAnomaliesFailure, detectAnomaliesRequest, detectAnomaliesSuccess, setDefaultModelFailure, setDefaultModelSuccess, setDefaultModelRequest } from "../actions/ActivityAction";
+import { trainModelAPI, getActivitiesAPI, detectAnomaliesAPI, setDefaultModelAPI } from "../api/ActivityApi";
 import { Activity, ActivityList, DayDetected, TrainModel } from "../model/models";
-import { DETECT_ANOMALY, GET_ACTIVITY_LIST, TRAIN_MODEL } from "../types/ActivityTypes";
+import { DETECT_ANOMALY, GET_ACTIVITY_LIST, SET_DEFAULT_MODEL, TRAIN_MODEL } from "../types/ActivityTypes";
 
 function* getActivitiesAsync() {
   try {
@@ -26,7 +26,7 @@ interface Props {
 function* detectAnomaliesAsync({ type, payload }: Props) {
   try {
     yield put(detectAnomaliesRequest());
-    const response: {predictions: DayDetected[] | string} = yield call(() => detectAnomaliesAPI(payload as ActivityList[]))
+    const response: { predictions: DayDetected[] | string } = yield call(() => detectAnomaliesAPI(payload as ActivityList[]))
     if (response.predictions as string === 'unexpected error') {
       yield put(detectAnomaliesFailure("An unexpected error has occured!"))
     } else {
@@ -45,7 +45,7 @@ export function* detectAnomaliesWatcher() {
 function* trainModelAsync({ type, payload }: Props) {
   try {
     yield put(trainModelRequest());
-    const response: {score: number | string} = yield call(() => trainModelAPI(payload as TrainModel))
+    const response: { score: number | string } = yield call(() => trainModelAPI(payload as TrainModel))
     if (response.score as string === '500') {
       yield put(trainModelFailure("An unexpected error has occured!"))
     } else {
@@ -59,4 +59,20 @@ function* trainModelAsync({ type, payload }: Props) {
 
 export function* trainModelWatcher() {
   yield takeLatest(TRAIN_MODEL, trainModelAsync)
+}
+
+function* setDefaultModelAsync() {
+  try {
+    yield put(setDefaultModelRequest());
+    const response: number = yield call(() => setDefaultModelAPI());
+    if (response === 200) {
+      yield put(setDefaultModelSuccess())
+    }
+  } catch (e) {
+    yield put(setDefaultModelFailure("An unexpected error has occured!"))
+  }
+}
+
+export function* setDefaultModelWatcher() {
+  yield takeLatest(SET_DEFAULT_MODEL, setDefaultModelAsync)
 }

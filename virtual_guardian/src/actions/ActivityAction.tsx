@@ -1,7 +1,7 @@
 import { Activity, ActivityList, DayDetected, TrainModel } from "../model/models"
 import {
   GET_ACTIVITY_LIST, GET_ACTIVITY_LIST_REQUEST, GET_ACTIVITY_LIST_SUCCESS, GET_ACTIVITY_LIST_FAILURE,
-  TRAIN_MODEL, TRAIN_MODEL_FAILURE, TRAIN_MODEL_REQUEST, TRAIN_MODEL_SUCCESS, DETECT_ANOMALY, DETECT_ANOMALY_FAILURE, DETECT_ANOMALY_REQUEST, DETECT_ANOMALY_SUCCESS
+  TRAIN_MODEL, TRAIN_MODEL_FAILURE, TRAIN_MODEL_REQUEST, TRAIN_MODEL_SUCCESS, DETECT_ANOMALY, DETECT_ANOMALY_FAILURE, DETECT_ANOMALY_REQUEST, DETECT_ANOMALY_SUCCESS, SET_DEFAULT_MODEL, SET_DEFAULT_MODEL_FAILURE, SET_DEFAULT_MODEL_REQUEST, SET_DEFAULT_MODEL_SUCCESS
 } from "../types/ActivityTypes"
 
 //---------------------------------------------  GET ACTIVITIES
@@ -83,6 +83,32 @@ export const trainModelSuccess = (score: number) => {
 export const trainModelFailure = (error: string) => {
   return {
     type: TRAIN_MODEL_FAILURE,
+    payload: error
+  }
+}
+
+//---------------------------------------------  SET DEFAULT MODEL setDefaultModel
+export const setDefaultModel = () => {
+  return {
+    type: SET_DEFAULT_MODEL,
+  }
+}
+
+export const setDefaultModelRequest = () => {
+  return {
+    type: SET_DEFAULT_MODEL_REQUEST,
+  }
+}
+
+export const setDefaultModelSuccess = () => {
+  return {
+    type: SET_DEFAULT_MODEL_SUCCESS,
+  }
+}
+
+export const setDefaultModelFailure = (error: string) => {
+  return {
+    type: SET_DEFAULT_MODEL_FAILURE,
     payload: error
   }
 }

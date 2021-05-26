@@ -1,6 +1,6 @@
 import ExperimentsDumb from "./ExperimentsDumb";
 import { connect } from "react-redux";
-import { detectAnomalies, getActivities, trainModel } from "../../../../actions/ActivityAction";
+import { detectAnomalies, getActivities, setDefaultModel, trainModel } from "../../../../actions/ActivityAction";
 import { Activity, ActivityList, DayDetected, TrainModel } from "../../../../model/models";
 import React, { useEffect, useState } from "react";
 import { Snackbar } from "@material-ui/core";
@@ -11,16 +11,18 @@ interface ExperimentsSmartProps {
   getActivitiesList: () => void,
   detectDays: (dayToDetect: ActivityList[]) => void,
   train: (_trainModel: TrainModel) => void,
+  setDefault: () => void,
   activityReducer: {
     loading: boolean,
     activitiesSuccess: Activity[],
     error: string,
     detected: DayDetected[],
     trained: number,
+    defaultModelSuccess: boolean,
   },
 }
 
-function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, train }: ExperimentsSmartProps) {
+function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, train, setDefault }: ExperimentsSmartProps) {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [message, setMessage] = useState('');
@@ -32,6 +34,9 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
   const [selected, setSelected] = React.useState<Date[]>([]);
   const [detectedDaysList, setDetectedDaysList] = React.useState<DayDetected[]>([]);
   const [score, setScore] = React.useState(-1);
+
+  const [defaultAlgorithm, setDefaultAlgorithm] = React.useState('durationFrequencyRatio');
+  const [defaultFeatures, setDefaultFeatures] = React.useState('logisticRegression');
 
   let predict = (): void => {
     if (selected.length !== 0) {
@@ -48,9 +53,10 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
     train(trainModel)
   }
 
-  let setDefault = (): void => {
-    console.log('set default');
-    //TODO
+  let setDefaultEvent = (): void => {
+    setDefaultAlgorithm(algorithm)
+    setDefaultFeatures(features)
+    setDefault();
   }
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
@@ -68,6 +74,8 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
   useEffect(() => {
     if (activityReducer.loading) {
       setLoading(true);
+      setOpenSuccess(false);
+      setOpenError(false);
     }
     else if (activityReducer.error !== '') {
       setMessage(activityReducer.error);
@@ -107,10 +115,19 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
     }
   }, [activityReducer.trained]);
 
+  useEffect(() => {
+    if (activityReducer.defaultModelSuccess !== false) {
+      setMessage(`Algorithm ${defaultAlgorithm} and features ${defaultFeatures} successfully set as default!`)
+      setLoading(false)
+      setOpenError(false)
+      setOpenSuccess(true)
+    }
+  }, [activityReducer.defaultModelSuccess, defaultAlgorithm, defaultFeatures]);
+  
   return (
     <>
-      <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success"> Deleted successfuly! </Alert>
+      <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success"> {message} </Alert>
       </Snackbar>
 
       <Snackbar open={openError} autoHideDuration={3000} onClose={handleClose}>
@@ -120,7 +137,7 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
       <ExperimentsDumb
         predict={predict}
         train={handleTrainEvent}
-        setDefault={setDefault}
+        setDefault={setDefaultEvent}
         activitiesList={activitiesList}
         features={features}
         setFeatures={setFeatures}
@@ -147,6 +164,7 @@ const mapDispatchToProps = (dispatch: any) => {
     getActivitiesList: () => dispatch(getActivities()),
     detectDays: (dayToDetect: ActivityList[]) => dispatch(detectAnomalies(dayToDetect)),
     train: (_trainModel: TrainModel) => dispatch(trainModel(_trainModel)),
+    setDefault: () => dispatch(setDefaultModel()),
   }
 }
 
