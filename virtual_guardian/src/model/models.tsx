@@ -55,3 +55,8 @@ export interface TrainModel{
   algorithm: string,
   features: string
 }
+
+export interface WebSocketActivities{
+  arr: Activity[],
+  prediction: string
+}

@@ -33,6 +33,10 @@ export const NavbarUserItems = [
         title: `Patient's activities`,
         url: '/caregiver/patient/activities',
       },
+      {
+        title: `Annotate labels`,
+        url: '/caregiver/annotate_labels',
+      },
     ]
   },
   {

@@ -26,3 +26,29 @@ export const useStylesCaregiver = makeStyles(theme => ({
     marginLeft: '90vw',
   }
 }));
+
+export const useStylesActivityList = makeStyles(theme => ({
+  tablePaperStyle: {
+    minWidth: 650,
+    maxWidth: 1300,
+    margin: 'auto',
+    marginTop: 150,
+    
+  },
+  paper: {
+    width: '100%',
+    height: '600px',
+    overflow: 'scroll',
+  },
+  tableStyle: {
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  titleStyle: {
+    marginTop: 0,
+    marginBottom: 0,
+    paddingTop: 25,
+    paddingBottom: 25,
+  }
+}));
