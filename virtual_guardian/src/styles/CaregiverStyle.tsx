@@ -32,12 +32,12 @@ export const useStylesActivityList = makeStyles(theme => ({
     minWidth: 650,
     maxWidth: 1300,
     margin: 'auto',
-    marginTop: 150,
+    marginTop: 50,
     
   },
   paper: {
     width: '100%',
-    height: '600px',
+    height: 800,
     overflow: 'scroll',
   },
   tableStyle: {
@@ -52,3 +52,34 @@ export const useStylesActivityList = makeStyles(theme => ({
     paddingBottom: 25,
   }
 }));
+
+export const useStylesLabelDays = makeStyles(theme => ({
+  collapsibleTableStyle: {
+    margin: 'auto',
+    width: 1300,
+    marginTop: 50,
+    height: 800,
+    overflowY: 'scroll'
+  },
+  finishTooltipStyle: {
+    marginRight: '2%',
+    marginTop: '-1%',
+    position: 'absolute',
+    right: 0,
+    fontSize: 80,
+    cursor: 'pointer',
+    background: `linear-gradient(45deg, ${theme.palette.secondary.light} 10%, ${theme.palette.secondary.dark} 80%)`,
+    color: theme.palette.primary.contrastText,
+    borderRadius: 50,
+    padding: '1rem 1rem',
+    transition: '0.3s',
+    '&:hover': {
+      backgroundPosition: 'right',
+      padding: '1.5rem 1.5rem',
+    },
+  },
+  finishButtonStyle: {
+    width: 30,
+    height: 30,
+  },
+}))

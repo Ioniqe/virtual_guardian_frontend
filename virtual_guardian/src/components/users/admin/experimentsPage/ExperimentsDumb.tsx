@@ -87,6 +87,7 @@ function ExperimentsDumb({ predict, train, setDefault, activitiesList, features,
             activitiesList={activitiesList}
             selected={selected}
             setSelected={setSelected}
+            page={'Experiments'}
           />
         </div>
 
@@ -95,10 +96,10 @@ function ExperimentsDumb({ predict, train, setDefault, activitiesList, features,
 
           <Paper elevation={0}>
             {loading ? <CircularProgress color='primary' /> :
-              score !== -1 ? <h2>Accuracy: { score }</h2> :
-              detectedDaysList.map((detectedDay, index) => {
-              return <h2 key={index}>Day {detectedDay.day} is {detectedDay.result}</h2>
-            })}
+              score !== -1 ? <h2>Accuracy: {score}</h2> :
+                detectedDaysList.map((detectedDay, index) => {
+                  return <h2 key={index}>Day {detectedDay.day} is {detectedDay.result}</h2>
+                })}
           </Paper>
         </div>
         <Button className={style.setDefaultButtonStyle} variant='outlined' onClick={setDefault}>Set as default</Button>

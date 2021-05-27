@@ -47,7 +47,7 @@ function Row({ day, isItemSelected, labelId, handleClick }: RowProps) {
         <TableCell component="th" scope="row">
           {day.day}
         </TableCell>
-        <TableCell padding="checkbox">
+        <TableCell padding="checkbox" align='center'>
           <Checkbox
             checked={isItemSelected}
             inputProps={{ 'aria-labelledby': labelId }}
@@ -67,7 +67,7 @@ function Row({ day, isItemSelected, labelId, handleClick }: RowProps) {
                   <TableRow>
                     <TableCell>Day</TableCell>
                     <TableCell>Start Time</TableCell>
-                    <TableCell align="right">End Time</TableCell>
+                    <TableCell>End Time</TableCell>
                     <TableCell align="right">Activity</TableCell>
                   </TableRow>
                 </TableHead>
@@ -95,10 +95,11 @@ function Row({ day, isItemSelected, labelId, handleClick }: RowProps) {
 interface CollapsibleTableProps {
   activitiesList: ActivityList[],
   selected: Date[],
-  setSelected: (selected: Date[]) => void
+  setSelected: (selected: Date[]) => void,
+  page: string
 }
 
-export default function CollapsibleTable({ activitiesList, selected, setSelected }: CollapsibleTableProps) {
+export default function CollapsibleTable({ activitiesList, selected, setSelected, page }: CollapsibleTableProps) {
 
   const onSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
@@ -137,8 +138,9 @@ export default function CollapsibleTable({ activitiesList, selected, setSelected
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Day</TableCell>
-            <TableCell padding="checkbox">
+            <TableCell><h3 style={{textAlign:'left'}}>Day</h3></TableCell>
+            <TableCell padding="checkbox" align='center'>
+              {page === 'LabelDays' && <h3>Anomalous</h3>}
               <Checkbox
                 onChange={onSelectAllClick}
               />

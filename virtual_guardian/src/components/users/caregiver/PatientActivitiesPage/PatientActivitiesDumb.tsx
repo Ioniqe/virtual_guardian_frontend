@@ -8,8 +8,6 @@ interface PatientActivitiesDumbProps {
 }
 
 function PatientActivitiesDumb({ activityList, prediction }: PatientActivitiesDumbProps) {
-  console.log(activityList);
-  console.log(prediction);
   let style = useStylesActivityList();
 
   return (

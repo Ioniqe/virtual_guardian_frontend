@@ -60,3 +60,9 @@ export interface WebSocketActivities{
   arr: Activity[],
   prediction: string
 }
+
+export interface LabeledDay{
+  id: number,
+  day: Date,
+  label: string,
+}
