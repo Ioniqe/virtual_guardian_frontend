@@ -3,7 +3,7 @@ import { Alert } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getActivities } from "../../../../actions/ActivityAction";
-import { getLabeledDaysList } from "../../../../actions/LabeledDayAction";
+import { getLabeledDaysList, saveAnomalousDays } from "../../../../actions/LabeledDayAction";
 import { Activity, ActivityList, LabeledDay } from "../../../../model/models";
 import LabelDaysDumb from "./LabelDaysDumb";
 
@@ -16,14 +16,16 @@ interface LabelDaysSmartProps {
   },
 
   getLabeledDays: (label: string) => void,
+  saveAnomalousLabeledDays: (selectedDays: Date[]) => void,
   labeledDayReducer: {
-    loading: false,
+    loading: boolean,
     labeledDaysSuccess: LabeledDay[],
     error: '',
+    saveSuccessful: boolean,
   }
 }
 
-function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, labeledDayReducer }: LabelDaysSmartProps) {
+function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, saveAnomalousLabeledDays, labeledDayReducer }: LabelDaysSmartProps) {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [message, setMessage] = useState('');
@@ -33,8 +35,7 @@ function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, la
   const [activitiesList, setActivitiesList] = useState<ActivityList[]>([]);
 
   let sendSelected = (): void => {
-    console.log('send these');
-    console.log(selected)
+    saveAnomalousLabeledDays(selected)
   }
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
@@ -94,7 +95,7 @@ function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, la
       setLoading(false);
       setOpenError(true);
     }
-    else if (labeledDayReducer.labeledDaysSuccess.length !== 0) {
+    else if (labeledDayReducer.labeledDaysSuccess.length !== 0 && labeledDayReducer.saveSuccessful === false) {
       setLoading(false);
 
       let anomalousDays: Date[] = [];
@@ -104,13 +105,20 @@ function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, la
 
       setSelected(anomalousDays);
     }
-  }, [labeledDayReducer.loading, labeledDayReducer.error, labeledDayReducer.labeledDaysSuccess]);
+  }, [labeledDayReducer.loading, labeledDayReducer.error, labeledDayReducer.labeledDaysSuccess, labeledDayReducer.saveSuccessful]);
 
+  useEffect(() => {
+    if (labeledDayReducer.saveSuccessful === true) {
+      setMessage('Successfully Saved')
+      setOpenError(false)
+      setOpenSuccess(true)
+      setLoading(false)
+    }
+  }, [labeledDayReducer.saveSuccessful]);
 
-  
   return (
     <>
-      <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success"> {message} </Alert>
       </Snackbar>
 
@@ -123,7 +131,7 @@ function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, la
         selected={selected}
         setSelected={setSelected}
         loading={loading}
-        sendSelected={ sendSelected}
+        sendSelected={sendSelected}
       />
     </>
   );
@@ -140,6 +148,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     getActivitiesList: () => dispatch(getActivities()),
     getLabeledDays: (label: string) => dispatch(getLabeledDaysList(label)),
+    saveAnomalousLabeledDays: (selectedDays: Date[]) => dispatch(saveAnomalousDays(selectedDays)),
   }
 }
 

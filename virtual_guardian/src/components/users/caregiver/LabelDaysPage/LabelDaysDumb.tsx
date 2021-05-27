@@ -18,8 +18,9 @@ function LabelDaysDumb({ activitiesList, selected, setSelected, loading, sendSel
   return (
     <>
       <div className={style.collapsibleTableStyle}>
-        {loading && <CircularProgress color='primary' />}
-        <CollapsibleTable
+        {loading && <CircularProgress style={{position:'absolute'}} />}
+        
+        <CollapsibleTable 
           activitiesList={activitiesList}
           selected={selected}
           setSelected={setSelected}
