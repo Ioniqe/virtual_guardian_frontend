@@ -16,6 +16,7 @@ import PatientsPageSmart from "./users/doctor/patientsPage/PatientsPageSmart";
 import CaregiversPageSmart from "./users/doctor/caregiversPage/CaregiversPageSmart";
 import ExperimentsSmart from "./users/admin/experimentsPage/ExperimentsSmart";
 import PatientActivitiesSmart from "./users/caregiver/PatientActivitiesPage/PatientActivitiesSmart";
+import LabelDaysSmart from "./users/caregiver/LabelDaysPage/LabelDaysSmart";
 
 
 interface Props {
@@ -30,6 +31,8 @@ interface Props {
 function Main({ loginUser, removeUser }: Props) {
 
   let userType = loginUser.loginSuccessful.type;
+
+  //TODO should I put the activities into the database as well?
 
   return (
     <>
@@ -47,6 +50,7 @@ function Main({ loginUser, removeUser }: Props) {
 
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver' component={CaregiverHomeSmart} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver/patient/activities' component={PatientActivitiesSmart} removeUser={removeUser} />
+        <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver/annotate_labels' component={LabelDaysSmart} removeUser={removeUser} />
 
         <ProtectedRoute exact isAuthenticated={userType === 'patient'} path='/patient' component={() => <PatientHomeSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'patient'} path='/patient/test' component={() => <PatientTestForDiseaseSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
