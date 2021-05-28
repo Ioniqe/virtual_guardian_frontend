@@ -70,7 +70,6 @@ function ExperimentsDumb({ predict, train, setDefault, activitiesList, features,
                 <MenuItem value={'kNeighbours'}>K Neighbours</MenuItem>
                 <MenuItem value={'decisionTree'}>Decision Tree</MenuItem>
                 <MenuItem value={'svm'}>SVM</MenuItem>
-                <MenuItem value={'linear'}>Linear Regression</MenuItem>
                 <MenuItem value={'naiveBayes'}>Naive Bayes</MenuItem>
               </Select>
             </FormControl>

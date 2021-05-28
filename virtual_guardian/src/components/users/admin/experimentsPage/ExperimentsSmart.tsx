@@ -22,6 +22,8 @@ interface ExperimentsSmartProps {
   },
 }
 
+//TODO maybe when showing the results of the prediction, show also what they should have been?
+
 function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, train, setDefault }: ExperimentsSmartProps) {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);

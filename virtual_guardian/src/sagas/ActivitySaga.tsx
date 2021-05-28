@@ -23,6 +23,8 @@ interface Props {
   payload: ActivityList[] | TrainModel
 }
 
+//TODO considera si cand score da 404 din flask (de ex)
+
 function* detectAnomaliesAsync({ type, payload }: Props) {
   try {
     yield put(detectAnomaliesRequest());
