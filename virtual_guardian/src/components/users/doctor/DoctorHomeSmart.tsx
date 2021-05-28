@@ -19,8 +19,6 @@ function DoctorHomeSmart({ loggedUser}: DoctorHomeSmartProps) {
 
         let message: EmergencyWebsocket = JSON.parse(greeting.body);
 
-        console.log(message)
-
         if (message.userId === loggedUser.id) {
           alert(`Patient ${message.patientName} has an emergency!`);
         }

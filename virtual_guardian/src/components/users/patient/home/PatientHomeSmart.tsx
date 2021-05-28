@@ -38,9 +38,7 @@ function PatientHomeSmart({ loggedUser, sendEmergencyEvent, patientReducer }: Pa
   useEffect(() => {
     if (patientReducer.loading) {
       setLoading(true);
-      console.log('loading')
     } else if (patientReducer.error) {
-      console.log("error")
       setMessage(patientReducer.error);
       setLoading(false);
       setOpenError(true);

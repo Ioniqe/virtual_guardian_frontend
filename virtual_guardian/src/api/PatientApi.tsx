@@ -75,3 +75,26 @@ export const sendEmergencyAPI = (patientId: string) => {
     return response.status
   })
 }
+
+export const assignCaregiverAPI = (payload: { 'caregiverId': string, 'patientId': string }) => {
+  return fetch(`${SERVER_URL}/patient/set_caregiver/${payload.patientId}/${payload.caregiverId}`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+  }).then(response => {
+    return response.status
+  })
+}
+
+export const getPatientAPI = (patientId: string) => {
+  return fetch(`${SERVER_URL}/patient/${patientId}`, {
+    method: 'GET',
+  }).then(response => {
+    if (response.ok)
+      return response.json()
+    else
+      return response.status
+  })
+}

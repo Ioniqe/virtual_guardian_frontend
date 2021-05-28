@@ -344,7 +344,7 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
                       (userType === 'patient' && rowEdited !== index) &&
                       <TableCell align="center">
                         <Tooltip title="Assign Caregiver">
-                          <IconButton aria-label="add_patient" onClick={() => (assignCaregiver && assignCaregiver(row.id))} >
+                          <IconButton aria-label="assign_caregiver" onClick={() => (assignCaregiver && assignCaregiver(row.id))} >
                             <PersonAddRoundedIcon />
                           </IconButton>
                         </Tooltip>

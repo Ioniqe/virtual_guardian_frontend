@@ -1,12 +1,12 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
-import { deletePatientsFailure, deletePatientsRequest, deletePatientsSuccess, getPatientsListFailure, getPatientsListRequest, getPatientsListSuccess, predictDiseaseFailure, predictDiseaseRequest, predictDiseaseSuccess, savePatientFailure, savePatientRequest, savePatientSuccess, sendEmergencyFailure, sendEmergencyRequest, sendEmergencySuccess, updatePatientFailure, updatePatientRequest, updatePatientSuccess } from "../actions/PatientAction";
-import { deletePatientsAPI, getPatientsAPI, predictDiseaseAPI, savePatientAPI, sendEmergencyAPI, updatePatientAPI } from "../api/PatientApi";
+import { assignCaregiverFailure, assignCaregiverRequest, assignCaregiverSuccess, deletePatientsFailure, deletePatientsRequest, deletePatientsSuccess, getPatientFailure, getPatientRequest, getPatientsListFailure, getPatientsListRequest, getPatientsListSuccess, getPatientSuccess, predictDiseaseFailure, predictDiseaseRequest, predictDiseaseSuccess, savePatientFailure, savePatientRequest, savePatientSuccess, sendEmergencyFailure, sendEmergencyRequest, sendEmergencySuccess, updatePatientFailure, updatePatientRequest, updatePatientSuccess } from "../actions/PatientAction";
+import { assignCaregiverAPI, deletePatientsAPI, getPatientAPI, getPatientsAPI, predictDiseaseAPI, savePatientAPI, sendEmergencyAPI, updatePatientAPI } from "../api/PatientApi";
 import { DiseaseProps, User } from "../model/models";
-import { DELETE_PATIENTS, GET_PATIENTS_LIST, PREDICT_DISEASE, SAVE_PATIENT, SEND_EMERGENCY, UPDATE_PATIENT } from "../types/PatientTypes";
+import { ASSIGN_CAREGIVER, DELETE_PATIENTS, GET_PATIENT, GET_PATIENTS_LIST, PREDICT_DISEASE, SAVE_PATIENT, SEND_EMERGENCY, UPDATE_PATIENT } from "../types/PatientTypes";
 
 interface Props {
   type: string,
-  payload: string[] | string | { 'patient': User, 'doctorId': string } | User
+  payload: string[] | string | { 'patient': User, 'doctorId': string } | User | { 'caregiverId': string, 'patientId': string }
 }
 
 function* predictDiseaseAsync({ type, payload }: Props) {
@@ -143,4 +143,60 @@ function* sendEmergencyAsync({ type, payload }: Props) {
 
 export function* sendEmergencyWatcher() {
   yield takeLatest(SEND_EMERGENCY, sendEmergencyAsync)
+}
+
+function* assignCaregiverAsync(props: Props) {
+  try {
+    yield put(assignCaregiverRequest());
+    const response: ResponseGenerator = yield call(() => assignCaregiverAPI(props.payload as { 'caregiverId': string, 'patientId': string }));
+
+    switch (response) {
+      case 500:
+        yield put(assignCaregiverFailure("Server has returned an error!"))
+        break;
+      case 404:
+        yield put(assignCaregiverFailure("User was not found!"))
+        break;
+      case 200:
+        yield put(assignCaregiverSuccess())
+        break;
+      default:
+        console.error('in assignCaregiverAsync, response status unrecognized');
+    }
+
+  } catch (e) {
+    yield put(assignCaregiverFailure("An unexpected error has occured!"))
+  }
+}
+
+export function* assignCaregiverWatcher() {
+  yield takeLatest(ASSIGN_CAREGIVER, assignCaregiverAsync)
+}
+
+function* getPatientAsync({ type, payload }: Props) {
+  try {
+    yield put(getPatientRequest());
+    const response: User | number = yield call(() => getPatientAPI(payload as string))
+    if (typeof response === 'number') {
+      switch (response) {
+        case 500:
+          yield put(getPatientFailure("An unexpected error has occured!"))
+          break;
+        case 404:
+          yield put(getPatientFailure("User not found!"))
+          break;
+        default:
+          console.error('in getPatientAsync, response status unrecognized');
+      }
+    }
+
+    yield put(getPatientSuccess(response as User))
+
+  } catch (e) {
+    yield put(getPatientFailure("An unexpected error has occured!"))
+  }
+}
+
+export function* getPatientWatcher() {
+  yield takeLatest(GET_PATIENT, getPatientAsync)
 }

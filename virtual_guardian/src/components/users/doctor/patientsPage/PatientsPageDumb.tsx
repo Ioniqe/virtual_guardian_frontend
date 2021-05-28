@@ -4,7 +4,7 @@ import { useStylesPatient } from "../../../../styles/PatientStyle";
 import TableWithDeleteFeature from "../../admin/AllAdminsTablePage/TableWithDeleteFeature";
 
 import AddIcon from '@material-ui/icons/Add';
-import React, { useState } from "react";
+import { useState } from "react";
 import PopupSignUp from "../../../popups/PopupSignUp";
 
 interface PatientsPageDumbProps {
@@ -12,13 +12,14 @@ interface PatientsPageDumbProps {
   doctorId: string,
   deleteSelected: (patientsToBeDeleted: string[]) => void,
   savePatient: (newPatient: User, doctorId: string) => void,
-  saveEditedPatient: (editedUser: User) => void
+  saveEditedPatient: (editedUser: User) => void,
+  assignCaregiver: (patientId: string) => void,
 }
 
 //TODO add disease, remove disease
 //TODO modify add button
 
-function PatientsPageDumb({ patientList, deleteSelected, savePatient, doctorId, saveEditedPatient }: PatientsPageDumbProps) {
+function PatientsPageDumb({ patientList, deleteSelected, savePatient, doctorId, saveEditedPatient, assignCaregiver }: PatientsPageDumbProps) {
   let style = useStylesPatient();
 
   const [open, setOpen] = useState(false);
@@ -60,7 +61,8 @@ function PatientsPageDumb({ patientList, deleteSelected, savePatient, doctorId, 
           headers={headers}
           deleteSelected={deleteSelected}
           userType={'patient'}
-          saveUser={ saveEditedPatient }
+          saveUser={saveEditedPatient}
+          assignCaregiver={assignCaregiver}
         />
       </Paper>
 
