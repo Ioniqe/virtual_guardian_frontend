@@ -17,6 +17,7 @@ import CaregiversPageSmart from "./users/doctor/caregiversPage/CaregiversPageSma
 import ExperimentsSmart from "./users/admin/experimentsPage/ExperimentsSmart";
 import PatientActivitiesSmart from "./users/caregiver/PatientActivitiesPage/PatientActivitiesSmart";
 import LabelDaysSmart from "./users/caregiver/LabelDaysPage/LabelDaysSmart";
+import AbnormalBehaviourSmart from "./users/doctor/abnormalBehaviourPage/AbnormalBehaviourSmart";
 
 
 interface Props {
@@ -47,6 +48,7 @@ function Main({ loginUser, removeUser }: Props) {
         <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor' component={DoctorHomeSmart} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor/patient/list'  component={() => <PatientsPageSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor/caregiver/list'  component={() => <CaregiversPageSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
+        <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor/patient/abnormal_behaviour'  component={() => <AbnormalBehaviourSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
 
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver' component={CaregiverHomeSmart} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver/patient/activities' component={PatientActivitiesSmart} removeUser={removeUser} />

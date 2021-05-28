@@ -66,3 +66,9 @@ export interface LabeledDay{
   day: Date,
   label: string,
 }
+
+export interface EmergencyWebsocket{
+  userId: string,
+  patientName: string,
+  message: string
+}

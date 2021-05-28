@@ -34,7 +34,11 @@ export const NavbarUserItems = [
         url: '/caregiver/patient/activities',
       },
       {
-        title: `Annotate labels`,
+        title: 'Abnormal behaviour',
+        url: '/caregiver/patient/abnormal_behaviour',
+      },
+      {
+        title: 'Annotate labels',
         url: '/caregiver/annotate_labels',
       },
     ]
@@ -52,6 +56,10 @@ export const NavbarUserItems = [
       {
         title: `Patient's activities`,
         url: '/doctor/patient/activities',
+      },
+      {
+        title: 'Abnormal behaviour',
+        url: '/doctor/patient/abnormal_behaviour',
       },
       {
         title: 'Medications',

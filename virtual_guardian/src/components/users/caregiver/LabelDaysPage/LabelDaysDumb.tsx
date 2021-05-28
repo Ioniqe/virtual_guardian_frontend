@@ -12,6 +12,8 @@ interface LabelDaysDumbProps {
   sendSelected: () => void,
 }
 
+//TODO fa sa arate bine tabelul si butonul
+
 function LabelDaysDumb({ activitiesList, selected, setSelected, loading, sendSelected }: LabelDaysDumbProps) {
   let style = useStylesLabelDays()
 
