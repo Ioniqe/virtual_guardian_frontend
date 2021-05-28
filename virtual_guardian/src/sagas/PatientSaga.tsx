@@ -126,7 +126,6 @@ function* sendEmergencyAsync({ type, payload }: Props) {
   try {
     yield put(sendEmergencyRequest());
     const response: number = yield call(() => sendEmergencyAPI(payload as string))
-    console.log(response)
     switch (response) {
       case 200:
         yield put(sendEmergencySuccess())

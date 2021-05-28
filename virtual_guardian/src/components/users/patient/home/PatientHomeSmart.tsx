@@ -24,7 +24,6 @@ function PatientHomeSmart({ loggedUser, sendEmergencyEvent, patientReducer }: Pa
   const [loading, setLoading] = useState(false);
   
   let handleEmergencyEvent = (): void => {
-    console.log("Emergency");
     sendEmergencyEvent(loggedUser.id);
   }
 
