@@ -42,7 +42,7 @@ export const deletePatientsAPI = (patientsToBeDeleted: string[]) => {
   })
 }
 
-export const savePatientAPI = (payload : { 'patient': User, 'doctorId': string }) => {
+export const savePatientAPI = (payload: { 'patient': User, 'doctorId': string }) => {
   return fetch(`${SERVER_URL}/patient/new/${payload.doctorId}`, {
     method: 'POST',
     headers: {
@@ -55,7 +55,7 @@ export const savePatientAPI = (payload : { 'patient': User, 'doctorId': string }
   })
 }
 
-export const updatePatientAPI = (payload : User) => {
+export const updatePatientAPI = (payload: User) => {
   return fetch(`${SERVER_URL}/patient/update`, {
     method: 'PUT',
     headers: {
@@ -63,6 +63,14 @@ export const updatePatientAPI = (payload : User) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload)
+  }).then(response => {
+    return response.status
+  })
+}
+
+export const sendEmergencyAPI = (patientId: string) => {
+  return fetch(`${SERVER_URL}/sendEmergency/${patientId}`, {
+    method: 'GET',
   }).then(response => {
     return response.status
   })

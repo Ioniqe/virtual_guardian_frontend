@@ -1,8 +1,8 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
-import { deletePatientsFailure, deletePatientsRequest, deletePatientsSuccess, getPatientsListFailure, getPatientsListRequest, getPatientsListSuccess, predictDiseaseFailure, predictDiseaseRequest, predictDiseaseSuccess, savePatientFailure, savePatientRequest, savePatientSuccess, updatePatientFailure, updatePatientRequest, updatePatientSuccess } from "../actions/PatientAction";
-import { deletePatientsAPI, getPatientsAPI, predictDiseaseAPI, savePatientAPI, updatePatientAPI } from "../api/PatientApi";
+import { deletePatientsFailure, deletePatientsRequest, deletePatientsSuccess, getPatientsListFailure, getPatientsListRequest, getPatientsListSuccess, predictDiseaseFailure, predictDiseaseRequest, predictDiseaseSuccess, savePatientFailure, savePatientRequest, savePatientSuccess, sendEmergencyFailure, sendEmergencyRequest, sendEmergencySuccess, updatePatientFailure, updatePatientRequest, updatePatientSuccess } from "../actions/PatientAction";
+import { deletePatientsAPI, getPatientsAPI, predictDiseaseAPI, savePatientAPI, sendEmergencyAPI, updatePatientAPI } from "../api/PatientApi";
 import { DiseaseProps, User } from "../model/models";
-import { DELETE_PATIENTS, GET_PATIENTS_LIST, PREDICT_DISEASE, SAVE_PATIENT, UPDATE_PATIENT } from "../types/PatientTypes";
+import { DELETE_PATIENTS, GET_PATIENTS_LIST, PREDICT_DISEASE, SAVE_PATIENT, SEND_EMERGENCY, UPDATE_PATIENT } from "../types/PatientTypes";
 
 interface Props {
   type: string,
@@ -72,7 +72,7 @@ interface ResponseGenerator {
 function* savePatientAsync(props: Props) {
   try {
     yield put(savePatientRequest());
-    const response: ResponseGenerator  = yield call(() => savePatientAPI(props.payload as { 'patient': User, 'doctorId': string }));
+    const response: ResponseGenerator = yield call(() => savePatientAPI(props.payload as { 'patient': User, 'doctorId': string }));
 
     switch (response) {
       case 500:
@@ -97,7 +97,7 @@ export function* savePatientWatcher() {
 function* updatePatientAsync(props: Props) {
   try {
     yield put(updatePatientRequest());
-    const response: ResponseGenerator  = yield call(() => updatePatientAPI(props.payload as User));
+    const response: ResponseGenerator = yield call(() => updatePatientAPI(props.payload as User));
 
     switch (response) {
       case 500:
@@ -120,4 +120,28 @@ function* updatePatientAsync(props: Props) {
 
 export function* updatePatientWatcher() {
   yield takeLatest(UPDATE_PATIENT, updatePatientAsync)
+}
+
+function* sendEmergencyAsync({ type, payload }: Props) {
+  try {
+    yield put(sendEmergencyRequest());
+    const response: number = yield call(() => sendEmergencyAPI(payload as string))
+    console.log(response)
+    switch (response) {
+      case 200:
+        yield put(sendEmergencySuccess())
+        break;
+      case 404:
+        yield put(sendEmergencyFailure('User not found!'))
+        break;
+      default:
+        console.error('in sendEmergencyAsync, response status unrecognized');
+    }
+  } catch (e) {
+    yield put(sendEmergencyFailure("An unexpected error has occured!"))
+  }
+}
+
+export function* sendEmergencyWatcher() {
+  yield takeLatest(SEND_EMERGENCY, sendEmergencyAsync)
 }

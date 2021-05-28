@@ -1,5 +1,5 @@
 import { User } from "../model/models"
-import { DELETE_PATIENTS, DELETE_PATIENTS_FAILURE, DELETE_PATIENTS_REQUEST, DELETE_PATIENTS_SUCCESS, GET_PATIENTS_LIST, GET_PATIENTS_LIST_FAILURE, GET_PATIENTS_LIST_REQUEST, GET_PATIENTS_LIST_SUCCESS, PREDICT_DISEASE, PREDICT_DISEASE_FAILURE, PREDICT_DISEASE_REQUEST, PREDICT_DISEASE_SUCCESS, SAVE_PATIENT, SAVE_PATIENT_FAILURE, SAVE_PATIENT_REQUEST, SAVE_PATIENT_SUCCESS, UPDATE_PATIENT, UPDATE_PATIENT_FAILURE, UPDATE_PATIENT_REQUEST, UPDATE_PATIENT_SUCCESS } from "../types/PatientTypes"
+import { DELETE_PATIENTS, DELETE_PATIENTS_FAILURE, DELETE_PATIENTS_REQUEST, DELETE_PATIENTS_SUCCESS, GET_PATIENTS_LIST, GET_PATIENTS_LIST_FAILURE, GET_PATIENTS_LIST_REQUEST, GET_PATIENTS_LIST_SUCCESS, PREDICT_DISEASE, PREDICT_DISEASE_FAILURE, PREDICT_DISEASE_REQUEST, PREDICT_DISEASE_SUCCESS, SAVE_PATIENT, SAVE_PATIENT_FAILURE, SAVE_PATIENT_REQUEST, SAVE_PATIENT_SUCCESS, SEND_EMERGENCY, SEND_EMERGENCY_FAILURE, SEND_EMERGENCY_REQUEST, SEND_EMERGENCY_SUCCESS, UPDATE_PATIENT, UPDATE_PATIENT_FAILURE, UPDATE_PATIENT_REQUEST, UPDATE_PATIENT_SUCCESS } from "../types/PatientTypes"
 
 //--------------------------------------------- PREDICT DISEASE
 export const predictDisease = (symptomsArr: Array<number>) => {
@@ -135,6 +135,34 @@ export const updatePatientSuccess = () => {
 export const updatePatientFailure = (error: string) => {
   return {
     type: UPDATE_PATIENT_FAILURE,
+    payload: error
+  }
+}
+
+//---------------------------------------------  UPDATE PATIENT
+export const sendEmergency = (patientId: string) => {
+  console.log(patientId)
+  return {
+    type: SEND_EMERGENCY,
+    payload: patientId,
+  }
+}
+
+export const sendEmergencyRequest = () => {
+  return {
+    type: SEND_EMERGENCY_REQUEST,
+  }
+}
+
+export const sendEmergencySuccess = () => {
+  return {
+    type: SEND_EMERGENCY_SUCCESS,
+  }
+}
+
+export const sendEmergencyFailure = (error: string) => {
+  return {
+    type: SEND_EMERGENCY_FAILURE,
     payload: error
   }
 }

@@ -4,7 +4,7 @@ import { deleteAdminsWatcher, getAdminsWatcher } from "../sagas/AdminSaga";
 import { deleteCaregiversWatcher, getCaregiversWatcher, saveCaregiverWatcher, updateCaregiverWatcher } from "../sagas/CaregiverSaga";
 import { getLabeledDaysListWatcher, saveAnomalousDaysWatcher } from "../sagas/LabeledDaySaga";
 import { loginUserWatcher } from "../sagas/LoginSaga";
-import { deletePatientsWatcher, getPatientsWatcher, predictDiseaseWatcher, savePatientWatcher, updatePatientWatcher } from "../sagas/PatientSaga";
+import { deletePatientsWatcher, getPatientsWatcher, predictDiseaseWatcher, savePatientWatcher, sendEmergencyWatcher, updatePatientWatcher } from "../sagas/PatientSaga";
 import { registerUserWatcher } from "../sagas/RegisterSaga";
 
 export default function* rootSaga() {
@@ -28,6 +28,7 @@ export default function* rootSaga() {
     setDefaultModelWatcher(),
     getLabeledDaysListWatcher(),
     saveAnomalousDaysWatcher(),
-    
+    sendEmergencyWatcher(),
+
   ])
 }

@@ -13,18 +13,14 @@ import woods from '../../../../visuals/patient/woods.svg';
 import UserDetailsPage from "../../UserDetailsPage";
 
 interface PatientHomeDumbProps {
-  loggedUser: User
+  loggedUser: User,
+  handleEmergencyEvent: () => void,
 }
 
 //TODO what to do with patient treatments?
 
-function PatientHomeDumb({ loggedUser }: PatientHomeDumbProps) {
+function PatientHomeDumb({ loggedUser, handleEmergencyEvent }: PatientHomeDumbProps) {
   let style = useStylesPatient();
-
-  let handleEmergencyEvent = (): void => {
-    console.log("Emergency");
-    //TODO
-  }
 
   const { pathname } = useLocation();
   useEffect(() => {
