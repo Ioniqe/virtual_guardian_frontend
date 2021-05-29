@@ -148,8 +148,10 @@ export function* sendEmergencyWatcher() {
 function* assignCaregiverAsync(props: Props) {
   try {
     yield put(assignCaregiverRequest());
+    console.log('AAA inainte')
     const response: ResponseGenerator = yield call(() => assignCaregiverAPI(props.payload as { 'caregiverId': string, 'patientId': string }));
 
+    console.log('AAA dupa')
     switch (response) {
       case 500:
         yield put(assignCaregiverFailure("Server has returned an error!"))

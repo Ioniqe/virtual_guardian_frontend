@@ -44,16 +44,14 @@ function CaregiversListPopup({ open, setOpen, getAllCaregiversList, caregiverRed
   };
 
   const handleSave = () => {
-    if (selectedCaregiver !== '') {
-      assignCaregiverEvent(selectedCaregiver, patient.id)
-      setOpen(false);
-    }
+    assignCaregiverEvent(selectedCaregiver, patient.id)
+    setOpen(false);
   };
 
   const isSelected = (caregiverId: string) => selectedCaregiver === caregiverId;
 
   const handleClick = (event: React.MouseEvent<unknown>, caregiverId: string) => {
-    setSelectedCaregiver(caregiverId);
+    selectedCaregiver === caregiverId ? setSelectedCaregiver('') : setSelectedCaregiver(caregiverId)
   };
 
   useEffect(() => {

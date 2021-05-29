@@ -77,7 +77,7 @@ export const sendEmergencyAPI = (patientId: string) => {
 }
 
 export const assignCaregiverAPI = (payload: { 'caregiverId': string, 'patientId': string }) => {
-  return fetch(`${SERVER_URL}/patient/set_caregiver/${payload.patientId}/${payload.caregiverId}`, {
+  return fetch(`${SERVER_URL}/patient/set_caregiver/${payload.patientId}/${payload.caregiverId !== '' ? payload.caregiverId : '-'}`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
