@@ -1,4 +1,5 @@
 import { combineReducers } from "redux"
+import abnormalBehaviourReducer from "../reducers/AbnormalBehaviourReducer"
 import activityReducer from "../reducers/ActivityReducer"
 import allAdminsReducer from "../reducers/AdminReducer"
 import caregiverReducer from "../reducers/CaregiverReducer"
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   caregiver: caregiverReducer,
   activity: activityReducer,
   labeledDay: labeledDayReducer,
+  abnormalBehaviour: abnormalBehaviourReducer,
   
 })
 

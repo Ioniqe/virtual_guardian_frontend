@@ -9,10 +9,6 @@ export const NavbarUserItems = [
         title: 'Experiments',
         url: '/admin/experiments',
       },
-      {
-        title: 'Modify Patient Of Activities',
-        url: '/admin/activities',
-      },
     ]
   },
   {
@@ -60,10 +56,6 @@ export const NavbarUserItems = [
       {
         title: 'Abnormal behaviour',
         url: '/doctor/patient/abnormal_behaviour',
-      },
-      {
-        title: 'Medications',
-        url: '/doctor/medications/graph',
       },
     ]
   },
