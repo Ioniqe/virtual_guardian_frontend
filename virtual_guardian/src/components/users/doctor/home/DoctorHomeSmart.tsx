@@ -1,13 +1,14 @@
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import { useEffect } from "react";
-import { EmergencyWebsocket, SERVER_URL, User } from '../../../model/models';
+import { EmergencyWebsocket, SERVER_URL, User } from '../../../../model/models';
+import DoctorHomeDumb from './DoctorHomeDumb';
 
 interface DoctorHomeSmartProps {
   loggedUser: User,
 }
 
-function DoctorHomeSmart({ loggedUser}: DoctorHomeSmartProps) {
+function DoctorHomeSmart({ loggedUser }: DoctorHomeSmartProps) {
 
   useEffect(() => {
     var sock = new SockJS(`${SERVER_URL}/emergency`);
@@ -35,7 +36,9 @@ function DoctorHomeSmart({ loggedUser}: DoctorHomeSmartProps) {
 
   return (
     <>
-      <h1>Hello Doctor</h1>
+      <DoctorHomeDumb
+        loggedUser={loggedUser}
+      />
     </>
   );
 }

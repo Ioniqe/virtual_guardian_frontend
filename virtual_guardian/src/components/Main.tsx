@@ -2,11 +2,11 @@ import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import { removeLoggedUser } from "../actions/LoginAction";
 import { User } from "../model/models";
-import AdminHomeSmart from "./users/admin/AdminHomeSmart";
+import AdminHomeSmart from "./users/admin/home/AdminHomeSmart";
 import HomeSmart from "./login/HomeSmart";
 import ProtectedRoute from "./ProtectedRoute";
-import DoctorHomeSmart from "./users/doctor/DoctorHomeSmart";
-import CaregiverHomeSmart from "./users/caregiver/CaregiverHomeSmart";
+import DoctorHomeSmart from "./users/doctor/home/DoctorHomeSmart";
+import CaregiverHomeSmart from "./users/caregiver/home/CaregiverHomeSmart";
 import Navbar from "./navbar/Navbar";
 import { NavbarUserItems } from "./navbar/MenuItems";
 import AllAdminsTableSmart from "./users/admin/AllAdminsTablePage/AllAdminsTableSmart";
@@ -43,7 +43,7 @@ function Main({ loginUser, removeUser }: Props) {
       <Switch>
         <Route exact path='/' component={HomeSmart} />
 
-        <ProtectedRoute exact isAuthenticated={userType === 'admin'} path='/admin' component={AdminHomeSmart} removeUser={removeUser} />
+        <ProtectedRoute exact isAuthenticated={userType === 'admin'} path='/admin'  component={() => <AdminHomeSmart  loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'admin'} path='/admin/list' component={AllAdminsTableSmart} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'admin'} path='/admin/experiments' component={ExperimentsSmart} removeUser={removeUser} />
         
@@ -52,7 +52,7 @@ function Main({ loginUser, removeUser }: Props) {
         <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor/caregiver/list'  component={() => <CaregiversPageSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
         {/* <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor/patient/abnormal_behaviour'  component={() => <AbnormalBehaviourSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} /> */}
 
-        <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver' component={CaregiverHomeSmart} removeUser={removeUser} />
+        <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver' component={() => <CaregiverHomeSmart  loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver/patient/activities' component={PatientActivitiesSmart} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver/annotate_labels' component={LabelDaysSmart} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver/patient/abnormal_behaviour' component={() => <AbnormalBehaviourSmart loggedUser={ loginUser.loginSuccessful }/>}  removeUser={removeUser} />

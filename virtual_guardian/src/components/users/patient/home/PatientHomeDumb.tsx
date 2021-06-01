@@ -44,7 +44,6 @@ function PatientHomeDumb({ loggedUser, handleEmergencyEvent }: PatientHomeDumbPr
 
   return (
     <>
-
       <div style={{ position: 'relative' }}>
         <img alt="background" src={background} style={{ position: 'absolute', right: 0 }} />
         <img alt="lake" src={lake} style={{ position: 'absolute', left: 0, top: '42em', transform: `translateY(-${offsetY * 0.6}px)` }} />

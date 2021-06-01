@@ -2,26 +2,29 @@
 import { useEffect } from 'react';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-import { SERVER_URL, WebSocketMessages } from "../../../model/models";
+import { SERVER_URL, User, WebSocketMessages } from "../../../../model/models";
+import CaregiverHomeDumb from './CaregiverHomeDumb';
 
-function CaregiverHomeSmart() {
+interface CaregiverHomeSmartProps {
+  loggedUser: User,
+}
 
-
+function CaregiverHomeSmart({ loggedUser }: CaregiverHomeSmartProps) {
   useEffect(() => {
     var sock = new SockJS(`${SERVER_URL}/abnormal`);
 
     let stompClient = Stomp.over(sock);
     stompClient.connect({}, function (frame) {
       stompClient.subscribe("/topic/app", function (greeting) {
-  
+
         let message: WebSocketMessages = JSON.parse(greeting.body);
-  
+
         alert(message.day + ' is ' + message.message);
       });
     });
 
     return function cleanup() {
-      stompClient.disconnect(function() {
+      stompClient.disconnect(function () {
         console.log("============ Anomaly WebSocket Closed ==============");
       });
     }
@@ -29,11 +32,12 @@ function CaregiverHomeSmart() {
 
   return (
     <>
-      <h1>Hello Caregiver</h1>
+      <CaregiverHomeDumb
+        loggedUser={loggedUser}
+      />
     </>
   );
 }
 
 //TODO see patient activity history, same for doctor
-//TODO see history of emergencies and anomalies
 export default CaregiverHomeSmart;
