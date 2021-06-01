@@ -49,14 +49,10 @@ export const NavbarUserItems = [
         title: 'Caregivers List',
         url: '/doctor/caregiver/list',
       },
-      {
-        title: `Patient's activities`,
-        url: '/doctor/patient/activities',
-      },
-      {
-        title: 'Abnormal behaviour',
-        url: '/doctor/patient/abnormal_behaviour',
-      },
+      // {
+      //   title: 'Abnormal behaviour',
+      //   url: '/doctor/patient/abnormal_behaviour',
+      // },
     ]
   },
 ]

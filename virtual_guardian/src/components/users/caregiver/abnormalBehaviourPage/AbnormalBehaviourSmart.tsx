@@ -2,7 +2,7 @@ import { CircularProgress, Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { getEmergenciesOfPatientsOfDoctor } from "../../../../actions/AbnormalBehaviourAction";
+import { getEmergenciesOfPatientsOfCaregiver } from "../../../../actions/AbnormalBehaviourAction";
 import { ActivityList, Emergency, SERVER_URL, User } from "../../../../model/models";
 import AbnormalBehaviourDumb from "./AbnormalBehaviourDumb";
 import SockJS from 'sockjs-client';
@@ -11,12 +11,12 @@ import Stomp from 'stompjs';
 interface AbnormalBehaviourSmartProps {
   loggedUser: User,
 
-  getEmergencyList: (doctorId: string) => void,
+  getEmergencyList: (caregiverId: string) => void,
   abnormalBehaviourReducer: {
     loadingAnomalies: boolean,
     loadingEmergencies: boolean,
     errorEmergencies: string,
-    emergenciesOfPatientsOfDoctorSuccessful: Emergency[],
+    emergenciesOfPatientsOfCaregiverSuccessful: Emergency[],
   },
 }
 
@@ -84,12 +84,12 @@ function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getEmerg
       setMessage(abnormalBehaviourReducer.errorEmergencies);
       setLoading(false);
       setOpenError(true);
-    } else if (abnormalBehaviourReducer.emergenciesOfPatientsOfDoctorSuccessful) {
+    } else if (abnormalBehaviourReducer.emergenciesOfPatientsOfCaregiverSuccessful) {
       setLoading(false);
-      setEmergencyList(abnormalBehaviourReducer.emergenciesOfPatientsOfDoctorSuccessful);
+      setEmergencyList(abnormalBehaviourReducer.emergenciesOfPatientsOfCaregiverSuccessful);
     }
   }, [abnormalBehaviourReducer.loadingEmergencies, abnormalBehaviourReducer.errorEmergencies,
-  abnormalBehaviourReducer.emergenciesOfPatientsOfDoctorSuccessful, setEmergencyList]);
+  abnormalBehaviourReducer.emergenciesOfPatientsOfCaregiverSuccessful, setEmergencyList]);
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
@@ -122,7 +122,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getEmergencyList: (doctorId: string) => dispatch(getEmergenciesOfPatientsOfDoctor(doctorId)),
+    getEmergencyList: (caregiverId: string) => dispatch(getEmergenciesOfPatientsOfCaregiver(caregiverId)),
   }
 }
 
