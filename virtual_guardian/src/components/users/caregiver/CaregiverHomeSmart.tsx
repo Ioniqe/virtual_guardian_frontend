@@ -12,7 +12,6 @@ function CaregiverHomeSmart() {
 
     let stompClient = Stomp.over(sock);
     stompClient.connect({}, function (frame) {
-      //TODO decide whether notification appears for a certain patient and caregiver or for all caregivers
       stompClient.subscribe("/topic/app", function (greeting) {
   
         let message: WebSocketMessages = JSON.parse(greeting.body);

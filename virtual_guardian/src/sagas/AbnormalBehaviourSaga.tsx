@@ -1,26 +1,8 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 import { getEmergenciesOfPatientsOfCaregiverRequest, getEmergenciesOfPatientsOfCaregiverSuccess, getEmergenciesOfPatientsOfCaregiverFailure, getEmergenciesOfPatientsOfDoctorFailure, getEmergenciesOfPatientsOfDoctorRequest, getEmergenciesOfPatientsOfDoctorSuccess } from "../actions/AbnormalBehaviourAction";
 import { getEmergenciesOfPatientsOfCaregiverAPI, getEmergenciesOfPatientsOfDoctorAPI } from "../api/AbnormalBehaviourApi";
-import { Anomaly, Emergency } from "../model/models";
+import { Emergency } from "../model/models";
 import { GET_EMERGENCIES_OF_PATIENTS_OF_CAREGIVER, GET_EMERGENCIES_OF_PATIENTS_OF_DOCTOR } from "../types/AbnormalBehaviourTypes";
-
-import { getAnomaliesRequest, getAnomaliesSuccess, getAnomaliesFailure } from "../actions/AbnormalBehaviourAction";
-import { getAnomaliesAPI } from "../api/AbnormalBehaviourApi";
-import { GET_ANOMALIES } from "../types/AbnormalBehaviourTypes";
-
-function* getAnomaliesAsync() {
-  try {
-    yield put(getAnomaliesRequest());
-    const response: Anomaly[] = yield call(() => getAnomaliesAPI());
-    yield put(getAnomaliesSuccess(response as Anomaly[]))
-  } catch (e) {
-    yield put(getAnomaliesFailure("An unexpected error has occured!"))
-  }
-}
-
-export function* getAnomaliesWatcher() {
-  yield takeLatest(GET_ANOMALIES, getAnomaliesAsync)
-}
 
 interface Props {
   type: string,

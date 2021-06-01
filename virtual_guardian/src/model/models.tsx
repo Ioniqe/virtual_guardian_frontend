@@ -76,10 +76,6 @@ export interface EmergencyWebsocket{
 export interface Emergency{
   id: number, //id of emergency 
   patientName: string,
-  datetime: Date
-}
-
-export interface Anomaly{
-  id: number, //id of anomaly
-  date: Date
+  date: Date,
+  userId: string,
 }

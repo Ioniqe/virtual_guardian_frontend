@@ -2,49 +2,76 @@ import { CircularProgress, Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { getAnomalies, getEmergenciesOfPatientsOfDoctor } from "../../../../actions/AbnormalBehaviourAction";
-import { Anomaly, Emergency, User } from "../../../../model/models";
+import { getEmergenciesOfPatientsOfDoctor } from "../../../../actions/AbnormalBehaviourAction";
+import { ActivityList, Emergency, SERVER_URL, User } from "../../../../model/models";
 import AbnormalBehaviourDumb from "./AbnormalBehaviourDumb";
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 
 interface AbnormalBehaviourSmartProps {
   loggedUser: User,
 
-  getAnomaliesList: () => void,
   getEmergencyList: (doctorId: string) => void,
   abnormalBehaviourReducer: {
     loadingAnomalies: boolean,
-    errorAnomalies: string,
     loadingEmergencies: boolean,
     errorEmergencies: string,
-    anomaliesSuccessful: Anomaly[],
     emergenciesOfPatientsOfDoctorSuccessful: Emergency[],
   },
 }
 
-function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getAnomaliesList, getEmergencyList }: AbnormalBehaviourSmartProps) {
-  const [openSuccess, setOpenSuccess] = useState(false);
+function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getEmergencyList }: AbnormalBehaviourSmartProps) {
   const [openError, setOpenError] = useState(false);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [anomalyList, setAnomalyList] = useState<Anomaly[]>([]);
+  const [anomalyList, setAnomalyList] = useState<ActivityList[]>([]);
   const [emergencyList, setEmergencyList] = useState<Emergency[]>([]);
 
   useEffect(() => {
-    getAnomaliesList()
-  }, [getAnomaliesList]);
+    var sock = new SockJS(`${SERVER_URL}/abnormal`);
+
+    let stompClient = Stomp.over(sock);
+    stompClient.connect({}, function (frame) {
+      stompClient.subscribe("/topic/anomaly_object", function (greeting) {
+
+        let message: ActivityList = JSON.parse(greeting.body);
+
+        console.log(message)
+        setAnomalyList(list => list.concat(message)); 
+      });
+    });
+
+    return function cleanup() {
+      stompClient.disconnect(function () {
+        console.log("============ Anomaly WebSocket Closed ==============");
+      });
+    }
+  }, []);
+
+  console.log('eee')
 
   useEffect(() => {
-    if (abnormalBehaviourReducer.loadingAnomalies) {
-      setLoading(true);
-    } else if (abnormalBehaviourReducer.errorAnomalies !== '') {
-      setMessage(abnormalBehaviourReducer.errorAnomalies);
-      setLoading(false);
-      setOpenError(true);
-    } else if (abnormalBehaviourReducer.anomaliesSuccessful) {
-      setLoading(false);
-      setAnomalyList(abnormalBehaviourReducer.anomaliesSuccessful);
+    var sock = new SockJS(`${SERVER_URL}/emergency`);
+
+    let stompClient = Stomp.over(sock);
+    stompClient.connect({}, function (frame) {
+      stompClient.subscribe("/topic/emergency_object", function (greeting) {
+
+        let message: Emergency = JSON.parse(greeting.body);
+
+        if (message.userId === loggedUser.id) {
+          setEmergencyList(list => list.concat(message)); //TODO ordoneaza dupa date
+        }
+
+      });
+    });
+
+    return function cleanup() {
+      stompClient.disconnect(function () {
+        console.log("============ Emergency WebSocket Closed ==============");
+      });
     }
-  }, [abnormalBehaviourReducer.loadingAnomalies, abnormalBehaviourReducer.errorAnomalies, abnormalBehaviourReducer.anomaliesSuccessful]);
+  }, [loggedUser.id, setEmergencyList]);
 
   useEffect(() => {
     getEmergencyList(loggedUser.id)
@@ -61,34 +88,26 @@ function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getAnoma
       setLoading(false);
       setEmergencyList(abnormalBehaviourReducer.emergenciesOfPatientsOfDoctorSuccessful);
     }
-  }, [abnormalBehaviourReducer.loadingEmergencies, abnormalBehaviourReducer.errorEmergencies, abnormalBehaviourReducer.emergenciesOfPatientsOfDoctorSuccessful]);
-
-  useEffect(() => {
-    if (anomalyList !== [] && emergencyList !== []) {
-      console.log(anomalyList)
-      console.log(emergencyList)
-    }
-  }, [anomalyList, emergencyList]);
+  }, [abnormalBehaviourReducer.loadingEmergencies, abnormalBehaviourReducer.errorEmergencies,
+  abnormalBehaviourReducer.emergenciesOfPatientsOfDoctorSuccessful, setEmergencyList]);
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
-    setOpenSuccess(false);
     setOpenError(false);
   };
 
   return (
     <>
-      <Snackbar open={openSuccess} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success"> {message} </Alert>
-      </Snackbar>
-
       <Snackbar open={openError} autoHideDuration={3000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error"> {message} </Alert>
       </Snackbar>
 
-      <AbnormalBehaviourDumb />
+      <AbnormalBehaviourDumb
+        anomalyList={anomalyList}
+        emergencyList={emergencyList}
+      />
 
       {loading && <CircularProgress />}
     </>
@@ -103,7 +122,6 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getAnomaliesList: () => dispatch(getAnomalies()),
     getEmergencyList: (doctorId: string) => dispatch(getEmergenciesOfPatientsOfDoctor(doctorId)),
   }
 }

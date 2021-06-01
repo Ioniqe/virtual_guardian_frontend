@@ -1,5 +1,5 @@
 import { all } from "redux-saga/effects";
-import { getAnomaliesWatcher, getEmergenciesOfPatientsOfCaregiverWatcher, getEmergenciesOfPatientsOfDoctorWatcher,  } from "../sagas/AbnormalBehaviourSaga";
+import { getEmergenciesOfPatientsOfCaregiverWatcher, getEmergenciesOfPatientsOfDoctorWatcher,  } from "../sagas/AbnormalBehaviourSaga";
 import { detectAnomaliesWatcher, getActivitiesWatcher, setDefaultModelWatcher, trainModelWatcher } from "../sagas/ActivitySaga";
 import { deleteAdminsWatcher, getAdminsWatcher } from "../sagas/AdminSaga";
 import { deleteCaregiversWatcher, getCaregiversWatcher, saveCaregiverWatcher, updateCaregiverWatcher } from "../sagas/CaregiverSaga";
@@ -34,7 +34,6 @@ export default function* rootSaga() {
     getPatientWatcher(),
     getEmergenciesOfPatientsOfDoctorWatcher(),
     getEmergenciesOfPatientsOfCaregiverWatcher(),
-    getAnomaliesWatcher(),
     
   ])
 }
