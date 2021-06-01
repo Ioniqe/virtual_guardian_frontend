@@ -19,6 +19,7 @@ import PatientActivitiesSmart from "./users/caregiver/PatientActivitiesPage/Pati
 import LabelDaysSmart from "./users/caregiver/LabelDaysPage/LabelDaysSmart";
 import React from "react";
 import AbnormalBehaviourSmart from "./users/caregiver/abnormalBehaviourPage/AbnormalBehaviourSmart";
+import PatientListSmart from "./users/caregiver/patientList/PatientListSmart";
 
 
 interface Props {
@@ -55,6 +56,7 @@ function Main({ loginUser, removeUser }: Props) {
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver/patient/activities' component={PatientActivitiesSmart} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver/annotate_labels' component={LabelDaysSmart} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver/patient/abnormal_behaviour' component={() => <AbnormalBehaviourSmart loggedUser={ loginUser.loginSuccessful }/>}  removeUser={removeUser} />
+        <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver/patient/list' component={() => <PatientListSmart loggedUser={ loginUser.loginSuccessful }/>}  removeUser={removeUser} />
 
         <ProtectedRoute exact isAuthenticated={userType === 'patient'} path='/patient' component={() => <PatientHomeSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'patient'} path='/patient/test' component={() => <PatientTestForDiseaseSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />

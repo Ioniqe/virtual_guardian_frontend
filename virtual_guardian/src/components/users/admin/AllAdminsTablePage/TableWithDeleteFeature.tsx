@@ -351,7 +351,7 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
                       </TableCell>
                     }
                     {
-                      ((userType === 'patient' || userType === 'caregiver') && rowEdited !== index) &&
+                      ((userType === 'patient' || userType === 'caregiver' || userType === 'patient_of_caregiver') && rowEdited !== index) &&
                       <TableCell align="center">
                         <Tooltip title="Edit">
                           <IconButton aria-label="edit" onClick={() => editUser(index)} >
