@@ -10,6 +10,7 @@ import mountains_3 from '../../../../visuals/doctor/mountains_3.svg';
 import mountains_2 from '../../../../visuals/doctor/mountains_2.svg';
 import mountains_1 from '../../../../visuals/doctor/mountains_1.svg';
 import foreground from '../../../../visuals/doctor/foreground.svg';
+import UserDetailsPage from "../../UserDetailsPage";
 
 interface DoctorHomeDumbProps {
   loggedUser: User,
@@ -44,20 +45,20 @@ function DoctorHomeDumb({ loggedUser }: DoctorHomeDumbProps) {
         <img alt="background" src={background} style={{ position: 'absolute', right: 0 }} />
         <img alt="mountains_3" src={mountains_3} style={{ position: 'absolute', left: 0, marginTop: '20vh', transform: `translateY(-${offsetY * 0.4}px)` }} />
 
-        <Typography style={{ position: 'absolute' }} variant="h1" className={style.titleStyle}>Hello {loggedUser.firstname}!</Typography>
-        <Typography style={{ position: 'absolute' }} variant="h4" className={style.subtitleStyle}>How are you today?</Typography>
+        <Typography variant="h1" className={style.titleStyle}>Hello {loggedUser.firstname}!</Typography>
+        <Typography variant="h4" className={style.subtitleStyle}>How are you today?</Typography>
 
-        <img alt="mountains_2" src={mountains_2} style={{ position: 'absolute', right: 0, marginTop: '20vh', transform: `translateY(-${offsetY * 0.6}px)` }} />
-        <img alt="mountains_1" src={mountains_1} style={{ position: 'absolute', left: 0, marginTop: '30vh', transform: `translateY(-${offsetY * 0.9}px)` }} />
+        <img alt="mountains_2" src={mountains_2} style={{ position: 'absolute', right: 0, marginTop: '14vh', transform: `translateY(-${offsetY * 0.6}px)` }} />
+        <img alt="mountains_1" src={mountains_1} style={{ position: 'absolute', left: 0, marginTop: '25vh', transform: `translateY(-${offsetY * 0.9}px)` }} />
 
-        {/* <div style={{ position: 'absolute', marginTop: '70em', marginLeft: '45em', transform: `translateY(${offsetY * 0.2}px)` }}>
+        <div style={{ position: 'absolute', marginTop: '58em', marginLeft: '45em'  }}>
           <UserDetailsPage loggedUser={loggedUser} />
-        </div> */}
+        </div>
 
         <Button className={style.basicButton} variant='outlined' onClick={scrollToBottom}>Account details</Button>
 
 
-        <img alt="foreground" src={foreground} style={{ position: 'absolute', left: 0, marginTop: '45vh', transform: `translateY(-${offsetY * 1.4}px)` }} />
+        <img alt="foreground" src={foreground} style={{ position: 'absolute', left: 0, marginTop: '38vh', transform: `translateY(-${offsetY * 1.4}px)` }} />
 
 
         {/* TODO add fixed button for scrolling up */}

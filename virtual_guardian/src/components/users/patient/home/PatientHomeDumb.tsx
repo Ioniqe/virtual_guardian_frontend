@@ -55,11 +55,11 @@ function PatientHomeDumb({ loggedUser, handleEmergencyEvent }: PatientHomeDumbPr
         <img alt="small_mountain" src={small_mountain} style={{ position: 'absolute', left: 0, top: '24.2em', transform: `translateY(-${offsetY * 0.4}px)` }} />
         <img alt="woods" src={woods} style={{ position: 'absolute', left: 0, top: '30em', width: '60%', transform: `translateY(-${offsetY * 0.6}px)` }} />
 
-        <div style={{ position: 'absolute', marginTop: '70em', marginLeft: '45em', transform: `translateY(${offsetY * 0.2}px)`  }}>
+        <div style={{ position: 'absolute', marginTop: '78em', marginLeft: '45em'  }}>
           <UserDetailsPage loggedUser={loggedUser} />
         </div>
 
-        <img alt="foreground" src={foreground} style={{ position: 'absolute', left: 0, transform: `translateY(-${offsetY * 1.4}px)` }} />
+        <img alt="foreground" src={foreground} style={{ position: 'absolute', left: 0, transform: `translateY(-${offsetY * 1.7}px)` }} />
 
         <Button className={style.basicButton} variant='outlined' onClick={scrollToBottom}>Account details</Button>
         <Button style={{ position: 'fixed' }} className={style.emergencyButton} variant='outlined' onClick={handleEmergencyEvent}>Emergency!</Button>

@@ -8,6 +8,7 @@ import background from '../../../../visuals/caregiver/background.svg';
 import mountains from '../../../../visuals/caregiver/mountains.svg';
 import hills from '../../../../visuals/caregiver/hills.svg';
 import foreground from '../../../../visuals/caregiver/foreground.svg';
+import UserDetailsPage from "../../UserDetailsPage";
 
 interface CaregiverHomeDumbProps {
   loggedUser: User,
@@ -48,9 +49,9 @@ function CaregiverHomeDumb({ loggedUser }: CaregiverHomeDumbProps) {
         
         <img alt="hills" src={hills} style={{ position: 'absolute', left: 0, marginTop: '7vh', top: '24.2em', transform: `translateY(-${offsetY * 0.4}px)` }} />
 
-        {/* <div style={{ position: 'absolute', marginTop: '70em', marginLeft: '45em', transform: `translateY(${offsetY * 0.2}px)` }}>
+        <div style={{ position: 'absolute', marginTop: '68em', marginLeft: '45em'  }}>
           <UserDetailsPage loggedUser={loggedUser} />
-        </div> */}
+        </div>
 
         <img alt="foreground" src={foreground} style={{ position: 'absolute', left: 0, marginTop: '40vh', transform: `translateY(-${offsetY * 1.4}px)` }} />
 
