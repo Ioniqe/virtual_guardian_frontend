@@ -2,14 +2,15 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStylesCaregiver = makeStyles(theme => ({
   caregiversTableStyle: {
-    margin: 150,
+    marginTop: '8vh',
     marginLeft: 250,
     marginRight: 250,
     overflow: 'scroll',
+    height: '75vh',
   },
   addCaregiverButtonStyle: {
     position: 'absolute',
-    marginBottom: '3vh',
+    marginTop: '5vh',
     fontSize: 40,
     background: `linear-gradient(45deg, ${theme.palette.secondary.light} 10%, ${theme.palette.secondary.dark} 80%)`,
     color: theme.palette.primary.contrastText,
@@ -32,12 +33,12 @@ export const useStylesActivityList = makeStyles(theme => ({
     minWidth: 650,
     maxWidth: 1300,
     margin: 'auto',
-    marginTop: 50,
+    marginTop: '7vh',
     
   },
   paper: {
     width: '100%',
-    height: 800,
+    height: '80vh',
     overflow: 'scroll',
   },
   tableStyle: {
@@ -57,13 +58,13 @@ export const useStylesLabelDays = makeStyles(theme => ({
   collapsibleTableStyle: {
     margin: 'auto',
     width: 1300,
-    marginTop: 50,
-    height: 800,
+    marginTop: '9vh',
+    height: '75vh',
     overflowY: 'scroll'
   },
   finishTooltipStyle: {
-    marginRight: '2%',
-    marginTop: '-1%',
+    marginRight: '3vw',
+    marginTop: '1.5vh',
     position: 'absolute',
     right: 0,
     fontSize: 80,

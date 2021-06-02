@@ -9,7 +9,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -237,7 +236,7 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      {/* <Paper className={classes.paper}> */}
         <EnhancedTableToolbar numSelected={selected.length} title={title} handleDeleteSelectedUsers={handleDeleteSelectedUsers} />
         <TableContainer>
           <Table
@@ -406,7 +405,7 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
             </TableBody>
           </Table>
         </TableContainer>
-      </Paper>
+      {/* </Paper> */}
 
       <AlertDialog
         open={open}

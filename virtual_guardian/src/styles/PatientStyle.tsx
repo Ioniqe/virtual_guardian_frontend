@@ -62,14 +62,15 @@ export const useStylesPatient = makeStyles(theme => ({
     marginLeft: 0,
   },
   patientsTableStyle: {
-    margin: 150,
+    marginTop: '8vh',
     marginLeft: 250,
     marginRight: 250,
     overflow: 'scroll',
+    height: '75vh',
   },
   addPatientButtonStyle: {
     position: 'absolute',
-    marginBottom: '3vh',
+    marginTop: '5vh',
     fontSize: 40,
     background: `linear-gradient(45deg, ${theme.palette.secondary.light} 10%, ${theme.palette.secondary.dark} 80%)`,
     color: theme.palette.primary.contrastText,

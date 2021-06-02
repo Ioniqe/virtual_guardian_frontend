@@ -10,8 +10,6 @@ interface AllAdminsTableProps {
 
 function AllAdminsTableDumb({ adminList, deleteSelected }: AllAdminsTableProps) {
   let style = useStylesAdmin();
-
-
   let headers = ['Username', 'Password', 'First Name', 'Last Name', 'Birthday', 'Gender'];
   
   return (

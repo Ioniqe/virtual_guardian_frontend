@@ -2,11 +2,11 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStylesAdmin = makeStyles(theme => ({
   adminsTableStyle: {
-    margin: 150,
-    marginLeft: 200,
-    marginRight: 200,
-    maxHeight: '85%',
+    marginTop: '8vh',
+    marginLeft: 250,
+    marginRight: 250,
     overflow: 'scroll',
+    height: '75vh',
   },
   titleStyle: {
     position: 'relative',
@@ -43,10 +43,11 @@ export const useStylesAdmin = makeStyles(theme => ({
 
 export const useStylesAdminExperimentsPage = makeStyles(theme => ({
   adminsTableStyle: {
-    margin: 50,
-    marginLeft: 200,
-    marginRight: 200,
-    height: '85%',
+    marginTop: '5vh',
+    marginLeft: 250,
+    marginRight: 250,
+    // overflow: 'scroll',
+    height: '85vh',
   },
   topElementsStyle: {
     paddingTop: '1.5em',
@@ -130,7 +131,7 @@ export const useStylesAdminExperimentsPage = makeStyles(theme => ({
   },
   resultsTableStyle: {
     display: 'grid',
-    marginTop: '2vh',
+    // marginTop: '1vh',
     height: '82%',
     overflowX: 'clip',
     overflowY: 'scroll',
