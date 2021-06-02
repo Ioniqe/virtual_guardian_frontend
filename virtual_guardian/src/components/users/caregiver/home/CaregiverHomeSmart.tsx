@@ -39,5 +39,5 @@ function CaregiverHomeSmart({ loggedUser }: CaregiverHomeSmartProps) {
   );
 }
 
-//TODO see patient activity history, same for doctor
+//TODO see patient activity history
 export default CaregiverHomeSmart;

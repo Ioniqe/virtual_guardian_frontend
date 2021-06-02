@@ -17,8 +17,6 @@ interface PatientHomeDumbProps {
   handleEmergencyEvent: () => void,
 }
 
-//TODO what to do with patient treatments?
-
 function PatientHomeDumb({ loggedUser, handleEmergencyEvent }: PatientHomeDumbProps) {
   let style = useStylesPatient();
 

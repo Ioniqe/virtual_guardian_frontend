@@ -15,7 +15,6 @@ function PatientActivitiesSmart() {
 
     let stompClient = Stomp.over(sock);
     stompClient.connect({}, function (frame) {
-      //TODO decide whether notification appears for a certain patient and caregiver or for all caregivers
       stompClient.subscribe("/topic/patient_activities", function (greeting) {
 
         let message: WebSocketActivities = JSON.parse(greeting.body);
