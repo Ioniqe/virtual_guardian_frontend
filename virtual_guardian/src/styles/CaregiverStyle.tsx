@@ -34,7 +34,8 @@ export const useStylesActivityList = makeStyles(theme => ({
     maxWidth: 1300,
     margin: 'auto',
     marginTop: '7vh',
-    
+    height: '75vh',
+    overflowY: 'scroll'
   },
   paper: {
     width: '100%',
