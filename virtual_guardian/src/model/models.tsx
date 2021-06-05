@@ -61,11 +61,6 @@ export interface TrainModel{
   features: string
 }
 
-export interface WebSocketActivities{
-  arr: Activity[],
-  prediction: string
-}
-
 export interface LabeledDay{
   id: number,
   day: Date,

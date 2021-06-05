@@ -14,11 +14,9 @@ const useRowStyles = makeStyles({
 
 interface RowProps {
   day: ActivityList,
-  labelId: string,
-
 }
 
-function Row({ day, labelId }: RowProps) {
+function Row({ day }: RowProps) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
@@ -143,10 +141,9 @@ function AbnormalBehaviourDumb({ anomalyList, emergencyList }: AbnormalBehaviour
               </TableHead>
               <TableBody style={{overflowY: 'scroll'}}>
                 {
-                  anomalyList.map((day, index) => {
-                    const labelId = `enhanced-table-checkbox-${index}`;
+                  anomalyList.sort((a, b) => { return (a.day < b.day ? 1 : -1) }).map((day, index) => {
                     return (
-                      <Row key={index} day={day} labelId={labelId} />
+                      <Row key={index} day={day}/>
                     );
                   })
                 }

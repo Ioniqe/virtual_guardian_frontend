@@ -41,10 +41,7 @@ function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getEmerg
     let stompClient = Stomp.over(sock);
     stompClient.connect({}, function (frame) {
       stompClient.subscribe("/topic/anomaly_object", function (greeting) {
-
         let message: ActivityList = JSON.parse(greeting.body);
-
-        console.log(message)
         setAnomalyList(list => list.concat(message)); 
       });
     });
