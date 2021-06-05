@@ -18,11 +18,10 @@ interface ExperimentsDumbProps {
   detectedDaysList: DayDetected[],
   loading: boolean,
   score: number,
-  baseline: number[],
 }
 
 function ExperimentsDumb({ predict, train, setDefault, activitiesList, features, setFeatures, algorithm, setAlgorithm,
-  selected, setSelected, detectedDaysList, loading, score, baseline }: ExperimentsDumbProps) {
+  selected, setSelected, detectedDaysList, loading, score }: ExperimentsDumbProps) {
   let style = useStylesAdminExperimentsPage();
 
   const handleFeatureChange = (event: React.ChangeEvent<{ value: unknown }>) => {

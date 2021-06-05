@@ -5,7 +5,7 @@ import { Activity, ActivityList, DayDetected, TrainModel } from "../../../../mod
 import React, { useEffect, useState } from "react";
 import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { getBaselineOfActivities, getDaysWithTheirActivities } from "../../../../utils/ExperimentsUtils";
+import { getDaysWithTheirActivities } from "../../../../utils/ExperimentsUtils";
 
 interface ExperimentsSmartProps {
   getActivitiesList: () => void,
@@ -37,8 +37,6 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
 
   const [defaultAlgorithm, setDefaultAlgorithm] = React.useState('durationFrequencyRatio');
   const [defaultFeatures, setDefaultFeatures] = React.useState('logisticRegression');
-
-  const [baseline, setBaseline] = useState<number[]>([])
 
   let predict = (): void => {
     if (selected.length !== 0) {
@@ -100,7 +98,6 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
       });
 
       setActivitiesList(days);
-      setBaseline(getBaselineOfActivities(features, days))
     }
   }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess, features]);
 
@@ -151,7 +148,6 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
         detectedDaysList={detectedDaysList}
         loading={loading}
         score={score}
-        baseline={baseline}
       />
     </>
   );

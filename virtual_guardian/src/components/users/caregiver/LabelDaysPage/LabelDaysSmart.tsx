@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { getActivities } from "../../../../actions/ActivityAction";
 import { getLabeledDaysList, saveAnomalousDays } from "../../../../actions/LabeledDayAction";
 import { Activity, ActivityList, LabeledDay } from "../../../../model/models";
+import { getBaselineOfActivities } from "../../../../utils/ExperimentsUtils";
 import LabelDaysDumb from "./LabelDaysDumb";
 
 interface LabelDaysSmartProps {
@@ -33,6 +34,8 @@ function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, sa
 
   const [selected, setSelected] = useState<Date[]>([]);
   const [activitiesList, setActivitiesList] = useState<ActivityList[]>([]);
+
+  const [baseline, setBaseline] = useState<number[]>([])
 
   let sendSelected = (): void => {
     saveAnomalousLabeledDays(selected)
@@ -81,6 +84,7 @@ function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, sa
       });
 
       setActivitiesList(days);
+      setBaseline(getBaselineOfActivities('durationFrequencyRatio', days)) //!!!!!!! TODO !!!!!!!!!! 
     }
   }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess]);
 
@@ -132,6 +136,7 @@ function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, sa
         setSelected={setSelected}
         loading={loading}
         sendSelected={sendSelected}
+        baseline={ baseline}
       />
     </>
   );

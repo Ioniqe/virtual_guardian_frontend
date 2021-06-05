@@ -10,19 +10,20 @@ interface LabelDaysDumbProps {
   setSelected: (selected: Date[]) => void,
   loading: boolean,
   sendSelected: () => void,
+  baseline: number[]
 }
 
-//TODO fa sa arate bine tabelul si butonul
-
-function LabelDaysDumb({ activitiesList, selected, setSelected, loading, sendSelected }: LabelDaysDumbProps) {
+function LabelDaysDumb({ activitiesList, selected, setSelected, loading, sendSelected, baseline }: LabelDaysDumbProps) {
   let style = useStylesLabelDays()
+
+  //TODO use baseline
 
   return (
     <>
       <div className={style.collapsibleTableStyle}>
-        {loading && <CircularProgress style={{position:'absolute'}} />}
-        
-        <CollapsibleTable 
+        {loading && <CircularProgress style={{ position: 'absolute' }} />}
+
+        <CollapsibleTable
           activitiesList={activitiesList}
           selected={selected}
           setSelected={setSelected}
