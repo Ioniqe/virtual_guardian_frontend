@@ -84,7 +84,12 @@ function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, sa
       });
 
       setActivitiesList(days);
-      setBaseline(getBaselineOfActivities('durationFrequencyRatio', days)) //!!!!!!! TODO !!!!!!!!!! 
+      let features = getBaselineOfActivities('durationFrequencyRatio', days) //!!!!!!! TODO !!!!!!!!!! 
+      features.splice(6, 1)
+      features.splice(3, 1)
+      features.splice(6, 1)
+      features.splice(3, 1)
+      setBaseline(features) 
     }
   }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess]);
 

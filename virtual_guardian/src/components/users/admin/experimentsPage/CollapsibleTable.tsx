@@ -15,6 +15,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { ActivityList } from '../../../../model/models';
 import { Checkbox } from '@material-ui/core';
+import { Radar } from 'react-chartjs-2';
 
 const useRowStyles = makeStyles({
   root: {
@@ -24,15 +25,26 @@ const useRowStyles = makeStyles({
   },
 });
 
+const options = {
+  scale: {
+    ticks: { beginAtZero: true },
+  },
+};
+
 interface RowProps {
   day: ActivityList,
   isItemSelected: boolean,
   labelId: string,
   handleClick: (event: React.MouseEvent<unknown>, day: Date) => void,
+  page: string,
+  data?: {
+    labels: string[],
+    datasets: { label: string, data: number[] }[]
+  },
 
 }
 
-function Row({ day, isItemSelected, labelId, handleClick }: RowProps) {
+function Row({ day, isItemSelected, labelId, handleClick, page, data }: RowProps) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
@@ -62,6 +74,17 @@ function Row({ day, isItemSelected, labelId, handleClick }: RowProps) {
               <Typography variant="h6" gutterBottom component="div">
                 Activities
               </Typography>
+              {
+                page === 'LabelDays' &&
+                <div style={{ display:'flex', margin: 'auto'}}>
+                  <div style={{ width: '41vw', height: '41vh', paddingBottom: '40vh' }}>
+                    <Radar data={data} options={options} type='radar' />
+                  </div>
+                  <div style={{ width: '41vw', height: '41vh', paddingBottom: '40vh' }}>
+                    <Radar data={data} options={options} type='radar' />
+                  </div>
+                </div>
+              }
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
@@ -96,10 +119,14 @@ interface CollapsibleTableProps {
   activitiesList: ActivityList[],
   selected: Date[],
   setSelected: (selected: Date[]) => void,
-  page: string
+  page: string,
+  data?: {
+    labels: string[],
+    datasets: { label: string, data: number[] }[]
+  }
 }
 
-export default function CollapsibleTable({ activitiesList, selected, setSelected, page }: CollapsibleTableProps) {
+export default function CollapsibleTable({ activitiesList, selected, setSelected, page, data }: CollapsibleTableProps) {
 
   const onSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
@@ -138,7 +165,7 @@ export default function CollapsibleTable({ activitiesList, selected, setSelected
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell><h3 style={{textAlign:'left'}}>Day</h3></TableCell>
+            <TableCell><h3 style={{ textAlign: 'left' }}>Day</h3></TableCell>
             <TableCell padding="checkbox" align='center'>
               {page === 'LabelDays' && <h3>Anomalous</h3>}
               <Checkbox
@@ -153,7 +180,7 @@ export default function CollapsibleTable({ activitiesList, selected, setSelected
               const isItemSelected = isSelected(day.day);
               const labelId = `enhanced-table-checkbox-${index}`;
               return (
-                <Row key={index} day={day} isItemSelected={isItemSelected} labelId={labelId} handleClick={handleClick} />
+                <Row key={index} day={day} isItemSelected={isItemSelected} labelId={labelId} handleClick={handleClick} page={page} data={data} />
               );
             })
           }

@@ -1,5 +1,5 @@
 import { ActivityList } from "../model/models";
-import { durationFrequencyRatio } from "./FeatureExtraction";
+import { activityArray, durationFrequencyRatio } from "./FeatureExtraction";
 
 export let getDaysWithTheirActivities = (selected: Date[], activitiesList: ActivityList[]): ActivityList[] => {
   let selectedActivityList: ActivityList[] = []
@@ -30,6 +30,7 @@ export let getBaselineOfActivities = (features: string, days: ActivityList[]): n
   }
 
   baselineFeatures = baselineFeatures.map((v, i) => parseFloat((v / days.length).toFixed(2)))
+  console.log(activityArray)
   console.log(baselineFeatures)
   return baselineFeatures;
 }

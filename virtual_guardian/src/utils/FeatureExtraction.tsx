@@ -1,7 +1,7 @@
 import moment from "moment";
 import { Activity } from "../model/models";
 
-let activityArray = ["Breakfast", "Dinner", "Grooming", "Leaving", "Lunch", "Showering", "Sleeping", "Snack", "Spare_Time/TV", "Toileting"];
+export let activityArray = ["Breakfast", "Dinner", "Grooming", "Leaving", "Lunch", "Showering", "Sleeping", "Snack", "Spare_Time/TV", "Toileting"];
 
 export let durationFrequencyRatio = (activities: Activity[]): number[] => {
   let computedArray = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];

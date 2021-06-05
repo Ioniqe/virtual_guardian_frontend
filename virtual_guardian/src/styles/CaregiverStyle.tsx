@@ -58,14 +58,14 @@ export const useStylesActivityList = makeStyles(theme => ({
 export const useStylesLabelDays = makeStyles(theme => ({
   collapsibleTableStyle: {
     margin: 'auto',
-    width: 1300,
-    marginTop: '9vh',
-    height: '75vh',
+    width: '85vw',
+    marginTop: '3vh',
+    height: '87vh',
     overflowY: 'scroll'
   },
   finishTooltipStyle: {
-    marginRight: '3vw',
-    marginTop: '1.5vh',
+    marginRight: '2vw',
+    marginTop: '-4vh',
     position: 'absolute',
     right: 0,
     fontSize: 80,
