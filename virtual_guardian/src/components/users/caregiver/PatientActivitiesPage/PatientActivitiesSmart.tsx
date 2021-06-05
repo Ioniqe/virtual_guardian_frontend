@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 
 
 function PatientActivitiesSmart() {
-
   const [activityList, setActivityList] = useState<Activity[]>([]);
   const [prediction, setPrediction] = useState('');
 

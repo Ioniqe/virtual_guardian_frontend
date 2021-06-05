@@ -3,6 +3,7 @@ import { getEmergenciesOfPatientsOfCaregiverWatcher, getEmergenciesOfPatientsOfD
 import { detectAnomaliesWatcher, getActivitiesWatcher, setDefaultModelWatcher, trainModelWatcher } from "../sagas/ActivitySaga";
 import { deleteAdminsWatcher, getAdminsWatcher } from "../sagas/AdminSaga";
 import { deleteCaregiversWatcher, getCaregiversWatcher, saveCaregiverWatcher, updateCaregiverWatcher } from "../sagas/CaregiverSaga";
+import { getAnomalousDaysWatcher, getDaysWatcher } from "../sagas/DaySaga";
 import { getLabeledDaysListWatcher, saveAnomalousDaysWatcher } from "../sagas/LabeledDaySaga";
 import { loginUserWatcher } from "../sagas/LoginSaga";
 import { assignCaregiverWatcher, deletePatientsWatcher, getPatientsWatcher, getPatientWatcher, predictDiseaseWatcher, savePatientWatcher, sendEmergencyWatcher, updatePatientWatcher } from "../sagas/PatientSaga";
@@ -34,6 +35,8 @@ export default function* rootSaga() {
     getPatientWatcher(),
     getEmergenciesOfPatientsOfDoctorWatcher(),
     getEmergenciesOfPatientsOfCaregiverWatcher(),
+    getDaysWatcher(),
+    getAnomalousDaysWatcher(),
     
   ])
 }

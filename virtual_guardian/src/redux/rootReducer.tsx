@@ -3,6 +3,7 @@ import abnormalBehaviourReducer from "../reducers/AbnormalBehaviourReducer"
 import activityReducer from "../reducers/ActivityReducer"
 import allAdminsReducer from "../reducers/AdminReducer"
 import caregiverReducer from "../reducers/CaregiverReducer"
+import dayReducer from "../reducers/DayReducer"
 import labeledDayReducer from "../reducers/LabeledDayReducer"
 import loginReducer from "../reducers/LoginReducer"
 import patientReducer from "../reducers/PatientReducer"
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   activity: activityReducer,
   labeledDay: labeledDayReducer,
   abnormalBehaviour: abnormalBehaviourReducer,
+  day: dayReducer,
   
 })
 

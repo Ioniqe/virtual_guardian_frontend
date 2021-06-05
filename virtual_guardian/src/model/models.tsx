@@ -46,6 +46,11 @@ export interface ActivityList{
   activities: Activity[],
 }
 
+export interface Day extends ActivityList{ 
+  id: number,
+  result: string
+}
+
 export interface DayDetected{
   day: string,
   result: string

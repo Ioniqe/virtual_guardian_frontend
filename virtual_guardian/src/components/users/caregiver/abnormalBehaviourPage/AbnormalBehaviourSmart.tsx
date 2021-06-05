@@ -3,10 +3,11 @@ import { Alert } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getEmergenciesOfPatientsOfCaregiver } from "../../../../actions/AbnormalBehaviourAction";
-import { ActivityList, Emergency, SERVER_URL, User } from "../../../../model/models";
+import { ActivityList, Day, Emergency, SERVER_URL, User } from "../../../../model/models";
 import AbnormalBehaviourDumb from "./AbnormalBehaviourDumb";
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+import { getAnomalousDaysList } from "../../../../actions/DayAction";
 
 interface AbnormalBehaviourSmartProps {
   loggedUser: User,
@@ -18,9 +19,16 @@ interface AbnormalBehaviourSmartProps {
     errorEmergencies: string,
     emergenciesOfPatientsOfCaregiverSuccessful: Emergency[],
   },
+
+  getAnomalousDays: () => void,
+  dayReducer: {
+    loading: boolean,
+    anomalousDaysSuccess: Day[],
+    error: string,
+  }
 }
 
-function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getEmergencyList }: AbnormalBehaviourSmartProps) {
+function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getEmergencyList, getAnomalousDays, dayReducer }: AbnormalBehaviourSmartProps) {
   const [openError, setOpenError] = useState(false);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -75,7 +83,8 @@ function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getEmerg
 
   useEffect(() => {
     getEmergencyList(loggedUser.id)
-  }, [getEmergencyList, loggedUser.id]);
+    getAnomalousDays()
+  }, [getEmergencyList, loggedUser.id, getAnomalousDays]);
 
   useEffect(() => {
     if (abnormalBehaviourReducer.loadingEmergencies) {
@@ -89,7 +98,20 @@ function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getEmerg
       setEmergencyList(abnormalBehaviourReducer.emergenciesOfPatientsOfCaregiverSuccessful);
     }
   }, [abnormalBehaviourReducer.loadingEmergencies, abnormalBehaviourReducer.errorEmergencies,
-  abnormalBehaviourReducer.emergenciesOfPatientsOfCaregiverSuccessful, setEmergencyList]);
+    abnormalBehaviourReducer.emergenciesOfPatientsOfCaregiverSuccessful, setEmergencyList]);
+  
+  useEffect(() => {
+    if (dayReducer.loading) {
+      setLoading(true);
+    } else if (dayReducer.error !== '') {
+      setMessage(dayReducer.error);
+      setLoading(false);
+      setOpenError(true);
+    } else if (dayReducer.anomalousDaysSuccess) {
+      setLoading(false);
+      setAnomalyList(dayReducer.anomalousDaysSuccess);
+    }
+  }, [dayReducer.loading, dayReducer.error, dayReducer.anomalousDaysSuccess]);
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
@@ -117,12 +139,14 @@ function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getEmerg
 const mapStateToProps = (state: any) => {
   return {
     abnormalBehaviourReducer: state.abnormalBehaviour, //from rootReducer
+    dayReducer: state.day,
   }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     getEmergencyList: (caregiverId: string) => dispatch(getEmergenciesOfPatientsOfCaregiver(caregiverId)),
+    getAnomalousDays: () => dispatch(getAnomalousDaysList()),
   }
 }
 
