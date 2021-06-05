@@ -5,7 +5,7 @@ import { Activity, ActivityList, DayDetected, TrainModel } from "../../../../mod
 import React, { useEffect, useState } from "react";
 import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { getDaysWithTheirActivities } from "../../../../utils/ExperimentsUtils";
+import { getBaselineOfActivities, getDaysWithTheirActivities } from "../../../../utils/ExperimentsUtils";
 
 interface ExperimentsSmartProps {
   getActivitiesList: () => void,
@@ -22,8 +22,6 @@ interface ExperimentsSmartProps {
   },
 }
 
-//TODO maybe when showing the results of the prediction, show also what they should have been?
-
 function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, train, setDefault }: ExperimentsSmartProps) {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -39,6 +37,8 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
 
   const [defaultAlgorithm, setDefaultAlgorithm] = React.useState('durationFrequencyRatio');
   const [defaultFeatures, setDefaultFeatures] = React.useState('logisticRegression');
+
+  const [baseline, setBaseline] = useState<number[]>([])
 
   let predict = (): void => {
     if (selected.length !== 0) {
@@ -100,8 +100,9 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
       });
 
       setActivitiesList(days);
+      setBaseline(getBaselineOfActivities(features, days))
     }
-  }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess]);
+  }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess, features]);
 
   useEffect(() => {
     if (activityReducer.detected !== []) {
@@ -125,7 +126,7 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
       setOpenSuccess(true)
     }
   }, [activityReducer.defaultModelSuccess, defaultAlgorithm, defaultFeatures]);
-  
+
   return (
     <>
       <Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleClose}>
@@ -150,6 +151,7 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
         detectedDaysList={detectedDaysList}
         loading={loading}
         score={score}
+        baseline={baseline}
       />
     </>
   );

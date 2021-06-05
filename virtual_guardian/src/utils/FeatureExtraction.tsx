@@ -3,7 +3,7 @@ import { Activity } from "../model/models";
 
 let activityArray = ["Breakfast", "Dinner", "Grooming", "Leaving", "Lunch", "Showering", "Sleeping", "Snack", "Spare_Time/TV", "Toileting"];
 
-export let durationFrequencyRation = (activities: Activity[]): number[] => {
+export let durationFrequencyRatio = (activities: Activity[]): number[] => {
   let computedArray = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
   let durationOfActivities = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   let frequencyOfActivities = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
