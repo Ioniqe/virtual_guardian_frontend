@@ -34,33 +34,8 @@ interface LabelDaysDumbProps {
 function LabelDaysDumb({ activitiesList, selected, setSelected, loading, sendSelected }: LabelDaysDumbProps) {
   let style = useStylesLabelDays()
 
-  //TODO use baseline
-
-  // const [data, setData] =
-  //   useState<GraphData>({ 'labels': [], 'datasets': [] })
-
-  // labels: ["Breakfast", "Dinner", "Grooming", "Leaving", "Lunch", "Showering", "Sleeping", "Snack", "Spare_Time/TV", "Toileting"],
-
-  // useEffect(() => {
-  //   setData({
-  //     labels: ["Breakfast", "Dinner", "Grooming", "Showering", "Snack", "Toileting"], //TODO afiseaza si restuuul
-  //     datasets: [
-  //       {
-  //         label: 'Baseline',
-  //         data: baseline,
-  //         backgroundColor: 'rgba(0, 172, 193, 0.5)',
-  //         borderColor: 'rgb(0, 172, 193)',
-  //         borderWidth: 3,
-  //       },
-  //     ]
-  //   })
-  // }, [baseline]);
-
   return (
     <>
-      {/* <div style={{ width: '35vw', height: '35vh' }}>
-        <Radar data={data} options={options} type='radar' />
-      </div> */}
       <div className={style.collapsibleTableStyle}>
         {loading && <CircularProgress style={{ position: 'absolute' }} />}
 

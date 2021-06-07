@@ -21,11 +21,11 @@ export let getVisualData = (days: ActivityList[], selectedDay: ActivityList): Vi
         selectedDayQuickActs = durationFrequencyRatio(selectedDay.activities)
         break;
       case 'duration':
-        baselineQuickActs = getBaselineOfActivities('durationFrequencyRatio', days)
+        baselineQuickActs = getBaselineOfActivities('duration', days)
         selectedDayQuickActs = getDuration(selectedDay.activities)
         break;
       case 'frequency':
-        baselineQuickActs = getBaselineOfActivities('durationFrequencyRatio', days)
+        baselineQuickActs = getBaselineOfActivities('frequency', days)
         selectedDayQuickActs = getFrequency(selectedDay.activities)
         break;
       default:
@@ -153,6 +153,9 @@ export let getGraphData = (days: ActivityList[], selectedDay: ActivityList): Gra
 
     graphDataForFeatures.push(graphDataForFeature)
   })
+
+  console.log('GRAPH DATA')
+  console.log(graphDataForFeatures)
 
   return graphDataForFeatures;
 }
