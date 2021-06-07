@@ -5,9 +5,11 @@ import { useLocation } from "react-router";
 import { useStylesCaregiverHome } from "../../../../styles/CaregiverStyle";
 
 import background from '../../../../visuals/caregiver/background.svg';
-import mountains from '../../../../visuals/caregiver/mountains.svg';
-import hills from '../../../../visuals/caregiver/hills.svg';
+import mountains_3 from '../../../../visuals/caregiver/mountains_3.svg';
+import mountains_2 from '../../../../visuals/caregiver/mountains_2.svg';
+import mountains_1 from '../../../../visuals/caregiver/mountains_1.svg';
 import foreground from '../../../../visuals/caregiver/foreground.svg';
+
 import UserDetailsPage from "../../UserDetailsPage";
 
 interface CaregiverHomeDumbProps {
@@ -41,21 +43,21 @@ function CaregiverHomeDumb({ loggedUser }: CaregiverHomeDumbProps) {
     <>
       <div style={{ position: 'relative' }}>
         <img alt="background" src={background} style={{ position: 'absolute', right: 0 }} />
+        <img alt="mountains_3" src={mountains_3} style={{ position: 'absolute', left: 0, marginTop: '20vh', transform: `translateY(-${offsetY * 0.4}px)` }} />
 
-        <Typography style={{ position: 'absolute' }} variant="h1" className={style.titleStyle}>Hello {loggedUser.firstname}!</Typography>
-        <Typography style={{ position: 'absolute' }} variant="h4" className={style.subtitleStyle}>How are you today?</Typography>
+        <Typography variant="h1" className={style.titleStyle}>Hello {loggedUser.firstname}!</Typography>
+        <Typography variant="h4" className={style.subtitleStyle}>How are you today?</Typography>
 
-        <img alt="mountains" src={mountains} style={{ position: 'absolute', left: 0, marginTop: '-30vh', top: '42em', transform: `translateY(-${offsetY * 0.6}px)` }} />
-        
-        <img alt="hills" src={hills} style={{ position: 'absolute', left: 0, marginTop: '7vh', top: '24.2em', transform: `translateY(-${offsetY * 0.4}px)` }} />
+        <img alt="mountains_2" src={mountains_2} style={{ position: 'absolute', right: 0, marginTop: '14vh', transform: `translateY(-${offsetY * 0.6}px)` }} />
+        <img alt="mountains_1" src={mountains_1} style={{ position: 'absolute', left: 0, marginTop: '25vh', transform: `translateY(-${offsetY * 0.9}px)` }} />
 
-        <div style={{ position: 'absolute', marginTop: '68em', marginLeft: '45em'  }}>
+        <div style={{ position: 'absolute', marginTop: '58em', marginLeft: '45em' }}>
           <UserDetailsPage loggedUser={loggedUser} />
         </div>
 
-        <img alt="foreground" src={foreground} style={{ position: 'absolute', left: 0, marginTop: '40vh', transform: `translateY(-${offsetY * 1.4}px)` }} />
-
         <Button className={style.basicButton} variant='outlined' onClick={scrollToBottom}>Account details</Button>
+
+        <img alt="foreground" src={foreground} style={{ position: 'absolute', left: 0, marginTop: '38vh', transform: `translateY(-${offsetY * 1.4}px)` }} />
 
       </div>
     </>

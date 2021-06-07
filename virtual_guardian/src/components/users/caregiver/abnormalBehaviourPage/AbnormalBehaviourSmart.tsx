@@ -53,8 +53,6 @@ function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getEmerg
     }
   }, []);
 
-  console.log('eee')
-
   useEffect(() => {
     var sock = new SockJS(`${SERVER_URL}/emergency`);
 

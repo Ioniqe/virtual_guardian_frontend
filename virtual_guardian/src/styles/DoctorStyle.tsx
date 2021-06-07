@@ -2,20 +2,19 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStylesDoctorHome = makeStyles(theme => ({
   titleStyle: {
-    position: 'relative',
     color: theme.palette.primary.contrastText,
-    paddingTop: '1.5em',
-    marginTop: 0,
+    marginTop: '1.5em',
+    marginLeft: '7.7em',
   },
   subtitleStyle: {
-    position: 'relative',
-    color: theme.palette.primary.contrastText,
+    color: theme.palette.primary.dark,
+    marginTop: '7.4em',
     letterSpacing: '3px',
-    // marginLeft: '22.5em',
-    marginTop: 0,
+    marginLeft: '22.5em',
   },
+
   basicButton: {
-    marginTop: '10em',
+    marginTop: '32em',
     fontFamily: 'Arial',
     fontSize: '1rem',
     padding: '.3rem 2rem',

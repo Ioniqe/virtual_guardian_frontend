@@ -88,18 +88,20 @@ export const useStylesLabelDays = makeStyles(theme => ({
 
 export const useStylesCaregiverHome = makeStyles(theme => ({
   titleStyle: {
+    position: 'relative',
     color: theme.palette.primary.contrastText,
-    marginTop: '1.5em',
-    marginLeft: '7em',
+    paddingTop: '1.5em',
+    marginTop: 0,
   },
   subtitleStyle: {
+    position: 'relative',
     color: theme.palette.primary.dark,
-    marginTop: '7.4em',
     letterSpacing: '3px',
-    marginLeft: '22.5em',
+    // marginLeft: '22.5em',
+    marginTop: 0,
   },
   basicButton: {
-    marginTop: '32em',
+    marginTop: '10em',
     fontFamily: 'Arial',
     fontSize: '1rem',
     padding: '.3rem 2rem',
