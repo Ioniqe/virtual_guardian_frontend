@@ -49,7 +49,6 @@ function ExperimentsDumb({ predict, train, setDefault, activitiesList, features,
                 className={style.textField}
               >
                 <MenuItem value={'durationFrequencyRatio'}>Duration/Frequency</MenuItem>
-                <MenuItem value={'durationAndFrequency'}>Duration and Frequency</MenuItem>
                 <MenuItem value={'duration'}>Duration</MenuItem>
                 <MenuItem value={'frequency'}>Frequency</MenuItem>
               </Select>

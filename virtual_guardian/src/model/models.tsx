@@ -79,3 +79,38 @@ export interface Emergency{
   date: Date,
   userId: string,
 }
+
+export interface GraphData{
+  labels: string[],
+  datasets: {
+    label: string,
+    data: number[],
+    backgroundColor?: string,
+    borderColor?: string,
+    borderWidth?: number,
+  }[]
+}
+
+export interface VisualData{
+  feature: string,
+  labels: {
+    smallActivityLabels: string[],
+    bigActivityLabels: string[],
+  },
+  datasets: {
+    baseline: {
+      smallActivitiesBaseline: number[],
+      bigActivitiesBaseline: number[]
+    },
+    dayActivities: {
+      smallActivities: number[],
+      bigActivities: number[]
+    }
+  }
+}
+
+export interface GraphDataForFeature{
+  feature: string,
+  quickActivitiesGraph: GraphData,
+  longActivitiesGraph: GraphData,
+}

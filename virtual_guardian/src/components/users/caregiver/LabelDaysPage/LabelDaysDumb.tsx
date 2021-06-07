@@ -3,7 +3,6 @@ import { ActivityList } from "../../../../model/models";
 import { useStylesLabelDays } from "../../../../styles/CaregiverStyle";
 import CollapsibleTable from "../../admin/experimentsPage/CollapsibleTable";
 import DoneIcon from '@material-ui/icons/Done';
-import { useEffect, useState } from "react";
 
 // const data = {
 //   labels: ['Thing 1', 'Thing 2', 'Thing 3', 'Thing 4', 'Thing 5', 'Thing 6'],
@@ -30,33 +29,32 @@ interface LabelDaysDumbProps {
   setSelected: (selected: Date[]) => void,
   loading: boolean,
   sendSelected: () => void,
-  baseline: number[]
 }
 
-function LabelDaysDumb({ activitiesList, selected, setSelected, loading, sendSelected, baseline }: LabelDaysDumbProps) {
+function LabelDaysDumb({ activitiesList, selected, setSelected, loading, sendSelected }: LabelDaysDumbProps) {
   let style = useStylesLabelDays()
 
   //TODO use baseline
 
-  const [data, setData] =
-    useState<{
-      labels: string[],
-      datasets: { label: string, data: number[] }[]
-    }>({ 'labels': [], 'datasets': [] })
+  // const [data, setData] =
+  //   useState<GraphData>({ 'labels': [], 'datasets': [] })
 
   // labels: ["Breakfast", "Dinner", "Grooming", "Leaving", "Lunch", "Showering", "Sleeping", "Snack", "Spare_Time/TV", "Toileting"],
 
-  useEffect(() => {
-    setData({
-      labels: ["Breakfast", "Dinner", "Grooming", "Showering", "Snack", "Toileting"], //TODO afiseaza si restuuul
-      datasets: [
-        {
-          label: 'Baseline',
-          data: baseline,
-        },
-      ]
-    })
-  }, [baseline]);
+  // useEffect(() => {
+  //   setData({
+  //     labels: ["Breakfast", "Dinner", "Grooming", "Showering", "Snack", "Toileting"], //TODO afiseaza si restuuul
+  //     datasets: [
+  //       {
+  //         label: 'Baseline',
+  //         data: baseline,
+  //         backgroundColor: 'rgba(0, 172, 193, 0.5)',
+  //         borderColor: 'rgb(0, 172, 193)',
+  //         borderWidth: 3,
+  //       },
+  //     ]
+  //   })
+  // }, [baseline]);
 
   return (
     <>
@@ -71,7 +69,6 @@ function LabelDaysDumb({ activitiesList, selected, setSelected, loading, sendSel
           selected={selected}
           setSelected={setSelected}
           page={'LabelDays'}
-          data={data}
         />
       </div>
 
