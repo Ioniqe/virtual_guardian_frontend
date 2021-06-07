@@ -62,8 +62,6 @@ function PatientHomeDumb({ loggedUser, handleEmergencyEvent }: PatientHomeDumbPr
         <Button className={style.basicButton} variant='outlined' onClick={scrollToBottom}>Account details</Button>
         <Button style={{ position: 'fixed' }} className={style.emergencyButton} variant='outlined' onClick={handleEmergencyEvent}>Emergency!</Button>
 
-        {/* TODO add fixed button for scrolling up */}
-
       </div>
     </>
   );

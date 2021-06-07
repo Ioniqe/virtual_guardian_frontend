@@ -79,7 +79,7 @@ function PatientTestForDiseaseSmart({ loggedUser, predictDisease, predictDisease
     else if (predictDisease.diseasePrediction) {
       setLoading(false);
 
-      setMessage(`We have predicted that you may have ${predictDisease.diseasePrediction}`);  //TODO fa un popup sau ceva sa fie mai pretty
+      setMessage(`We have predicted that you may have ${predictDisease.diseasePrediction}`);
       setOpenError(false);
       setOpenSuccess(true);
     }

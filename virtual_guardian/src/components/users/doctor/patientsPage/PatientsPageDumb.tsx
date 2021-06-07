@@ -16,8 +16,7 @@ interface PatientsPageDumbProps {
   assignCaregiver: (patientId: string) => void,
 }
 
-//TODO add disease, remove disease
-//TODO modify add button
+//TODO change parallax of caregiver with parallax of doctor
 
 function PatientsPageDumb({ patientList, deleteSelected, savePatient, doctorId, saveEditedPatient, assignCaregiver }: PatientsPageDumbProps) {
   let style = useStylesPatient();

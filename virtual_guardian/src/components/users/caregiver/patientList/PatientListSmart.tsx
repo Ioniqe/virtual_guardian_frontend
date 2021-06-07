@@ -21,8 +21,6 @@ interface PatientListProps {
   },
 }
 
-//TODO see patient's diseases
-
 function PatientListSmart({ loggedUser, patientReducer, getAllPatientsList, deleteSelectedPatients, saveEditedPatient }: PatientListProps) {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);

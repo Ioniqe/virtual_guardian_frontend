@@ -83,6 +83,8 @@ function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, sa
         activities.push(activity);
       });
 
+      days.push({ day: currDay, activities: activities });
+
       setActivitiesList(days);
       let features = getBaselineOfActivities('durationFrequencyRatio', days) //!!!!!!! TODO !!!!!!!!!! 
       features.splice(6, 1)

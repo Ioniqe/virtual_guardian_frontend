@@ -57,8 +57,6 @@ function CaregiverHomeDumb({ loggedUser }: CaregiverHomeDumbProps) {
 
         <Button className={style.basicButton} variant='outlined' onClick={scrollToBottom}>Account details</Button>
 
-        {/* TODO add fixed button for scrolling up */}
-
       </div>
     </>
   )

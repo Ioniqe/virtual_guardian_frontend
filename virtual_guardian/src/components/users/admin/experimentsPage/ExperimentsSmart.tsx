@@ -96,6 +96,8 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
         }
         activities.push(activity);
       });
+      
+      days.push({ day: currDay, activities: activities });
 
       setActivitiesList(days);
     }

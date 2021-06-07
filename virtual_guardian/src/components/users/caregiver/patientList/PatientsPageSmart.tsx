@@ -42,8 +42,6 @@ interface PatientsPageProps {
   },
 }
 
-//TODO see patient's diseases
-
 function PatientsPageSmart({ loggedUser, patientReducer, getAllPatientsList, deleteSelectedPatients, saveNewPatient, saveEditedPatient, assignCaregiverEvent, getPatientEvent }: PatientsPageProps) {
 
   const [open, setOpen] = useState(false);

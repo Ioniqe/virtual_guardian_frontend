@@ -57,11 +57,7 @@ function DoctorHomeDumb({ loggedUser }: DoctorHomeDumbProps) {
 
         <Button className={style.basicButton} variant='outlined' onClick={scrollToBottom}>Account details</Button>
 
-
         <img alt="foreground" src={foreground} style={{ position: 'absolute', left: 0, marginTop: '38vh', transform: `translateY(-${offsetY * 1.4}px)` }} />
-
-
-        {/* TODO add fixed button for scrolling up */}
 
       </div>
     </>
