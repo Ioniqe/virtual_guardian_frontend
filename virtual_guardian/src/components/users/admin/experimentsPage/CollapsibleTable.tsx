@@ -88,10 +88,10 @@ function Row({ day, isItemSelected, labelId, handleClick, page, totalDays }: Row
                           </Typography>
 
                           <div style={{ display: 'flex', margin: 'auto' }}>
-                            <div style={{ width: '41vw', height: '41vh', paddingBottom: '35vh' }}>
+                            <div style={{ width: '41vw', height: '41vh', paddingBottom: '40vh' }}>
                               <Radar data={data.quickActivitiesGraph} options={options} type='radar' />
                             </div>
-                            <div style={{ width: '41vw', height: '41vh', paddingBottom: '35vh' }}>
+                            <div style={{ width: '41vw', height: '41vh', paddingBottom: '40vh' }}>
                               <Radar data={data.longActivitiesGraph} options={options} type='radar' />
                             </div>
                           </div>
