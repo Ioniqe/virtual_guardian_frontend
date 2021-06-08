@@ -49,6 +49,7 @@ const activityReducer = (state = initialState, action: { type: string, payload: 
       return {
         ...state,
         loading: false,
+        trained: -1,
         detected: action.payload as DayDetected[],
         error: ''
       }
@@ -68,6 +69,7 @@ const activityReducer = (state = initialState, action: { type: string, payload: 
       return {
         ...state,
         loading: false,
+        // detected: [],
         trained: action.payload as number,
         error: ''
       }
