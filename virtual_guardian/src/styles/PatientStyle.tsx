@@ -49,7 +49,7 @@ export const useStylesPatient = makeStyles(theme => ({
   titleStyle: {
     color: theme.palette.primary.contrastText,
     marginTop: '1.5em',
-    marginLeft: '7.5em',
+    marginLeft: '8em',
   },
   subtitleStyle: {
     color: theme.palette.primary.dark,

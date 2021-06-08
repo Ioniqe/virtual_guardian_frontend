@@ -77,7 +77,7 @@ function Row({ day, isItemSelected, labelId, handleClick, page, totalDays }: Row
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               {
-                page === 'LabelDays' &&
+                (page === 'LabelDays' && open) &&
                 <div>
                   {
                     graphData.map((data, index) => {
