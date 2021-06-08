@@ -48,10 +48,10 @@ function Row({ day, isItemSelected, labelId, handleClick, page, totalDays }: Row
   const [graphData, setGraphData] = useState<GraphDataForFeature[]>([])
 
   useEffect(() => {
-    if (page === 'LabelDays') {
+    if (page === 'LabelDays' && open) {
       setGraphData(getGraphData(totalDays, day))
     } 
-  }, [day, totalDays, page]);
+  }, [day, totalDays, page, open]);
 
   return (
     <>
