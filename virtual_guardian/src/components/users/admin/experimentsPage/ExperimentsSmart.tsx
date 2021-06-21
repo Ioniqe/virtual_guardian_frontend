@@ -38,6 +38,8 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
   const [defaultAlgorithm, setDefaultAlgorithm] = React.useState('durationFrequencyRatio');
   const [defaultFeatures, setDefaultFeatures] = React.useState('logisticRegression');
 
+  const [buttVisible, makeButtVisible] = React.useState(false);
+
   let predict = (): void => {
     if (selected.length !== 0) {
 
@@ -49,6 +51,8 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
   }
 
   let handleTrainEvent = (): void => {
+    makeButtVisible(true)
+
     let trainModel: TrainModel = { 'algorithm': algorithm, 'features': features }
     train(trainModel)
   }
@@ -84,21 +88,6 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
     }
     else if (activityReducer.activitiesSuccess.length !== 0) {
       setLoading(false);
-
-      // let days: ActivityList[] = [];
-      // let activities: Activity[] = [];
-      // let currDay = activityReducer.activitiesSuccess[0].day;
-      // activityReducer.activitiesSuccess.forEach(activity => {
-      //   if (activity.day !== currDay) {
-      //     days.push({ day: currDay, activities: activities });
-      //     currDay = activity.day;
-      //     activities = [];
-      //   }
-      //   activities.push(activity);
-      // });
-      
-      // days.push({ day: currDay, activities: activities });
-
       setActivitiesList(activityReducer.activitiesSuccess);
     }
   }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess, features]);
@@ -150,6 +139,7 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
         detectedDaysList={detectedDaysList}
         loading={loading}
         score={score}
+        buttVisible={buttVisible}
       />
     </>
   );

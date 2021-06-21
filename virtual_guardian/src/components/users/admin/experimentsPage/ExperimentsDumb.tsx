@@ -18,10 +18,11 @@ interface ExperimentsDumbProps {
   detectedDaysList: DayDetected[],
   loading: boolean,
   score: number,
+  buttVisible: boolean
 }
 
 function ExperimentsDumb({ predict, train, setDefault, activitiesList, features, setFeatures, algorithm, setAlgorithm,
-  selected, setSelected, detectedDaysList, loading, score }: ExperimentsDumbProps) {
+  selected, setSelected, detectedDaysList, loading, score, buttVisible }: ExperimentsDumbProps) {
   let style = useStylesAdminExperimentsPage();
 
   const handleFeatureChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -76,7 +77,9 @@ function ExperimentsDumb({ predict, train, setDefault, activitiesList, features,
 
           <div className={style.topButtonsStyle}>
             <Button className={`${style.buttonStyle} ${style.trainButtonStyle}`} variant='outlined' onClick={train}> Train </Button>
-            <Button className={style.buttonStyle} variant='outlined' onClick={predict}> predict </Button>
+            {
+              buttVisible && <Button className={style.buttonStyle} variant='outlined' onClick={predict}> predict </Button>
+            }
           </div>
         </div>
 
@@ -100,7 +103,10 @@ function ExperimentsDumb({ predict, train, setDefault, activitiesList, features,
                 })}
           </Paper>
         </div>
-        <Button className={style.setDefaultButtonStyle} variant='outlined' onClick={setDefault}>Set as default</Button>
+
+        {
+          buttVisible && <Button className={style.setDefaultButtonStyle} variant='outlined' onClick={setDefault}>Set as default</Button>
+        }
 
       </Paper>
     </>
