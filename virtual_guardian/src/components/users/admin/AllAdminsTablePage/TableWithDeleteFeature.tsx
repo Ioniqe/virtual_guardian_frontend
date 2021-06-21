@@ -18,7 +18,6 @@ import AlertDialog from '../../../popups/Alert';
 
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import EditIcon from "@material-ui/icons/EditOutlined";
-import ListIcon from '@material-ui/icons/List';
 import { TextField } from '@material-ui/core';
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
 import RevertIcon from "@material-ui/icons/NotInterestedOutlined";
@@ -134,11 +133,10 @@ interface TableWithDeleteFeatureProps {
   userType: string,
   deleteSelected: (adminsToBeDeleted: string[]) => void,
   assignCaregiver?: (userId: string) => void,
-  displayDiseases?: (userId: string) => void,
   saveUser?: (editedUser: User) => void
 }
 
-export default function TableWithDeleteFeature({ data, title, headers, userType, deleteSelected, assignCaregiver, displayDiseases, saveUser }: TableWithDeleteFeatureProps) {
+export default function TableWithDeleteFeature({ data, title, headers, userType, deleteSelected, assignCaregiver, saveUser }: TableWithDeleteFeatureProps) {
   const classes = useStyles();
   const [selected, setSelected] = React.useState<string[]>([]);
   const [open, setOpen] = React.useState(false);
@@ -355,16 +353,6 @@ export default function TableWithDeleteFeature({ data, title, headers, userType,
                         <Tooltip title="Edit">
                           <IconButton aria-label="edit" onClick={() => editUser(index)} >
                             <EditIcon />
-                          </IconButton>
-                        </Tooltip>
-                      </TableCell>
-                    }
-                    {
-                      (userType === 'patient' && rowEdited !== index) &&
-                      <TableCell align="center">
-                        <Tooltip title="Diseases">
-                          <IconButton aria-label="diseases" onClick={() => (displayDiseases && displayDiseases(row.id))} >
-                            <ListIcon />
                           </IconButton>
                         </Tooltip>
                       </TableCell>
