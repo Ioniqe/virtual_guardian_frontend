@@ -4,14 +4,14 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getActivities } from "../../../../actions/ActivityAction";
 import { getLabeledDaysList, saveAnomalousDays } from "../../../../actions/LabeledDayAction";
-import { Activity, ActivityList, LabeledDay } from "../../../../model/models";
+import { ActivityList, LabeledDay } from "../../../../model/models";
 import LabelDaysDumb from "./LabelDaysDumb";
 
 interface LabelDaysSmartProps {
   getActivitiesList: () => void,
   activityReducer: {
     loading: boolean,
-    activitiesSuccess: Activity[],
+    activitiesSuccess: ActivityList[],
     error: string,
   },
 
@@ -68,21 +68,21 @@ function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, sa
     else if (activityReducer.activitiesSuccess.length !== 0) {
       setLoading(false);
 
-      let days: ActivityList[] = [];
-      let activities: Activity[] = [];
-      let currDay = activityReducer.activitiesSuccess[0].day;
-      activityReducer.activitiesSuccess.forEach(activity => {
-        if (activity.day !== currDay) {
-          days.push({ day: currDay, activities: activities });
-          currDay = activity.day;
-          activities = [];
-        }
-        activities.push(activity);
-      });
+      // let days: ActivityList[] = [];
+      // let activities: Activity[] = [];
+      // let currDay = activityReducer.activitiesSuccess[0].day;
+      // activityReducer.activitiesSuccess.forEach(activity => {
+      //   if (activity.day !== currDay) {
+      //     days.push({ day: currDay, activities: activities });
+      //     currDay = activity.day;
+      //     activities = [];
+      //   }
+      //   activities.push(activity);
+      // });
 
-      days.push({ day: currDay, activities: activities });
+      // days.push({ day: currDay, activities: activities });
 
-      setActivitiesList(days);
+      setActivitiesList(activityReducer.activitiesSuccess);
     }
   }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess]);
 
@@ -148,7 +148,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getActivitiesList: () => dispatch(getActivities()),
+    getActivitiesList: () => dispatch(getActivities('train')),
     getLabeledDays: (label: string) => dispatch(getLabeledDaysList(label)),
     saveAnomalousLabeledDays: (selectedDays: Date[]) => dispatch(saveAnomalousDays(selectedDays)),
   }

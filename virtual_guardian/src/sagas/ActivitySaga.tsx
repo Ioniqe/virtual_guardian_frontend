@@ -1,14 +1,20 @@
 import { call, put, takeLatest } from "@redux-saga/core/effects";
 import { trainModelFailure, trainModelRequest, trainModelSuccess, getActivitiesFailure, getActivitiesRequest, getActivitiesSuccess, detectAnomaliesFailure, detectAnomaliesRequest, detectAnomaliesSuccess, setDefaultModelFailure, setDefaultModelSuccess, setDefaultModelRequest } from "../actions/ActivityAction";
 import { trainModelAPI, getActivitiesAPI, detectAnomaliesAPI, setDefaultModelAPI } from "../api/ActivityApi";
-import { Activity, ActivityList, DayDetected, TrainModel } from "../model/models";
+import { ActivityList, DayDetected, TrainModel } from "../model/models";
 import { DETECT_ANOMALY, GET_ACTIVITY_LIST, SET_DEFAULT_MODEL, TRAIN_MODEL } from "../types/ActivityTypes";
 
-function* getActivitiesAsync() {
+interface Props {
+  type: string,
+  payload: ActivityList[] | TrainModel | string
+}
+
+function* getActivitiesAsync({ type, payload }: Props) {
   try {
     yield put(getActivitiesRequest());
-    const response: Activity[] = yield call(() => getActivitiesAPI());
-    yield put(getActivitiesSuccess(response as Activity[]))
+    const response: ActivityList[] = yield call(() => getActivitiesAPI(payload as string));
+
+    yield put(getActivitiesSuccess(response as ActivityList[]))
   } catch (e) {
     yield put(getActivitiesFailure("An unexpected error has occured!"))
   }
@@ -16,11 +22,6 @@ function* getActivitiesAsync() {
 
 export function* getActivitiesWatcher() {
   yield takeLatest(GET_ACTIVITY_LIST, getActivitiesAsync)
-}
-
-interface Props {
-  type: string,
-  payload: ActivityList[] | TrainModel
 }
 
 //TODO considera si cand score da 404 din flask (de ex)

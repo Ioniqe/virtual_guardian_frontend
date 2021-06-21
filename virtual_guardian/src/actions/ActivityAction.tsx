@@ -1,13 +1,14 @@
-import { Activity, ActivityList, DayDetected, TrainModel } from "../model/models"
+import { ActivityList, DayDetected, TrainModel } from "../model/models"
 import {
   GET_ACTIVITY_LIST, GET_ACTIVITY_LIST_REQUEST, GET_ACTIVITY_LIST_SUCCESS, GET_ACTIVITY_LIST_FAILURE,
   TRAIN_MODEL, TRAIN_MODEL_FAILURE, TRAIN_MODEL_REQUEST, TRAIN_MODEL_SUCCESS, DETECT_ANOMALY, DETECT_ANOMALY_FAILURE, DETECT_ANOMALY_REQUEST, DETECT_ANOMALY_SUCCESS, SET_DEFAULT_MODEL, SET_DEFAULT_MODEL_FAILURE, SET_DEFAULT_MODEL_REQUEST, SET_DEFAULT_MODEL_SUCCESS
 } from "../types/ActivityTypes"
 
 //---------------------------------------------  GET ACTIVITIES
-export const getActivities = () => {
+export const getActivities = (dataset_type: string) => {
   return {
     type: GET_ACTIVITY_LIST,
+    payload: dataset_type
   }
 }
 
@@ -17,7 +18,7 @@ export const getActivitiesRequest = () => {
   }
 }
 
-export const getActivitiesSuccess = (activities: Activity[]) => {
+export const getActivitiesSuccess = (activities: ActivityList[]) => {
   return {
     type: GET_ACTIVITY_LIST_SUCCESS,
     payload: activities

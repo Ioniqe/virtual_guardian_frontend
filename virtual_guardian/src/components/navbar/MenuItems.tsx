@@ -6,7 +6,7 @@ export const NavbarUserItems = [
         url: '/admin/list',
       },
       {
-        title: 'Experiments',
+        title: 'Data Analysis',
         url: '/admin/experiments',
       },
     ]
@@ -49,10 +49,6 @@ export const NavbarUserItems = [
         title: 'Caregivers List',
         url: '/doctor/caregiver/list',
       },
-      // {
-      //   title: 'Abnormal behaviour',
-      //   url: '/doctor/patient/abnormal_behaviour',
-      // },
     ]
   },
 ]

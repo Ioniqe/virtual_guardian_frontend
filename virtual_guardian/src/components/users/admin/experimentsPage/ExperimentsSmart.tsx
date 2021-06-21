@@ -1,7 +1,7 @@
 import ExperimentsDumb from "./ExperimentsDumb";
 import { connect } from "react-redux";
 import { detectAnomalies, getActivities, setDefaultModel, trainModel } from "../../../../actions/ActivityAction";
-import { Activity, ActivityList, DayDetected, TrainModel } from "../../../../model/models";
+import { ActivityList, DayDetected, TrainModel } from "../../../../model/models";
 import React, { useEffect, useState } from "react";
 import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
@@ -14,7 +14,7 @@ interface ExperimentsSmartProps {
   setDefault: () => void,
   activityReducer: {
     loading: boolean,
-    activitiesSuccess: Activity[],
+    activitiesSuccess: ActivityList[],
     error: string,
     detected: DayDetected[],
     trained: number,
@@ -85,21 +85,21 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
     else if (activityReducer.activitiesSuccess.length !== 0) {
       setLoading(false);
 
-      let days: ActivityList[] = [];
-      let activities: Activity[] = [];
-      let currDay = activityReducer.activitiesSuccess[0].day;
-      activityReducer.activitiesSuccess.forEach(activity => {
-        if (activity.day !== currDay) {
-          days.push({ day: currDay, activities: activities });
-          currDay = activity.day;
-          activities = [];
-        }
-        activities.push(activity);
-      });
+      // let days: ActivityList[] = [];
+      // let activities: Activity[] = [];
+      // let currDay = activityReducer.activitiesSuccess[0].day;
+      // activityReducer.activitiesSuccess.forEach(activity => {
+      //   if (activity.day !== currDay) {
+      //     days.push({ day: currDay, activities: activities });
+      //     currDay = activity.day;
+      //     activities = [];
+      //   }
+      //   activities.push(activity);
+      // });
       
-      days.push({ day: currDay, activities: activities });
+      // days.push({ day: currDay, activities: activities });
 
-      setActivitiesList(days);
+      setActivitiesList(activityReducer.activitiesSuccess);
     }
   }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess, features]);
 
@@ -163,7 +163,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getActivitiesList: () => dispatch(getActivities()),
+    getActivitiesList: () => dispatch(getActivities('test')),
     detectDays: (dayToDetect: ActivityList[]) => dispatch(detectAnomalies(dayToDetect)),
     train: (_trainModel: TrainModel) => dispatch(trainModel(_trainModel)),
     setDefault: () => dispatch(setDefaultModel()),

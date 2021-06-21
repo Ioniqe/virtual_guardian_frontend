@@ -1,9 +1,9 @@
-import { Activity, DayDetected } from "../model/models"
+import { ActivityList, DayDetected } from "../model/models"
 import { GET_ACTIVITY_LIST_REQUEST, GET_ACTIVITY_LIST_SUCCESS, GET_ACTIVITY_LIST_FAILURE, DETECT_ANOMALY_REQUEST, DETECT_ANOMALY_SUCCESS, DETECT_ANOMALY_FAILURE, TRAIN_MODEL_FAILURE, TRAIN_MODEL_REQUEST, TRAIN_MODEL_SUCCESS, SET_DEFAULT_MODEL_FAILURE, SET_DEFAULT_MODEL_REQUEST, SET_DEFAULT_MODEL_SUCCESS } from "../types/ActivityTypes"
 
 export interface ActivityState {
   loading: boolean,
-  activitiesSuccess: Activity[],
+  activitiesSuccess: ActivityList[],
   error: string,
   detected: DayDetected[],
   trained: number,
@@ -19,7 +19,7 @@ const initialState: ActivityState = {
   defaultModelSuccess: false,
 }
 
-const activityReducer = (state = initialState, action: { type: string, payload: Activity[] | string | DayDetected[] | number }) => {
+const activityReducer = (state = initialState, action: { type: string, payload: ActivityList[] | string | DayDetected[] | number }) => {
   switch (action.type) {
     case GET_ACTIVITY_LIST_REQUEST:
       return {
@@ -30,7 +30,7 @@ const activityReducer = (state = initialState, action: { type: string, payload: 
       return {
         ...state,
         loading: false,
-        activitiesSuccess: action.payload as Activity[],
+        activitiesSuccess: action.payload as ActivityList[],
         error: ''
       }
     case GET_ACTIVITY_LIST_FAILURE:
