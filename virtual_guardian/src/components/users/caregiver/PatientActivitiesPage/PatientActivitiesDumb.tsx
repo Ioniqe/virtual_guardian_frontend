@@ -97,7 +97,7 @@ function PatientActivitiesDumb({ days }: PatientActivitiesDumbProps) {
               </TableHead>
               <TableBody>
                 {
-                  days.sort((a, b) => { return (a.day < b.day ? 1 : -1) }).map((day, index) => {
+                  days.map((day, index) => { //.sort((a, b) => { return (a.day < b.day ? 1 : -1) })
                     return (
                       <Row key={index} day={day} result={day.result} />
                     );

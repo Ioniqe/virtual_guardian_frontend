@@ -141,7 +141,7 @@ function AbnormalBehaviourDumb({ anomalyList, emergencyList }: AbnormalBehaviour
               </TableHead>
               <TableBody style={{overflowY: 'scroll'}}>
                 {
-                  anomalyList.sort((a, b) => { return (a.day < b.day ? 1 : -1) }).map((day, index) => {
+                  anomalyList.map((day, index) => { //.sort((a, b) => { return (a.day < b.day ? 1 : -1) })
                     return (
                       <Row key={index} day={day}/>
                     );
