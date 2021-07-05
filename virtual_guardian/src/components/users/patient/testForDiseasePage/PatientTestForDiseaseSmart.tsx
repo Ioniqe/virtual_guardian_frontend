@@ -24,7 +24,7 @@ const diseasesArray = ['Itching', 'Skin Rash', 'Nodal Skin Eruptions', 'Continuo
   'Abnormal Menstruation', 'Dischromic Patches', 'Watering From Eyes', 'Increased Appetite', 'Polyuria', 'Family History',
   'Mucoid Sputum', 'Rusty Sputum', 'Lack of Concentration', 'Visual Disturbances', 'Receiving Blood Transfusion',
   'Receiving Unsterile Injections', 'Coma', 'Stomach Bleeding', 'Distention of Abdomen', 'History of Alcohol Consumption',
-  'Fluid Overload', 'Blood in Sputum', 'Prominent Veins on Calf', 'Palpitations', 'Painful Walking', 'Pus Filled Pimples',
+  'Blood in Sputum', 'Prominent Veins on Calf', 'Palpitations', 'Painful Walking', 'Pus Filled Pimples',
   'Blackheads', 'Scurring', 'Skin Peeling', 'Silver Like Dusting', 'Small Dents in Nails', 'Inflammatory Nails', 'Blister',
   'Red Sore Around Nose', 'Yellow Crust Ooze']; 
 

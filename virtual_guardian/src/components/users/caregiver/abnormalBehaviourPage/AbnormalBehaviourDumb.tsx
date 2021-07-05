@@ -108,7 +108,7 @@ function AbnormalBehaviourDumb({ anomalyList, emergencyList }: AbnormalBehaviour
               </TableHead>
               <TableBody>
                 {
-                  emergencyList.sort((a, b) => { return (a.date < b.date ? 1 : -1) }).map((row, index) => {
+                  emergencyList.map((row, index) => { //.sort((a, b) => { return (a.date < b.date ? -1 : 1) })
                     let date = new Date(row.date)
 
                     return (

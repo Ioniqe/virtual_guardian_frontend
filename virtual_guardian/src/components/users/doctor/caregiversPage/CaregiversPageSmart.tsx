@@ -1,4 +1,4 @@
-import { CircularProgress, Snackbar } from "@material-ui/core"; //TODO modifica culoarea la loading
+import { CircularProgress, Snackbar } from "@material-ui/core"; 
 import Alert from "@material-ui/lab/Alert"; 
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";

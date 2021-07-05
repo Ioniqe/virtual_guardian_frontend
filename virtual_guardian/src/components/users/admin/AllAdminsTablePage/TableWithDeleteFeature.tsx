@@ -102,7 +102,6 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   );
 };
 
-//TODO verify how it looks for more admins on a page
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {

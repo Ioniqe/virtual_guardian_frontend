@@ -63,7 +63,10 @@ function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getEmerg
         let message: Emergency = JSON.parse(greeting.body);
 
         if (message.userId === loggedUser.id) {
-          setEmergencyList(list => list.concat(message)); //TODO ordoneaza dupa date
+          // setEmergencyList(list => { let newEmergency: EmergencyObject = {id: message.id, date: message.date, patientName: message.patientName}; list.unshift(newEmergency); console.log(list); return list });
+          // setEmergencyList(list => list.concat(message));
+          setEmergencyList(list => [message].concat(list)); 
+          
         }
 
       });
@@ -90,7 +93,12 @@ function AbnormalBehaviourSmart({ loggedUser, abnormalBehaviourReducer, getEmerg
       setOpenError(true);
     } else if (abnormalBehaviourReducer.emergenciesOfPatientsOfCaregiverSuccessful) {
       setLoading(false);
-      setEmergencyList(abnormalBehaviourReducer.emergenciesOfPatientsOfCaregiverSuccessful);
+
+      let emergencies = abnormalBehaviourReducer.emergenciesOfPatientsOfCaregiverSuccessful;
+
+      emergencies.sort((a, b) => { return (a.id < b.id ? 1 : -1) })
+
+      setEmergencyList(emergencies);
     }
   }, [abnormalBehaviourReducer.loadingEmergencies, abnormalBehaviourReducer.errorEmergencies,
     abnormalBehaviourReducer.emergenciesOfPatientsOfCaregiverSuccessful, setEmergencyList]);
