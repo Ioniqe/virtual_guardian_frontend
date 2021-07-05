@@ -93,8 +93,8 @@ function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }
         setLoading(false);
         setOpenError(true);
       } else if (loginUser.loginSuccessful.id !== '') {
-        sessionStorage.setItem('user', JSON.stringify(loginUser.loginSuccessful)); //store in sessionStorage or in cookie?
-
+        sessionStorage.setItem('user', JSON.stringify(loginUser.loginSuccessful));
+        
         setLoading(false);
       }
     }
@@ -115,8 +115,6 @@ function HomeSmart({ registeredUser, saveNewUser, loginExistingUser, loginUser }
         return <Redirect push to="/" />
     }
   }
-
-
 
   return (
     <>

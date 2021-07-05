@@ -88,7 +88,11 @@ function ExperimentsSmart({ activityReducer, getActivitiesList, detectDays, trai
     }
     else if (activityReducer.activitiesSuccess.length !== 0) {
       setLoading(false);
-      setActivitiesList(activityReducer.activitiesSuccess);
+
+      let activities = activityReducer.activitiesSuccess
+      activities.sort((a, b) => { return (a.day < b.day ? -1 : 1) })
+
+      setActivitiesList(activities);
     }
   }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess, features]);
 

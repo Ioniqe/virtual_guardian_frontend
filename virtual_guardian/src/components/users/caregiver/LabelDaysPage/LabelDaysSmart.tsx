@@ -68,21 +68,10 @@ function LabelDaysSmart({ getActivitiesList, activityReducer, getLabeledDays, sa
     else if (activityReducer.activitiesSuccess.length !== 0) {
       setLoading(false);
 
-      // let days: ActivityList[] = [];
-      // let activities: Activity[] = [];
-      // let currDay = activityReducer.activitiesSuccess[0].day;
-      // activityReducer.activitiesSuccess.forEach(activity => {
-      //   if (activity.day !== currDay) {
-      //     days.push({ day: currDay, activities: activities });
-      //     currDay = activity.day;
-      //     activities = [];
-      //   }
-      //   activities.push(activity);
-      // });
+      let activities = activityReducer.activitiesSuccess
+      activities.sort((a, b) => { return (a.day < b.day ? -1 : 1) })
 
-      // days.push({ day: currDay, activities: activities });
-
-      setActivitiesList(activityReducer.activitiesSuccess);
+      setActivitiesList(activities);
     }
   }, [activityReducer.error, activityReducer.loading, activityReducer.activitiesSuccess]);
 
