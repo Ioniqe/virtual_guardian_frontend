@@ -46,7 +46,7 @@ function PatientHomeSmart({ loggedUser, sendEmergencyEvent, patientReducer }: Pa
     } else if (patientReducer.sendEmergencySuccessful) {
       setLoading(false);
       setOpenError(false);
-      setMessage('Your doctor and caregiver have been notified of the emergency!');
+      setMessage('Your caregiver has been notified of the emergency!');
       setOpenSuccess(true);
     }
   }, [patientReducer.loading, patientReducer.error, patientReducer.sendEmergencySuccessful]);

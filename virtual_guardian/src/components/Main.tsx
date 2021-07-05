@@ -35,8 +35,6 @@ function Main({ loginUser, removeUser }: Props) {
 
   let userType = loginUser.loginSuccessful.type;
 
-  //TODO should I put the activities into the database as well?
-
   return (
     <>
       {userType !== '' && <Navbar removeUser={removeUser} userItems={( NavbarUserItems.find(item => (item.user === userType))!)}/>}
@@ -50,7 +48,6 @@ function Main({ loginUser, removeUser }: Props) {
         <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor' component={() => <DoctorHomeSmart  loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor/patient/list'  component={() => <PatientsPageSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor/caregiver/list'  component={() => <CaregiversPageSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
-        {/* <ProtectedRoute exact isAuthenticated={userType === 'doctor'} path='/doctor/patient/abnormal_behaviour'  component={() => <AbnormalBehaviourSmart loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} /> */}
 
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver' component={() => <CaregiverHomeSmart  loggedUser={ loginUser.loginSuccessful }/>} removeUser={removeUser} />
         <ProtectedRoute exact isAuthenticated={userType === 'caregiver'} path='/caregiver/patient/activities' component={PatientActivitiesSmart} removeUser={removeUser} />

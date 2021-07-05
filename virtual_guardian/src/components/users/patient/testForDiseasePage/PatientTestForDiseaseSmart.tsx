@@ -100,7 +100,6 @@ function PatientTestForDiseaseSmart({ loggedUser, predictDisease, predictDisease
         setSelectedSymptoms={setSelectedSymptoms}
         testSymptoms={testSymptoms}
       />
-      {/* TODO modifica pozitia la loading */}
       {loading && <CircularProgress style={{color: 'white'}}/>}
     </>
   );

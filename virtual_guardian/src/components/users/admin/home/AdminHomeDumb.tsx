@@ -54,10 +54,6 @@ function AdminHomeDumb({ loggedUser }: AdminHomeDumbProps) {
 
 
         <img alt="foreground" src={foreground} style={{ position: 'absolute', left: 0, marginTop: '30vh', transform: `translateY(-${offsetY * 1.4}px)` }} />
-
-
-        {/* TODO add fixed button for scrolling up */}
-
       </div>
     </>
   )
